@@ -5,9 +5,9 @@ The MomFood web application facilitates meal creation for users (moms) and enabl
 
 ## Key Features:
 
-### Meal Creation:Moms can easily create and manage meal dishes.
-### Order Placement: Clients can conveniently place orders using the mobile application.
-### Real-time Notifications: Moms receive notifications upon receiving new orders, allowing them to confirm orders promptly.
+##### Meal Creation:Moms can easily create and manage meal dishes.
+##### Order Placement: Clients can conveniently place orders using the mobile application.
+##### Real-time Notifications: Moms receive notifications upon receiving new orders, allowing them to confirm orders promptly.
 
 ## Purpose:
 The MomFood web app aims to streamline meal creation, order placement, and confirmation processes, providing an efficient and user-friendly experience for moms and clients.
