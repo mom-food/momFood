@@ -7,11 +7,11 @@ People who work far from home wanting homemade meals and students in dorms seeki
 
 ## Key Features:
 
-**Meal Creation**:Moms can easily create and manage meal dishes.
-**Order Placement**: Clients can conveniently place orders using the mobile application.
-**Real-time Notifications**: Moms receive notifications upon receiving new orders, allowing them to confirm orders promptly.
-**User Profiles**: Moms and clients can create profiles with work and personal  information and preferences.
-**Order History**: Users can view previous orders and track their order history.
+- **Meal Creation**:Moms can easily create and manage meal dishes.
+- **Order Placement**: Clients can conveniently place orders using the mobile application.
+- **Real-time Notifications**: Moms receive notifications upon receiving new orders, allowing them to confirm orders promptly.
+- **User Profiles**: Moms and clients can create profiles with work and personal  information and preferences.
+- **Order History**: Users can view previous orders and track their order history.
 
 
 ## Purpose:
