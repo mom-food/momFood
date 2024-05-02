@@ -1,4 +1,4 @@
-#Wed May 01 16:28:09 EEST 2024
-base.0=C\:\\Users\\Lenovo\\Documents\\momFood\\app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Thu May 02 15:43:33 EEST 2024
+base.0=C\:\\dev\\MOMFOOD1\\app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 path.0=classes.dex
 renamed.0=classes.dex
