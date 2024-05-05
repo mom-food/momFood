@@ -1,10 +1,13 @@
-import 'package: flutter/material.dart';
-import 'colors.dart';
+import 'package:flutter/material.dart';
 
-final ThemeData darkTheme= ThemeData(
-    primaryColor: AppColors.primaryDark,
-    accentColor: AppColors.secondaryDark, 
-    scaffoldBackgroundColor: AppColors.textColorDark,
-    textTheme: TextTheme( 
-        bodyText1: TextStle(Color: AppColors.textColorDark),
-    ))
+class DarkThemeData {
+  static ThemeData dark = ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.dark,
+    colorScheme: ColorScheme.dark(
+      background: Color(0xFF000000),
+      primary: Color(0xFFECEDF0),
+      secondary: Color(0xFFA8DF83),
+    ),
+  );
+}

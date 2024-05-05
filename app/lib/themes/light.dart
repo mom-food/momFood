@@ -1,10 +1,14 @@
-import 'package: flutter/material.dart';
-import 'colors.dart';
+import 'package:flutter/material.dart';
 
-final ThemeData lightTheme= ThemeData(
-    primaryColor: AppColors.primaryLight,
-    accentColor: AppColors.secondaryLight, 
-    scaffoldBackgroundColor: AppColors.textColorLight,
-    textTheme: TextTheme( 
-        bodyText1: TextStle(Color: AppColors.textColorLight),
-    ))
+class LightThemeData {
+  static ThemeData light = ThemeData(
+    useMaterial3: true,
+    brightness: Brightness.light,
+    colorScheme: ColorScheme.light(
+      background: Color(0xFFFFFFFF),
+      primary: Color(0xFFF6BD60),
+      secondary: Color(0xFFD9D9D9),
+
+    ),
+  );
+}
