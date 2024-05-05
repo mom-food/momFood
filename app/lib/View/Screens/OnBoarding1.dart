@@ -60,27 +60,27 @@ class _Onboarding1State extends State<Onboarding1> {
                     children: <TextSpan>[
                       TextSpan(
                         text: 'بكم',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF6BD60)),
                       ),
                       TextSpan(text: ' في '),
                       TextSpan(
                         text: 'عالم',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF6BD60)),
                       ),
                       TextSpan(text: ' النكهات '),
                       TextSpan(
                         text: 'الاصيلة',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF6BD60)),
                       ),
                       TextSpan(text: ', حيث كل '),
                       TextSpan(
                         text: 'طبق',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF6BD60)),
                       ),
                       TextSpan(text: ' يروي '),
                       TextSpan(
                         text: 'قصته',
-                        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.orange),
+                        style: TextStyle(fontWeight: FontWeight.bold, color: Color(0xFFF6BD60)),
                       ),
                     ],
                   ),
