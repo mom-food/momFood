@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'View/Screens/Authentication/SignIn.dart';
+import 'View/Screens/Authentication/SignUp.dart';
+import 'View/Screens/Home.dart';
+import 'View/Screens/OnBoarding1.dart';
+import 'View/Screens/OnBoarding2.dart';
 import 'View/Screens/SplashScreen.dart';
 
 
@@ -13,12 +18,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Mom Food',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:SplashScreen(),
+      initialRoute: '/splash',
+      routes: {
+        '/splash': (context) => SplashScreen(),
+        '/onboarding1': (context) => Onboarding1(),
+        '/onboarding2': (context) => Onboarding2Screen(),
+        '/signIn': (context) => SignInScreen(),
+        '/signUp': (context) => SignUpScreen(),
+        '/home': (context) => MyHomePage(title: 'Mom Food'),
+      },
     );
   }
 }
+

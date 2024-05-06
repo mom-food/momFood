@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'Home.dart';
 import 'OnBoarding1.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -11,10 +10,10 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    navigateToHome();
+    navigateToOnboarding1();
   }
 
-  navigateToHome() async {
+  navigateToOnboarding1() async {
     // You can replace this with your own duration
     await Future.delayed(Duration(seconds: 3), () {});
     Navigator.pushReplacement(

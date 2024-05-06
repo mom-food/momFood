@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../widgets/PageIndicator.dart';
 import 'Home.dart';
+import 'OnBoarding2.dart';
 
 class Onboarding1 extends StatefulWidget {
   // final ThemeMode themeMode;
@@ -30,7 +31,7 @@ class _Onboarding1State extends State<Onboarding1> {
         onTap: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => MyHomePage(title: 'Onboarding2')),
+            MaterialPageRoute(builder: (context) => Onboarding2Screen()),
           );
         },
         child: Center(
@@ -98,10 +99,10 @@ class _Onboarding1State extends State<Onboarding1> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              SizedBox(height: 90),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
+                  padding: const EdgeInsets.only(bottom: 45),
                   child: PageIndicator(
                     controller: _pageController,
                     count: 2,
@@ -109,7 +110,7 @@ class _Onboarding1State extends State<Onboarding1> {
                       if (index == 1) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MyHomePage(title: "Onboarding2")),
+                          MaterialPageRoute(builder: (context) => Onboarding2Screen()),
                         );
                       }
                     },

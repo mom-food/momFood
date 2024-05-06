@@ -1,4 +1,9 @@
+<<<<<<< Updated upstream
 #Mon May 06 17:58:44 EEST 2024
 base.0=C\:\\dev\\MOMFOOD1\\app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+=======
+#Mon May 06 17:04:58 IDT 2024
+base.0=C\:\\Users\\pc\\Documents\\GitHub\\momFood\\app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+>>>>>>> Stashed changes
 path.0=classes.dex
 renamed.0=classes.dex
