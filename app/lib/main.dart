@@ -32,7 +32,7 @@ class _MyAppState extends State<MyApp> {
       theme: _themeMode == ThemeMode.light ? ThemeData.light(): ThemeData.dark(),
       home: Scaffold(
 
-        body: Onboarding1(themeMode: _themeMode),
+        body: SplashScreen(),
         floatingActionButton: FloatingActionButton(
           onPressed: _toggleTheme,
           tooltip: 'Switch',
