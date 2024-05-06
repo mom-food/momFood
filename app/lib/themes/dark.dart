@@ -5,7 +5,7 @@ class DarkThemeData {
     useMaterial3: true,
     brightness: Brightness.dark,
     colorScheme: ColorScheme.dark(
-      background: Color(0xFF000000),
+      background: Color(0x57D9D9D9),
       primary: Color(0xFFECEDF0),
       secondary: Color(0xFFA8DF83),
     ),
