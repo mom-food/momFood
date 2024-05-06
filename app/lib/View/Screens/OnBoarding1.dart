@@ -5,6 +5,10 @@ import '../Widgets/PageIndicator.dart';
 import 'Home.dart';
 
 class Onboarding1 extends StatefulWidget {
+  final ThemeMode themeMode;
+
+  Onboarding1({required this.themeMode});
+
   @override
   _Onboarding1State createState() => _Onboarding1State();
 }
@@ -21,7 +25,8 @@ class _Onboarding1State extends State<Onboarding1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: widget.themeMode == ThemeMode.light ? Colors.white : Colors.black12,
+
       body: GestureDetector(
         onTap: () {
           Navigator.push(
