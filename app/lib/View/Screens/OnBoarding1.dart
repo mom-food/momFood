@@ -102,7 +102,7 @@ class _Onboarding1State extends State<Onboarding1> {
               SizedBox(height: 90),
               Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 0),
+                  padding: const EdgeInsets.only(bottom: 45),
                   child: PageIndicator(
                     controller: _pageController,
                     count: 2,
