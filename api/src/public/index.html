@@ -16,7 +16,7 @@
             margin: 0;
             padding: 0;
             height: 100vh;
-            width: 100wh;
+            width: 100vw;
             background: #322C2B;
             display: flex;
             justify-content: center;
@@ -27,48 +27,93 @@
 
 
         #container {
-            width: 60%;
-            height: 100%;
-            background: #e3c39d;
+            width: 100%; 
+            height: 90%;
+            background: #AF8260;
             color: white;
             display: flex;
             flex-direction: column;
             overflow-y: hidden;
+            margin-top: 5vh;
+            padding: 20px;
         }
 
         #categories_container {
             display: flex;
-            flex-direction: column;
-            flex-grow: 1;
-            overflow-y: auto;
+            flex-wrap: wrap; 
+            gap: 20px; 
+            overflow-y: scroll;
+        }
+
+        #meal_container {
+            height: 20vh; /* اختصار لنصف ارتفاع الشاشة، يمكنك ضبطها حسب احتياجاتك */
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            overflow-y: scroll; /* إضافة ميزة التمرير الرأسي إذا تجاوز عدد الوجبات المعروضة الارتفاع المحدد */
         }
 
         #categories_container>div {
+            width: calc(33.33% - 20px);
+            margin-bottom: 20px;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            justify-items: center;
+            align-items: center; 
+            text-align: center; 
+        }
+
+        #meal_container > div {
+            width: calc(50% - 20px);
+            height: 100px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+            text-align: center; 
         }
 
         #categories_container p {
-            font-size: 2.5em;
+            font-size: 1.5em; 
             text-align: center;
+            margin-top: 10px;
+        }
+
+        #meal_container p {
+            font-size: 1.5em; 
+            text-align: center;
+            margin-top: 10px;
         }
 
         #categories_container>div>img {
-            width: 80%;
+            width: 80%; 
             margin: 0 auto;
+            image-rendering: pixelated;
         }
 
+        #meal_container > div > img {
+            width: 30%;
+            margin: 0 auto;
+            image-rendering: pixelated;
+        }
        
         #categories_container>div>button {
         background: #071739;
         padding: 10px;
         color: white;
-        width: 100px;
+        width: 50%;
         border: none;
         border-radius: 5px;
-        margin: auto;
+        margin: 0 auto;
+    }
+
+    #meal_container>div>button {
+        background: red;
+        padding: 10px;
+        color: white;
+        width: 50%;
+        margin: 0 auto;
+        border: none;
+        border-radius: 5px;
     }
 
     #categories_container>div>div {
@@ -85,32 +130,51 @@
     }
 
         #category_modal {
-            display: none;
-          
+              display: none;
             flex-direction: column;
-
-            position: absolute;
+            position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            min-width: 200px;
-            gap: 8px;
-            
-            padding: 20px;
-            aspect-ratio: 1;
-            background: #e1b860;
+            width: 80%; /* تعديل هذه القيمة لتكون مناسبة لشاشة اللابتوب */
+            max-width: 600px; /* تعديل هذه القيمة لتكون مناسبة لشاشة اللابتوب */
+            height: auto;
+            max-height: 80%; /* تعديل هذه القيمة لتكون مناسبة لشاشة اللابتوب */
+            background: #803D3B;
             border: 2px dashed black;
             border-radius: 10px;
+            padding: 20px;
+        }
+        #meal_modal {
+            display: none;
+            flex-direction: column;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%; 
+            max-width: 600px; 
+            height: auto;
+            max-height: 80%; 
+            background: #803D3B;
+            border: 2px dashed black;
+            border-radius: 10px;
+            padding: 20px;
         }
 
         #category_modal #close {
             background: red;
             color: white;
             aspect-ratio: 1;
-
             padding: 4px;
         }
 
+        #meal_modal #close {
+            background: red;
+            color: white;
+            aspect-ratio: 1;
+            padding: 4px;
+        }
         #category_modal>input {
             width: 100%;
             border: 0;
@@ -119,13 +183,17 @@
         }
 
         #save {
-            
             background: #00FF00;
             color: black;
-
             padding: 10px;
             border-radius: 10px;
            
+        }
+        #save_meal {
+            background: #00FF00;
+            color: black; 
+            padding: 10px;
+            border-radius: 10px;
         }
     </style>
     <script>
@@ -140,10 +208,18 @@
 
                 const category_name_element = document.createElement("p") // <p></p>
                 const category_image_element = document.createElement("img") // <img src="" />
+                const category_button_element = document.createElement("button");
                 category_name_element.innerHTML = name; // <p>Category Name</p>
                 category_image_element.src = image; // <img src="http://localhost3000/image.png" />
+                //category_button_element.innerHTML = "View Meals";
                 category_element.appendChild(category_name_element); // <div><p>Category Name</p></div>
                 category_element.appendChild(category_image_element); // <div><p>Category Name</p><img src="http://localhost3000/image.png" /></div>
+                category_element.appendChild(category_button_element);
+
+                category_button_element.onclick = () => {
+                    fetchMealsByCategory(id);
+                };
+                categories_container.appendChild(category_element);
 
                 const category_delete_button = document.createElement("button");
                 category_delete_button.innerHTML = "حذف ";
@@ -182,6 +258,7 @@
                 category_element.appendChild(category_update_button);
                 categories_container.appendChild(category_element);
             }
+            
             // function myAmazingFunction(data) {}
             // const myAmazingFunction = (data, arg1, arg2, arg3) => arg1+arg2
             fetch("http://localhost:3000/api/categories")
@@ -199,12 +276,20 @@
             create_category_button.onclick = () => {
                 category_modal.style.display = "flex"
             }
+            const create_meal_button = document.getElementById("create_meal_button");
+            const meal_modal = document.getElementById("meal_modal");
+            create_meal_button.onclick = () => {
+                meal_modal.style.display = "flex"
+            }
 
+            const close_meal_button = document.getElementById("close_meal_modal")
+            close_meal_button.onclick = () => {
+                meal_modal.style.display = "none"
+            }
             const close_button = document.getElementById("close")
             close_button.onclick = () => {
                 category_modal.style.display = "none"
             }
-
             const save_button = document.getElementById("save")
             const category_name_input = document.getElementById("category_name");
             const category_image_input = document.getElementById("category_image");
@@ -262,20 +347,153 @@
                     }
                 }
             }
+        
+            function insertMeal(name, image, description, price, category, id) {
+                const meal_element = document.createElement("div");
+                const meal_name_element = document.createElement("p");
+                const meal_image_element = document.createElement("img");
+                const meal_description_element = document.createElement("p");
+                const meal_price_element = document.createElement("p");
+                const meal_category_element = document.createElement("p");
+                const meal_button_element = document.createElement("button");
+                const meal_delete_button = document.createElement("button"); 
+            
+                meal_name_element.innerHTML = name;
+                meal_image_element.src = image;
+                meal_description_element.innerHTML = description;
+                meal_price_element.innerHTML = price;
+                meal_category_element.innerHTML = category; 
+                meal_button_element.innerHTML = "View Meal";
+                meal_delete_button.innerHTML = "Delete Meal"; 
+            
+                meal_element.appendChild(meal_name_element);
+                meal_element.appendChild(meal_image_element);
+                meal_element.appendChild(meal_description_element);
+                meal_element.appendChild(meal_price_element);
+                meal_element.appendChild(meal_category_element);
+                meal_element.appendChild(meal_button_element);
+                meal_element.appendChild(meal_delete_button); 
+            
+                meal_button_element.onclick = () => {
+                    fetchMealsByCategory(category); 
+                };
+                meal_delete_button.onclick = () => {
+                    deleteMeal(id); 
+                };
+            
+                const meal_container = document.getElementById("meal_container");
+                meal_container.appendChild(meal_element);
+            }
+
+                function fetchMealsByCategory(category_id) {
+                    fetch(`/api/meals?category=${category_id}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            meal_container.innerHTML = "";
+                            for (let i = 0; i < data.length; i++) {
+                                insertMeal(data[i].name, data[i].image, data[i].description, data[i].price, data[i]._id);
+                            }
+                        })
+                        .catch(error => {
+                            console.error("Error fetching meals: ", error);
+                        });
+                }
+            
+                function deleteMeal(meal_id) {
+                    fetch(`/api/meals/${meal_id}`, {
+                        method: "DELETE",
+                    }).then(response => {
+                        if (response.ok) {
+                            meal_container.removeChild(document.getElementById(meal_id));
+                        } else {
+                            alert("An error occurred while deleting the meal. Please try again later.");
+                        }
+                    }).catch(error => {
+                        console.error("Error deleting meal: ", error);
+                    });
+                }
+                const meal_delete_button = document.createElement("button");
+                meal_delete_button.innerHTML = "Delete Meal";
+                meal_delete_button.onclick = () => {
+                    deleteMeal(meal_id);
+                };
+                const meal_element = document.createElement("div");
+                meal_element.appendChild(meal_delete_button);
+                const meal_category_select = document.getElementById("meal_category");
+               meal_category_select.onclick = () => {
+                 fetch("http://localhost:3000/api/categories")
+                 .then(response => response.json())
+                 .then(data => {
+                    meal_category_select.innerHTML = "";
+                    data.forEach(category => { 
+                        const option = document.createElement("option");
+                        option.value = category._id;
+                        option.innerText = category.name;
+                        meal_category_select.appendChild(option);
+                    });
+                })
+                .catch(error => {
+                    console.error("Error fetching categories: ", error);
+                });
+            };
+            meal_category_select.onchange = () => {
+                console.log("Selected category ID:", meal_category_select.value);
+            };
+            function updateCategorySelect() {
+                const meal_category_select = document.getElementById("meal_category");
+                meal_category_select.innerHTML = "<option value='' disabled selected>Select a category</option>";
+                categoriesData.forEach(category => {
+                    const option = document.createElement("option");
+                    option.value = category._id;
+                    option.innerText = category.name;
+                    meal_category_select.appendChild(option);
+                });
+            }
+                const save_meal_button = document.getElementById("save_meal");
+                const meal_name_input = document.getElementById("meal_name");
+                const meal_image_input = document.getElementById("meal_image");
+                const meal_descreption_input = document.getElementById("meal_description");
+                const meal_price_input = document.getElementById("meal_price");
+                const meal_category_input = document.getElementById("meal_category");
+                save_meal_button.onclick = () => {
+                    const meal_data = {
+                        name: meal_name_input.value,
+                        image: meal_image_input.value,
+                        descreption: meal_descreption_input.value,
+                        price: meal_price_input.value,
+                        category: meal_category_select.value
+                    };
+                    console.log("Sending the following body: ", JSON.stringify(meal_data));
+                    fetch("/api/categories", {
+                         method: "POST",
+                         body: JSON.stringify(meal_data),
+                         headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            insertMeal(meal_data.name, meal_data.image, meal_data.descreption,meal_data.price, meal_data.category)
+                        close_meal_button.click();
+                    } else {
+                        alert("حدث خطأ أثناء محاولة إضافة الوجبة، يرجى المحاولة لاحقًا.");
+                    }
+                    
+                })
+                
+            }
         }
+    
     </script>
 </head>
 
 <body dir="ltr">
     <div id="container">
         <h1>Mom Food Application!</h1>
-        <h3>Available Requests:</h3>
         <button id="create_category_button"><h3> اضافة صنف جديد</h3></button>
+        <button id="create_meal_button"><h3>اضافة وجبة جديدة</h3></button>
 
-        <div id="categories_container">
-
-        </div>
-    </div>
+        <div id="categories_container"></div>
+        <div id="meal_container"></div></div>
     <div id="category_modal">
         <div>
             <button id="close">X</button>
@@ -284,6 +502,20 @@
         <input id="category_name" placeholder="Name" />
         <input id="category_image" placeholder="Image URL" />
         <button id="save">Save</button>
+    </div>
+    <div id="meal_modal">
+        <div>
+            <button id="close_meal_modal">X</button>
+        </div>
+        <h1 style="text-align: center; color: white;">!انشئ وجبتك</h1>
+        <input id="meal_name" placeholder="Name" />
+        <input id="meal_image" placeholder="Image URL" />
+        <input id="meal_description" placeholder="descreption" />
+        <input id="meal_price" placeholder="price" />
+        <select id="meal_category">
+            <option value="" disabled selected>Select a category</option>
+        </select>
+        <button id="save_meal" >Save Meal and Open Page</button>
     </div>
 </body>
 
