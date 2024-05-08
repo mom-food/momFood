@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart' show BuildContext, Color, Icon, IconButton, Icons, Navigator, PageController, StatelessWidget, VoidCallback, Widget;
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

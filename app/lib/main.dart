@@ -3,6 +3,8 @@ import 'View/Screens/SplashScreen.dart';
 import 'package:app/View/Screens/OnBoarding1.dart';
 import 'themes/dark.dart';
 import 'themes/light.dart';
+import 'package:app/View/widgets/app_bar.dart';
+import 'package:app/View/widgets/nav_bar.dart';
 void main() {
   runApp( MyApp());
 }
@@ -22,7 +24,13 @@ class _MyAppState extends State<MyApp> {
       _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     });
   }
+  int _selectedIndex = 0;
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +38,11 @@ class _MyAppState extends State<MyApp> {
       title: 'Flutter Demo',
       theme: _themeMode == ThemeMode.light ? ThemeData.light(): ThemeData.dark(),
       home: Scaffold(
+        appBar: MyAppBar(
 
+          title: 'Mom Food',
+          isLightTheme: _themeMode == ThemeMode.light,
+        ),
         body: SplashScreen(),
         floatingActionButton: FloatingActionButton(
           onPressed: _toggleTheme,
