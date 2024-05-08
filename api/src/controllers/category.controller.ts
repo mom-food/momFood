@@ -26,4 +26,48 @@ export const getAllCategories = async (req: Request, res: Response) => {
     res.status(500).json({ message: error.message });
   }
 };
-// ... Implement other routes: get by id, put (update), delete
+export const getCategoryById = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const category = await Category.findById(id).exec();
+    if (!category) {
+      res.status(404).json({ message: "Category not found" });
+    } else {
+      res.status(200).json(category);
+    }
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ message: "Unknown error" });
+  }
+};
+
+export const updateCategory = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { name, image } = req.body;
+    const category = await Category.findByIdAndUpdate(id, { name, image }).exec();
+    if (!category) {
+      res.status(404).json({ message: "Category not found" });
+    } else {
+      res.status(200).json(category);
+    }
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ message: "Unknown error" });
+  } 
+};
+
+export const deleteCategory = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const category = await Category.findByIdAndDelete(id).exec();
+    if (!category) {
+      res.status(404).json({ message: "Category not found" });
+    } else {
+      res.status(200).json(category);
+    }
+  } catch (error: any) {
+    console.error(error);
+    res.status(500).json({ message: "Unknown error" });
+  }
+};
