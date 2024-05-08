@@ -84,8 +84,8 @@ flutter:
      - family: FontMAIN
        fonts:
          - asset: assets/Fonts/Manrope-ExtraBold.ttf
-         - asset: assets/Fonts/Manrope-ExtraBold.ttf
-          - asset: assets/Fonts/Manrope-ExtraBold.ttf
+
+
 
   #         style: italic
   #   - family: Trajan Pro
