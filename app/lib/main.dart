@@ -3,7 +3,6 @@ import 'View/Screens/SplashScreen.dart';
 import 'package:app/View/Screens/OnBoarding1.dart';
 import 'themes/dark.dart';
 import 'themes/light.dart';
-
 void main() {
   runApp( MyApp());
 }
