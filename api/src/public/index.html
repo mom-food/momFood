@@ -1,0 +1,290 @@
+<html lang="en">
+
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mom Food</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            width: 100wh;
+            background: #322C2B;
+            display: flex;
+            justify-content: center;
+            justify-items: center;
+            overflow: hidden;
+            font-family: "Rubik";
+        }
+
+
+        #container {
+            width: 60%;
+            height: 100%;
+            background: #e3c39d;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            overflow-y: hidden;
+        }
+
+        #categories_container {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+
+        #categories_container>div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            justify-items: center;
+        }
+
+        #categories_container p {
+            font-size: 2.5em;
+            text-align: center;
+        }
+
+        #categories_container>div>img {
+            width: 80%;
+            margin: 0 auto;
+        }
+
+       
+        #categories_container>div>button {
+        background: #071739;
+        padding: 10px;
+        color: white;
+        width: 100px;
+        border: none;
+        border-radius: 5px;
+        margin: auto;
+    }
+
+    #categories_container>div>div {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px; 
+        margin-top: 10px;
+    }
+
+    #categories_container>div>div>button:first-child {
+        margin-right: 10px; 
+        margin-bottom: 10px;
+    }
+
+        #category_modal {
+            display: none;
+          
+            flex-direction: column;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 200px;
+            gap: 8px;
+            
+            padding: 20px;
+            aspect-ratio: 1;
+            background: #e1b860;
+            border: 2px dashed black;
+            border-radius: 10px;
+        }
+
+        #category_modal #close {
+            background: red;
+            color: white;
+            aspect-ratio: 1;
+
+            padding: 4px;
+        }
+
+        #category_modal>input {
+            width: 100%;
+            border: 0;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        #save {
+            
+            background: #00FF00;
+            color: black;
+
+            padding: 10px;
+            border-radius: 10px;
+           
+        }
+    </style>
+    <script>
+        window.state = "create";
+        window.updated_id = null;
+        window.updated_elements = null;
+
+        window.onload = function () {
+            const categories_container = document.getElementById("categories_container");
+            function insertCategory(name, image, _id) {
+                const category_element = document.createElement("div"); // <div></div>
+
+                const category_name_element = document.createElement("p") // <p></p>
+                const category_image_element = document.createElement("img") // <img src="" />
+                category_name_element.innerHTML = name; // <p>Category Name</p>
+                category_image_element.src = image; // <img src="http://localhost3000/image.png" />
+                category_element.appendChild(category_name_element); // <div><p>Category Name</p></div>
+                category_element.appendChild(category_image_element); // <div><p>Category Name</p><img src="http://localhost3000/image.png" /></div>
+
+                const category_delete_button = document.createElement("button");
+                category_delete_button.innerHTML = "حذف ";
+                category_delete_button.onclick = () => {
+                    console.log("Deleting category with id: ", _id);
+                    fetch(`/api/categories/${_id}`, {
+                        method: "DELETE",
+                    }).then(response => {
+                        if (response.ok) {
+                            categories_container.removeChild(category_element)
+                        } else {
+                            alert("حدث خطأ أثناء حذف هذا الصنف، حاول لاحقًا.")
+                        }
+                    })
+                }
+
+                category_element.appendChild(category_delete_button);
+
+                const category_update_button = document.createElement("button");
+                category_update_button.innerHTML = "تحديث";
+                category_update_button.onclick = () => {
+                    window.state = "update";
+                    window.updated_id = _id;
+                    window.updated_elements = {
+                        name: category_name_element,
+                        image: category_image_element,
+                    }
+
+                    category_name_input.value = name;
+                    category_image_input.value = image;
+
+                    category_modal.style.display = "flex";
+
+                }
+
+                category_element.appendChild(category_update_button);
+                categories_container.appendChild(category_element);
+            }
+            // function myAmazingFunction(data) {}
+            // const myAmazingFunction = (data, arg1, arg2, arg3) => arg1+arg2
+            fetch("http://localhost:3000/api/categories")
+                .then(response => response.json()) // JSON => JavaScript Object Notation
+                .then(data => {
+                    // [] -> Array
+                    // {_id: string, name: string, image: string}
+                    for (let i = 0; i < data.length; i++) {
+                        insertCategory(data[i].name, data[i].image, data[i]._id);
+                    }
+                })
+
+            const create_category_button = document.getElementById("create_category_button");
+            const category_modal = document.getElementById("category_modal");
+            create_category_button.onclick = () => {
+                category_modal.style.display = "flex"
+            }
+
+            const close_button = document.getElementById("close")
+            close_button.onclick = () => {
+                category_modal.style.display = "none"
+            }
+
+            const save_button = document.getElementById("save")
+            const category_name_input = document.getElementById("category_name");
+            const category_image_input = document.getElementById("category_image");
+            save_button.onclick = () => {
+                const category_data = {
+                    name: category_name_input.value,
+                    image: category_image_input.value,
+                };
+
+                switch (window.state) {
+                    case "create": {
+                        fetch("/api/categories", {
+                            method: "POST",
+                            body: JSON.stringify(category_data),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(response => {
+                            if (response.ok) {
+                                response.json().then(data => {
+                                    insertCategory(category_data.name, category_data.image, data._id);
+                                    close_button.click();
+                                })
+                            } else {
+                                alert("حدث خطأ أثناء محاولة إضافة صنف، يرجى المحاولة لاحقًا.");
+                            }
+                        })
+                        break
+                    }
+                    case "update": {
+                        const _id = window.updated_id;
+
+                        console.log("Updating category with id: ", _id);
+                        fetch(`/api/categories/${_id}`, {
+                            method: "PUT",
+                            body: JSON.stringify({
+                                _id: _id,
+                                name: category_name_input.value,
+                                image: category_image_input.value,
+                            }),
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        }).then(response => {
+                            if (response.ok) {
+                                response.json().then(data => {
+                                    window.updated_elements.name.innerHTML = data.name;
+                                    window.updated_elements.image.src = data.image;
+                                })
+                            } else {
+                                alert("حدث خطأ أثناء محاولة تحديث الصنف، يرجى المحاولة مرة أخرى.");
+                            }
+                        })
+                        break
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body dir="ltr">
+    <div id="container">
+        <h1>Mom Food Application!</h1>
+        <h3>Available Requests:</h3>
+        <button id="create_category_button"><h3> اضافة صنف جديد</h3></button>
+
+        <div id="categories_container">
+
+        </div>
+    </div>
+    <div id="category_modal">
+        <div>
+            <button id="close">X</button>
+        </div>
+        <h1 style="text-align: center; color: white;">Create Your Category!</h1>
+        <input id="category_name" placeholder="Name" />
+        <input id="category_image" placeholder="Image URL" />
+        <button id="save">Save</button>
+    </div>
+</body>
+
+</html>
