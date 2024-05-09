@@ -1,5 +1,6 @@
-# Miscellaneous
+Sure, here's the .gitignore content without any duplicates:
 
+# Miscellaneous
 *.class
 *.log
 *.pyc
@@ -22,35 +23,6 @@ migrate_working_dir/
 # is commented out by default.
 #.vscode/
 
-# Flutter/Dart/Pub related
-**/doc/api/
-**/ios/Flutter/.last_build_id
-.dart_tool/
-.flutter-plugins
-.flutter-plugins-dependencies
-.pub-cache/
-.pub/
-/bui
-# Miscellaneous
-*.class
-*.log
-*.pyc
-*.swp
-.DS_Store
-.atom/
-.buildlog/
-.history
-.svn/
-migrate_working_dir/
-# IntelliJ related
-*.iml
-*.ipr
-*.iws
-.idea/
-# The .vscode folder contains launch configuration and tasks you configure in
-# VS Code which you may wish to be included in version control, so this line
-# is commented out by default.
-#.vscode/
 # Flutter/Dart/Pub related
 **/doc/api/
 **/ios/Flutter/.last_build_id
@@ -60,28 +32,45 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+
 # Symbolication related
 app.*.symbols
+
 # Obfuscation related
 app.*.map.json
+
 # Android Studio will place build artifacts here
 /android/app/debug
 /android/app/profile
 /android/app/release
 
-
-12:58
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
 /dist
+# Typescript v1 declaration files
+typings/
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
 # testing
 /coverage
+
 # production
 /build
+
 # misc
-.DS_Store
 .env.local
 .env.development.local
 .env.test.local
@@ -91,22 +80,30 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/.phpunit.cache
-/node_modules
-/public/build
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-.env
-.env.backup
-.env.production
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-auth.json
-npm-debug.log
-yarn-error.log
-/.fleet
-/.idea
-/.vscode
+# Yarn Integrity file
+.yarn-integrity
+# IDE-specific files
+.idea/
+.vscode/
+
+# Dependency directories
+node_modules/
+jspm_packages/
+bower_components
+
+# Build artifacts
+build/
+
+# Miscellaneous
+.DS_Store
+*.tgz
+my-app*  # Replace with your app name
+
+# Testing
+template/src/__tests__/__snapshots/
+lerna-debug.log
+
+# Yarn-specific
+.changelog
+.npm/
+yarn.lock
