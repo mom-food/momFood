@@ -89,7 +89,7 @@ flutter:
          - asset: assets/Fonts/Manrope-Light.ttf
          - asset: assets/Fonts/Manrope-Medium.ttf
          - asset: assets/Fonts/Manrope-Regular.ttf
-         - asset: assets/Manrope-SemiBold.ttf
+         - asset: assets/Fonts/Manrope-SemiBold.ttf
 
 
 
