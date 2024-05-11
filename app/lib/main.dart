@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'View/Screens/Home.dart';
+import 'View/Screens/OnBoarding2.dart';
 import 'View/Screens/SplashScreen.dart';
 import 'package:app/View/Screens/OnBoarding1.dart';
 import 'themes/dark.dart';
@@ -60,7 +62,11 @@ class _MyAppState extends State<MyApp> {
             ? DarkThemeData.dark.colorScheme.background
             : LightThemeData.light.colorScheme.background,
         ),
-
+      routes: {
+        '/onboarding1': (context) => Onboarding1(),
+        '/onboarding2': (context) => Onboarding2Screen(),
+        '/Home': (context) => MyHomePage(title: '',),
+      },
     );
   }
 }
