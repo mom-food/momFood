@@ -84,12 +84,6 @@ flutter:
      - family: FontMAIN
        fonts:
          - asset: assets/Fonts/Manrope-ExtraBold.ttf
-         - asset: assets/Fonts/Manrope-Bold.ttf
-         - asset: assets/Fonts/Manrope-ExtraLight.ttf
-         - asset: assets/Fonts/Manrope-Light.ttf
-         - asset: assets/Fonts/Manrope-Medium.ttf
-         - asset: assets/Fonts/Manrope-Regular.ttf
-         - asset: assets/Manrope-SemiBold.ttf
 
 
 
