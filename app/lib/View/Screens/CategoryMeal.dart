@@ -1,40 +1,44 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../Model/mealCategoryModel.dart';
+import '../../Services/MealCatecoryServices.dart';
 import '../Widgets/cards/meal_category_card.dart';
 
-class MealCategoryScreen extends StatelessWidget {
-  final List<String> categories = [
-    'معجنات',
-    'وجبات سريعة',
-    'مشروبات',
-  ];
+class MealCategoryScreen extends StatefulWidget {
+  @override
+  _MealCategoryScreenState createState() => _MealCategoryScreenState();
+}
 
+class _MealCategoryScreenState extends State<MealCategoryScreen> {
+  final MealCategoryServices _categoryServices = MealCategoryServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            Text(
-              'العروضات',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
-              ),
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.right,
-            ),
-          ],
-        ),
+        title: Text('Categories'),
       ),
-      body: ListView.builder(
-        itemCount: categories.length,
-        itemBuilder: (context, index) {
-          return MealCategoryCard(
-            categoryName: categories[index],
-          );
+      body: FutureBuilder<List<MealCategory>>(
+        future: _categoryServices.fetchAllMealCategories(),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error loading data: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No meal categories found.'));
+          } else {
+            final mealCategories = snapshot.data!;
+            return ListView.builder(
+              itemCount: mealCategories.length,
+              itemBuilder: (context, index) {
+                final category = mealCategories[index];
+                return MealCategoryCard(
+                  categoryId: category.id,
+                  categoryName: category.name,
+                  categoryImage: category.image,
+                );
+              },
+            );
+          }
         },
       ),
     );
