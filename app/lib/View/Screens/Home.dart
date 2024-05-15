@@ -1,48 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../Model/search-model.dart';
+import '../../themes/dark.dart';
+import '../../themes/light.dart';
+import '../Widgets/app_bar.dart';
+import '../Widgets/home-tab.dart';
+import '../Widgets/mom_food_title.dart';
+import '../Widgets/nav_bar.dart';
+import '../Widgets/search-bar.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
+
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class _HomePageState extends State<HomePage> {
+  int _selectedIndex = 0;
+  bool isDarkMode = false;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+    final momFood = Provider.of<MomFood>(context);
+
+    return SafeArea(
+      child: MaterialApp(
+        themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light, // Set theme mode based on isDarkMode
+        theme: lightMode, // Default theme
+        darkTheme: darkMode, // Dark theme
+        home: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: Size.fromHeight(100.0), // Adjust the height as needed
+            child: Column(
+              children: [
+                MyAppBar(title: MomFoodTitle(), isLightTheme: !isDarkMode),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: CustomSearchBar(
+                    onSearch: (query) {
+                      momFood.search(query);
+                    },
+                  ), // Add the search bar inside the app bar
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
+          ),
+          body: Column(
+            children: [
+              Expanded(
+                child: taps[_selectedIndex],
+              ),
+              if (momFood.categories.isNotEmpty)
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: momFood.categories.length,
+                    itemBuilder: (context, index) {
+                      final category = momFood.categories[index];
+                      return ListTile(
+                        title: Text(category.name),
+                        subtitle: Text('Price: ${category.price}, Offer: ${category.offer}'),
+                        leading: Image.network(category.image),
+                      );
+                    },
+                  ),
+                ),
+            ],
+          ),
+          bottomNavigationBar: CustomBottomNavBar(
+            selectedIndex: _selectedIndex,
+            onItemTapped: (index) {
+              setState(() {
+                _selectedIndex = index; // Update the selected index
+              });
+            },
+          ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  List<Widget> taps = [
+  const HomeTap(),
+  //const CartTap(),
+  //const ProfileTap(),
+  ];
 }
