@@ -1,0 +1,31 @@
+/* meals.css */
+.categories-admin-imgae{
+    aspect-ratio: 200/150;
+}
+.meal-card {
+    flex: 0 1 calc(33.33% - 20px); 
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.meal-card img {
+    width: 100%;
+    aspect-ratio: 200/150;
+    border-radius: 15px 15px 0 0;
+}
+
+.meal-card h2 {
+    font-size: 1rem;
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+}
+
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
