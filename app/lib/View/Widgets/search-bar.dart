@@ -1,3 +1,4 @@
+import 'package:app/ViewModel/meal_view_mode.dart';
 import 'package:app/main.dart';
 import 'package:flutter/material.dart';
 import 'package:app/themes/dark.dart';
@@ -29,7 +30,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(child: Consumer<MomFood>(builder: (context, momFood, child) {
+        Expanded(child: Consumer2<MomFood, MealViewModel>(builder: (context, momFood, mealViewModel, child) {
           return TextField(
             controller: _controller,
             decoration: InputDecoration(
@@ -38,7 +39,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 icon: Icon(Icons.search),
                 onPressed: () {
                   String query = _controller.text.trim();
-                  momFood.search(query);
+                  // momFood.search(query);
+                  mealViewModel.search(query);
                 },
               ),
             ),

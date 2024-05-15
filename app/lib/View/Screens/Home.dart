@@ -1,3 +1,5 @@
+import 'package:app/View/Screens/offer.dart';
+import 'package:app/View/Screens/offer_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../Model/search-model.dart';
@@ -32,12 +34,12 @@ class _HomePageState extends State<HomePage> {
         darkTheme: darkMode, // Dark theme
         home: Scaffold(
           appBar: PreferredSize(
-            preferredSize: Size.fromHeight(100.0), // Adjust the height as needed
+            preferredSize: Size.fromHeight(130.0), // Adjust the height as needed
             child: Column(
               children: [
                 MyAppBar(title: MomFoodTitle(), isLightTheme: !isDarkMode),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 26.0),
                   child: CustomSearchBar(
                     onSearch: (query) {
                       momFood.search(query);
@@ -53,19 +55,19 @@ class _HomePageState extends State<HomePage> {
                 child: taps[_selectedIndex],
               ),
               if (momFood.categories.isNotEmpty)
-                Expanded(
-                  child: ListView.builder(
-                    itemCount: momFood.categories.length,
-                    itemBuilder: (context, index) {
-                      final category = momFood.categories[index];
-                      return ListTile(
-                        title: Text(category.name),
-                        subtitle: Text('Price: ${category.price}, Offer: ${category.offer}'),
-                        leading: Image.network(category.image),
-                      );
-                    },
-                  ),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: momFood.categories.length,
+                  itemBuilder: (context, index) {
+                    final category = momFood.categories[index];
+                    return ListTile(
+                      title: Text(category.name),
+                      subtitle: Text('Price: ${category.price}, Offer: ${category.offer}'),
+                      leading: Image.network(category.image),
+                    );
+                  },
                 ),
+              ),
             ],
           ),
           bottomNavigationBar: CustomBottomNavBar(
@@ -82,8 +84,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> taps = [
-  const HomeTap(),
-  //const CartTap(),
-  //const ProfileTap(),
+    OfferListView(),
+    //const CartTap(),
+    //const ProfileTap(),
   ];
 }

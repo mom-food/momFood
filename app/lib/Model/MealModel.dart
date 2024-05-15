@@ -20,7 +20,7 @@ class Meal {
       id: json['_id'], // Adjust this based on your actual ID field
       name: json['name'],
       description: json['description'],
-      price: json['price'].toDouble(),
+      price: double.tryParse(json['price']) ?? 0,
       image: json['image'],
       categoryId: json['category'], // Assuming the category ID is stored here
     );
