@@ -61,7 +61,7 @@ class MyAppBar1 extends StatelessWidget implements PreferredSizeWidget {
           centerTitle: true,
           backgroundColor:
           themeProvider.isDarkMode ? Colors.black : Colors.white,
-          automaticallyImplyLeading: true, // قم بتعيين هذا إلى true لإضافة زر العودة
+          automaticallyImplyLeading: true,
           actions: [
             IconButton(
               icon: Icon(
@@ -110,7 +110,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar1(
-        title: 'My App',
+        title: 'Mom FOod',
         isLightTheme: true,
       ),
       body: Column(
