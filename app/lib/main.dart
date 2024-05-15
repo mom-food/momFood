@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'Model/offer-model.dart';
 import 'View/Screens/Home.dart';
+import 'View/Screens/offer.dart';
 import 'View/Screens/OnBoarding2.dart';
 import 'View/Screens/SplashScreen.dart';
 import 'package:app/View/Screens/OnBoarding1.dart';
@@ -53,7 +55,7 @@ class _MyAppState extends State<MyApp> {
             routes: {
               '/onboarding1': (context) => Onboarding1(),
               '/onboarding2': (context) => Onboarding2Screen(),
-              '/Home': (context) => MyHomePage(title: '',),
+              '/offer': (context) => MealCategoryScreen(),
             },
           );
         },
