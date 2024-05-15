@@ -13,7 +13,7 @@ class FoodDetailsPage extends StatelessWidget {
     MealDetailsServices mealDetailsServices = new MealDetailsServices();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Food Order / Food Details', style: Theme.of(context).textTheme.headline6?.copyWith(
+        title: Text('Food Order / Food Details',  style: Theme.of(context).textTheme.titleLarge?.copyWith(
           fontSize: 22,
           color: Colors.white, // Ensuring good contrast against the AppBar background
           fontWeight: FontWeight.bold,
@@ -46,12 +46,12 @@ class FoodDetailsPage extends StatelessWidget {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(meal.price.toString(), style: Theme.of(context).textTheme.headline6?.copyWith(
+                          Text(meal.price.toString(), style: Theme.of(context).textTheme.titleLarge?.copyWith(
                             fontSize: 24,
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
                           )),
-                          Text(meal.name, style: Theme.of(context).textTheme.headline5?.copyWith(
+                          Text(meal.name, style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                             fontSize: 24,
                             color: Colors.black87,
                             fontWeight: FontWeight.bold,
@@ -64,7 +64,7 @@ class FoodDetailsPage extends StatelessWidget {
                         padding: EdgeInsets.all(8),
                         child: Text(
                           meal.description,
-                          style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                          style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.black87,
