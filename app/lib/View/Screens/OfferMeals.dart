@@ -18,6 +18,7 @@ class MealOfferScreen extends StatelessWidget {
             ),
           ],
         ),
+        automaticallyImplyLeading: false, // هذا السطر يحذف زر العودة
       ),
       body: SingleChildScrollView(
         child: Row(

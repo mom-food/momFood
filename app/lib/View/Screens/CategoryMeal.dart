@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../../Model/mealCategoryModel.dart';
 import '../../Services/MealCatecoryServices.dart';
 
-
-
 class MealCategoryScreen extends StatefulWidget {
   @override
   _MealCategoryScreenState createState() => _MealCategoryScreenState();
@@ -11,11 +9,25 @@ class MealCategoryScreen extends StatefulWidget {
 
 class _MealCategoryScreenState extends State<MealCategoryScreen> {
   final MealCategoryServices _categoryServices = MealCategoryServices();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categories'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              'الأصناف',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 26,
+              ),
+              textDirection: TextDirection.rtl,
+            ),
+          ],
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<MealCategory>>(
         future: _categoryServices.fetchAllMealCategories(),
