@@ -1,5 +1,6 @@
-import { Request, Response } from "express";
-import { Meal } from "../models";
+import { Request, Response } from 'express';
+import { Meal } from '../models'; // Ensure this path correctly imports the Meal model
+import { Category } from '../models';
 
 export const createMeal = async (req: Request, res: Response) => {
     try {
@@ -15,7 +16,7 @@ export const createMeal = async (req: Request, res: Response) => {
   
       await meal.save();
       console.log("تمت إضافة وجبة إلى قاعدة البيانات");
-      res.status(201).json(meal);
+      res.status(201).json({message:"success",meal});
     } catch (error: any) {
       console.error(error);
       res.status(500).json({ message: error.message });
@@ -41,6 +42,16 @@ export const getMeal = async (req: Request, res: Response) => {
     }
 };
 
+export const getMealsByCategory = async (req: Request, res: Response) => {
+    try {
+      const categoryId = req.params.id;
+      const meals = await Meal.find({ category: categoryId }).exec();
+      res.status(200).json(meals);
+    } catch (error: any) {
+      res.status(500).json({ message: error.message });
+    }
+};
+
 // Update a meal by ID
 export const updateMeal = async (req: Request, res: Response) => {
   try {
@@ -62,20 +73,19 @@ export const updateMeal = async (req: Request, res: Response) => {
     // Save the updated meal
     await meal.save();
 
-    res.status(200).json(meal);
+    res.status(200).json({message:"success",meal});
   } catch (err) {
     console.error(err);
     res.status(500).json({ message: "An error occurred while updating the meal" });
   }
 };
 
-
 export const deleteMeal = async (req: Request, res: Response) => {
     try {
       const meal = await Meal.findOneAndDelete({
         _id: req.params.id,
       }).exec();
-      res.status(200).json(meal);
+      res.status(200).json({message:"success",meal});
     } catch (err) {
       console.error(err);
       res.status(500).json({ message: "حدث خطأ!" });

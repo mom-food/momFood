@@ -12,7 +12,7 @@ export const createCategory = async (req: Request, res: Response) => {
 
     await category.save();
     console.log("A category has been added to database");
-    res.status(201).json(category);
+    res.status(201).json({message:"success",category});
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -49,7 +49,7 @@ export const updateCategory = async (req: Request, res: Response) => {
     if (!category) {
       res.status(404).json({ message: "Category not found" });
     } else {
-      res.status(200).json(category);
+      res.status(201).json({message:"success",category});
     }
   } catch (error: any) {
     console.error(error);
@@ -62,7 +62,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
     const { id } = req.params;
     const category = await Category.findByIdAndDelete(id).exec();
     if (!category) {
-      res.status(404).json({ message: "Category not found" });
+      res.status(201).json({message:"success",category});
     } else {
       res.status(200).json(category);
     }
