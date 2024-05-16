@@ -1,4 +1,4 @@
-import 'package:app/View/Screens/offer_list_view.dart';
+//import 'package:app/View/Screens/offer_list_view.dart';
 import 'package:flutter/material.dart';
 
 class MealCategoryScreen extends StatelessWidget {
@@ -21,7 +21,7 @@ class MealCategoryScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: OfferListView(),
+       // body: OfferListView(),
         );
     }
 }

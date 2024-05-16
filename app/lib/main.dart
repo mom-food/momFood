@@ -1,47 +1,36 @@
-import 'package:app/View/Screens/Home.dart';
-import 'package:app/ViewModel/meal_view_mode.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'Model/search-model.dart';
+import 'ViewModel/meal_view_model.dart';
+import 'View/Screens/Home.dart';
+import 'View/Screens/OnBoarding1.dart';
 import 'View/Screens/OnBoarding2.dart';
 import 'View/Screens/SplashScreen.dart';
-import 'View/Screens/OnBoarding1.dart';
+import 'View/Widgets/app_bar.dart';
+import 'View/Screens/offer.dart';
 import 'themes/dark.dart';
 import 'themes/light.dart';
 import 'themes/theme-provider.dart';
-import 'package:provider/provider.dart';
-
-import 'View/Screens/offer.dart';
-import 'package:app/View/Widgets/app_bar.dart';
 
 void main() {
-  Provider.debugCheckInvalidValueType = null;
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => MomFood()),
-        ChangeNotifierProvider(create: (_) => MealViewModel()),
-      ],
-      child: MyApp(),
-    ),
-  );
+  runApp(MyApp());
 }
 
-class MyApp extends StatefulWidget {
-  @override
-  _MyAppState createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
+    return MultiProvider(
+      providers: [
+        //ChangeNotifierProvider(create: (_) => MomFood()),
+        ChangeNotifierProvider(create: (_) => MealViewModel()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+      ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
           return MaterialApp(
             title: 'Flutter Demo',
             themeMode:
-                themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             theme: themeProvider.isDarkMode ? darkMode : lightMode,
             home: Scaffold(
               appBar: MyAppBar(

@@ -1,91 +1,86 @@
-import 'package:app/View/Screens/offer.dart';
-import 'package:app/View/Screens/offer_list_view.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../Model/search-model.dart';
-import '../../themes/dark.dart';
-import '../../themes/light.dart';
-import '../Widgets/app_bar.dart';
-import '../Widgets/home-tab.dart';
-import '../Widgets/mom_food_title.dart';
-import '../Widgets/nav_bar.dart';
-import '../Widgets/search-bar.dart';
+import '../../Model/meal-model.dart';
+import '../../ViewModel/meal_view_model.dart';
 
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
+class HomePage extends StatelessWidget {
   @override
-  State<HomePage> createState() => _HomePageState();
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Home'),
+      ),
+      body: Column(
+        children: [
+          CustomSearchBar(onSearch: (query) {
+            Provider.of<MealViewModel>(context, listen: false).search(query);
+          }),
+          Expanded(
+            child: Consumer<MealViewModel>(
+              builder: (context, mealViewModel, child) {
+                if (mealViewModel.meals.isEmpty) {
+                  return Center(
+                    child: Text('No meals found.'),
+                  );
+                } else {
+                  return ListView.builder(
+                    itemCount: mealViewModel.meals.length,
+                    itemBuilder: (context, index) {
+                      Meal meal = mealViewModel.meals[index];
+                      return ListTile(
+                        title: Text(meal.name),
+                        subtitle: Text(meal.description),
+                        leading: Image.network(meal.image),
+                        trailing: Text('\$${meal.price.toString()}'),
+                      );
+                    },
+                  );
+                }
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
-class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
-  bool isDarkMode = false;
+class CustomSearchBar extends StatefulWidget {
+  final Function(String) onSearch;
+
+  const CustomSearchBar({Key? key, required this.onSearch}) : super(key: key);
+
+  @override
+  _CustomSearchBarState createState() => _CustomSearchBarState();
+}
+
+class _CustomSearchBarState extends State<CustomSearchBar> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final momFood = Provider.of<MomFood>(context);
-
-    return SafeArea(
-      child: MaterialApp(
-        themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light, // Set theme mode based on isDarkMode
-        theme: lightMode, // Default theme
-        darkTheme: darkMode, // Dark theme
-        home: Scaffold(
-          appBar: PreferredSize(
-            preferredSize: Size.fromHeight(130.0), // Adjust the height as needed
-            child: Column(
-              children: [
-                MyAppBar(title: MomFoodTitle(), isLightTheme: !isDarkMode),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 26.0),
-                  child: CustomSearchBar(
-                    onSearch: (query) {
-                      momFood.search(query);
-                    },
-                  ), // Add the search bar inside the app bar
-                ),
-              ],
-            ),
-          ),
-          body: Column(
-            children: [
-              Expanded(
-                child: taps[_selectedIndex],
-              ),
-              if (momFood.categories.isNotEmpty)
-              Expanded(
-                child: ListView.builder(
-                  itemCount: momFood.categories.length,
-                  itemBuilder: (context, index) {
-                    final category = momFood.categories[index];
-                    return ListTile(
-                      title: Text(category.name),
-                      subtitle: Text('Price: ${category.price}, Offer: ${category.offer}'),
-                      leading: Image.network(category.image),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-          bottomNavigationBar: CustomBottomNavBar(
-            selectedIndex: _selectedIndex,
-            onItemTapped: (index) {
-              setState(() {
-                _selectedIndex = index; // Update the selected index
-              });
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: _controller,
+        decoration: InputDecoration(
+          hintText: 'Search for meals...',
+          suffixIcon: IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              String query = _controller.text.trim();
+              widget.onSearch(query);
             },
           ),
         ),
       ),
     );
   }
-
-  List<Widget> taps = [
-    OfferListView(),
-    //const CartTap(),
-    //const ProfileTap(),
-  ];
 }
