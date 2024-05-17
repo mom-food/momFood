@@ -16,13 +16,14 @@ class Meal {
   });
 
   factory Meal.fromJson(Map<String, dynamic> json) {
+    print(json);
     return Meal(
-      id: json['_id'], // Adjust this based on your actual ID field
-      name: json['name'],
-      description: json['description'],
-      price: double.tryParse(json['price']) ?? 0,
-      image: json['image'],
-      categoryId: json['category'], // Assuming the category ID is stored here
+      id: json['_id']?.toString() ?? "", // Adjust this based on your actual ID field
+      name: json['name']?.toString() ?? "", //optional chaining
+      description: json['description']?.toString()?? "",
+      price: double.tryParse(json['price']?.toString()??"0") ?? 0.0,
+      image: json['image']?.toString() ?? "",
+      categoryId: json['category']?.toString() ?? "", // Assuming the category ID is stored here
     );
   }
 }
