@@ -1,4 +1,3 @@
-//import 'package:app/View/Screens/offer_list_view.dart';
 import 'package:flutter/material.dart';
 
 class MealCategoryScreen extends StatelessWidget {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../Model/mealCategoryModel.dart';
 import '../../Services/MealCatecoryServices.dart';
-
+import '../Widgets/cards/meal_category_card.dart';
 
 
 class MealCategoryScreen extends StatefulWidget {
@@ -11,11 +11,25 @@ class MealCategoryScreen extends StatefulWidget {
 
 class _MealCategoryScreenState extends State<MealCategoryScreen> {
   final MealCategoryServices _categoryServices = MealCategoryServices();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Categories'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              'الأصناف',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 26,
+              ),
+              textDirection: TextDirection.rtl,
+            ),
+          ],
+        ),
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<MealCategory>>(
         future: _categoryServices.fetchAllMealCategories(),
@@ -32,27 +46,10 @@ class _MealCategoryScreenState extends State<MealCategoryScreen> {
               itemCount: mealCategories.length,
               itemBuilder: (context, index) {
                 final category = mealCategories[index];
-                return Container(
-                  margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
-                  child: Column(
-                    children: [
-                      Image.network(
-                        category.image,
-                        width: 300,
-                        height: 100,
-                        fit: BoxFit.cover,
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(7),
-                        child: Text(
-                          category.name,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                return MealCategoryCard(
+                  categoryId: category.id,
+                  categoryName: category.name,
+                  categoryImage: category.image,
                 );
               },
             );

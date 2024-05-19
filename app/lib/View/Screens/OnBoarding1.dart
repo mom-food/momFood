@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../colors.dart';
 import '../Widgets/PageIndicator.dart';
 import 'Home.dart';
 import 'OnBoarding2.dart';
 
 class Onboarding1 extends StatefulWidget {
+  // final ThemeMode themeMode;
+
   Onboarding1();
 
   @override
@@ -50,7 +51,8 @@ class _Onboarding1State extends State<Onboarding1> {
               Padding(
                 padding: const EdgeInsets.only(top: 50, left: 20),
                 child: Container(
-                  constraints: BoxConstraints.expand(width: 219, height: 229.25),
+                  constraints:
+                      BoxConstraints.expand(width: 219, height: 229.25),
                   child: Image.asset(
                     'assets/images/Onboarding1.png',
                     fit: BoxFit.fill,
@@ -95,6 +97,9 @@ class _Onboarding1State extends State<Onboarding1> {
                                     ? AppColors.primary2
                                     : AppColors.primary1,
                           ),
+                        ),
+                        TextSpan(
+                          text: ' النكهات ',
                         ),
                         TextSpan(
                           text: ' النكهات ',

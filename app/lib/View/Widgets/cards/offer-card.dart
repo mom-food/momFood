@@ -31,39 +31,24 @@ class MealOfferCard extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10),
             child: ClipOval(
-              child: Image.network(
+                child: Image.asset(
                 imagePath,
                 fit: BoxFit.cover,
                 width: 85,
                 height: 85,
-              ),
-            ),
+                ),
+          ),
           ),
           Container(
+            padding: const EdgeInsets.all(7),
             child: Text(
               title,
-              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
               ),
             ),
           ),
-          Container(
-            padding: const EdgeInsets.all(7),
-            child: Text(originalPrice,
-                style: const TextStyle(
-                  color: AppColors.primary1,
-                  decoration: TextDecoration.lineThrough,
-                )),
-          ),
-          // Discounted price
-          Container(
-            padding: const EdgeInsets.all(7),
-            child: Text(discountedPrice.toStringAsFixed(2).toString(),
-                style: const TextStyle(
-                  color: AppColors.primary2,
-                )),
-          ),
+
           // Row(
           //   mainAxisAlignment: MainAxisAlignment.center,
           //   children: [
