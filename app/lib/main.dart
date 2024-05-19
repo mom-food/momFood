@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
           return MaterialApp(
             title: 'Flutter Demo',
             themeMode:
-            themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+                themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             theme: themeProvider.isDarkMode ? darkMode : lightMode,
             home: Scaffold(
               appBar: MyAppBar(

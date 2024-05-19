@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../themes/theme-provider.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final dynamic title;
+  final String title;
   final bool isLightTheme;
 
   const MyAppBar({
@@ -40,17 +40,5 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       );
         },
     );
-  }
-
-  Widget _buildTitleWidget() {
-    if (title is String) {
-      return Text(
-        title,
-      );
-    } else if (title is Widget) {
-      return title;
-    } else {
-      return Container();
-    }
   }
 }
