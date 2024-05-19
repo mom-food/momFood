@@ -1,12 +1,19 @@
 import 'package:app/Services/mealDetailsServices.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart';
+import '../../Model/Cart_ItemModel.dart';
 import '../../Model/mealDetailsModel.dart';
 import '../../colors.dart';
-import 'Cart.dart';
+
 class FoodDetailsPage extends StatelessWidget {
-  final Cart cart;
-  FoodDetailsPage(this.cart);
+
+  final String mealId;
+  FoodDetailsPage({required this.mealId});
+
+  get cart => null;
+
+
   @override
   Widget build(BuildContext context) {
     MealDetailsModel? meal ;
@@ -24,7 +31,7 @@ class FoodDetailsPage extends StatelessWidget {
         ],
       ),
       body: FutureBuilder<MealDetailsModel?>(
-        future: mealDetailsServices.fetchMealDetails('662978ed6ea592baeb0652ba'),
+        future: mealDetailsServices.fetchMealDetails(mealId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(child: CircularProgressIndicator());
