@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import '../../colors.dart';
 import '../Widgets/PageIndicator.dart';
 import 'Home.dart';
 import 'OnBoarding2.dart';
 
 class Onboarding1 extends StatefulWidget {
- // final ThemeMode themeMode;
+  // final ThemeMode themeMode;
 
   Onboarding1();
 
@@ -49,11 +48,11 @@ class _Onboarding1State extends State<Onboarding1> {
               ),
               SizedBox(height: 15),
               SizedBox(width: 15),
-
               Padding(
-                padding: const EdgeInsets.only(top: 50,left: 20),
+                padding: const EdgeInsets.only(top: 50, left: 20),
                 child: Container(
-                  constraints: BoxConstraints.expand(width: 219, height: 229.25),
+                  constraints:
+                      BoxConstraints.expand(width: 219, height: 229.25),
                   child: Image.asset(
                     'assets/images/Onboarding1.png',
                     fit: BoxFit.fill,
@@ -71,33 +70,48 @@ class _Onboarding1State extends State<Onboarding1> {
                       text: ' اهلا ',
                       style: TextStyle(
                         fontSize: 26,
-                        color: Theme.of(context).brightness == Brightness.dark ? AppColors.textColor2 : AppColors.textColor1,
+                        color: Theme.of(context).brightness == Brightness.dark
+                            ? AppColors.textColor2
+                            : AppColors.textColor1,
                       ),
                       children: <TextSpan>[
                         TextSpan(
                           text: 'بكم',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.primary2
+                                    : AppColors.primary1,
                           ),
                         ),
                         TextSpan(
                           text: ' في ',
-
                         ),
                         TextSpan(
                           text: 'عالم',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.primary2
+                                    : AppColors.primary1,
                           ),
                         ),
-                        TextSpan(text: ' النكهات ',),
+                        TextSpan(
+                          text: ' النكهات ',
+                        ),
+                        TextSpan(
+                          text: ' النكهات ',
+                        ),
                         TextSpan(
                           text: 'الاصيلة',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.primary2
+                                    : AppColors.primary1,
                           ),
                         ),
                         TextSpan(text: ', حيث كل '),
@@ -105,7 +119,10 @@ class _Onboarding1State extends State<Onboarding1> {
                           text: 'طبق',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.primary2
+                                    : AppColors.primary1,
                           ),
                         ),
                         TextSpan(text: ' يروي '),
@@ -113,7 +130,10 @@ class _Onboarding1State extends State<Onboarding1> {
                           text: 'قصته',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
+                            color:
+                                Theme.of(context).brightness == Brightness.dark
+                                    ? AppColors.primary2
+                                    : AppColors.primary1,
                           ),
                         ),
                       ],
@@ -133,7 +153,8 @@ class _Onboarding1State extends State<Onboarding1> {
                       if (index == 1) {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => Onboarding2Screen()),
+                          MaterialPageRoute(
+                              builder: (context) => Onboarding2Screen()),
                         );
                       }
                     },
