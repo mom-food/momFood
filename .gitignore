@@ -79,6 +79,29 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+/.phpunit.cache
+/node_modules
+/public/build
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+.env
+.env.backup
+.env.production
+.phpunit.result.cache
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log
+/.fleet
+/.idea
+/.vscode
+/app/android/.gradle/7.6.3/executionHistory
+/app/android/.gradle/7.6.3/executionHistory
+/app/android/.gradle/7.6.3/executionHistory
+/app/android/.gradle/7.6.3
 # Yarn Integrity file
 .yarn-integrity
 # IDE-specific files

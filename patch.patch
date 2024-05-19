@@ -1,0 +1,1005 @@
+diff --git a/api/package.json b/api/package.json
+index 7f34b3e..c74d2cc 100644
+--- a/api/package.json
++++ b/api/package.json
+@@ -6,7 +6,7 @@
+   "scripts": {
+     "build": "npx tsc",
+     "start": "node dist/app.js",
+-    "dev": "nodemon src/app.ts"
++    "dev": "npx nodemon src/app.ts"
+   },
+   "keywords": [],
+   "author": "",
+diff --git a/api/src/controllers/category.controller.ts b/api/src/controllers/category.controller.ts
+index 9ee0fe9..66ede01 100644
+--- a/api/src/controllers/category.controller.ts
++++ b/api/src/controllers/category.controller.ts
+@@ -1,23 +1,23 @@
+ import { Request, Response } from "express";
+-import { Category} from "../models/category";
++import { Category } from "../models/category";
+ 
+ export const getFilteredCategories = async (req: Request, res: Response) => {
+-console.log("User is trying to get some categories");
+-try {
+-const search = req.query.search! as string;
+-console.log("What the user is trying to search for: ", search);
+-const categories = await Category.find({
+-name: { $regex: new RegExp(search, "i") }
+-}).exec();
+-res.status(200).json(categories);
+-} catch (error: any) {
+-res.status(500).json({ message: error.message });
+-}
++  console.log("User is trying to get some categories");
++  try {
++    const search = req.query?.search as string | undefined;
++    console.log("What the user is trying to search for: ", search);
++    const categories = await Category.find({
++      name: { $regex: new RegExp(search ?? "", "i") },
++    }).exec();
++    res.status(200).json(categories);
++  } catch (error: any) {
++    res.status(500).json({ message: error.message });
++  }
+ };
+ 
+ export const createCategory = async (req: Request, res: Response) => {
+   try {
+-    const { name, image } = req.body; 
++    const { name, image } = req.body;
+ 
+     const category = new Category({
+       name,
+@@ -59,7 +59,8 @@ export const updateCategory = async (req: Request, res: Response) => {
+   try {
+     const { id } = req.params;
+     const { name, image } = req.body;
+-    const category = await Category.findByIdAndUpdate(id, { name, image }).exec();
++    const category = await Category.findByIdAndUpdate(id, { name, image })
++      .exec();
+     if (!category) {
+       res.status(404).json({ message: "Category not found" });
+     } else {
+@@ -68,7 +69,7 @@ export const updateCategory = async (req: Request, res: Response) => {
+   } catch (error: any) {
+     console.error(error);
+     res.status(500).json({ message: "Unknown error" });
+-  } 
++  }
+ };
+ 
+ export const deleteCategory = async (req: Request, res: Response) => {
+@@ -84,4 +85,4 @@ export const deleteCategory = async (req: Request, res: Response) => {
+     console.error(error);
+     res.status(500).json({ message: "Unknown error" });
+   }
+-};
+\ No newline at end of file
++};
+diff --git a/api/src/controllers/index.ts b/api/src/controllers/index.ts
+index a5fdf16..c8411fc 100644
+--- a/api/src/controllers/index.ts
++++ b/api/src/controllers/index.ts
+@@ -1,3 +1,2 @@
+ export * from "./category.controller"; // Export all controllers
+-export * from "./meal.controller"
+-//export { getFilteredCategories } from "./getFilteredCategories";
++export * from "./meal.controller";
+diff --git a/api/src/controllers/meal.controller.ts b/api/src/controllers/meal.controller.ts
+index 497729a..b210507 100644
+--- a/api/src/controllers/meal.controller.ts
++++ b/api/src/controllers/meal.controller.ts
+@@ -2,43 +2,54 @@ import { Request, Response } from "express";
+ import { Meal } from "../models";
+ 
+ export const createMeal = async (req: Request, res: Response) => {
+-    try {
+-      const { name, description, price, image, category } = req.body;
+-  
+-      const meal = new Meal({
+-        name,
+-        description,
+-        price,
+-        image,
+-        category,
+-      });
+-  
+-      await meal.save();
+-      console.log("تمت إضافة وجبة إلى قاعدة البيانات");
+-      res.status(201).json(meal);
+-    } catch (error: any) {
+-      console.error(error);
+-      res.status(500).json({ message: error.message });
+-    }
++  try {
++    const { name, description, price, image, category } = req.body;
++
++    const meal = new Meal({
++      name,
++      description,
++      price,
++      image,
++      category,
++    });
++
++    await meal.save();
++    console.log("تمت إضافة وجبة إلى قاعدة البيانات");
++    res.status(201).json(meal);
++  } catch (error: any) {
++    console.error(error);
++    res.status(500).json({ message: error.message });
++  }
+ };
+ 
+ export const getAllMeals = async (req: Request, res: Response) => {
+-    try {
+-      const meals = await Meal.find().exec();
+-      res.status(200).json(meals);
+-    } catch (error: any) {
+-      res.status(500).json({ message: error.message });
+-    }
++  // Query GET param
++  console.log(req.query);
++  const query = req.query.query as (string | undefined);
++
++  try {
++    // const categories = await Category.find({
++    //   name: { $regex: new RegExp(search, "i") },
++    // }).exec();
++    const meals = await Meal.find({
++      name: { $regex: new RegExp(query ?? "", "i") },
++    })
++      .exec();
++    console.log(meals);
++    res.status(200).json(meals);
++  } catch (error: any) {
++    res.status(500).json({ message: error.message });
++  }
+ };
+ 
+ export const getMeal = async (req: Request, res: Response) => {
+-    try {
+-      const meal = await Meal.findById(req.params.id).exec();
+-      res.status(200).json(meal);
+-    } catch (err) {
+-      console.error(err);
+-      res.status(500).json({ message: "حدث خطأ!" });
+-    }
++  try {
++    const meal = await Meal.findById(req.params.id).exec();
++    res.status(200).json(meal);
++  } catch (err) {
++    console.error(err);
++    res.status(500).json({ message: "حدث خطأ!" });
++  }
+ };
+ 
+ // Update a meal by ID
+@@ -65,19 +76,20 @@ export const updateMeal = async (req: Request, res: Response) => {
+     res.status(200).json(meal);
+   } catch (err) {
+     console.error(err);
+-    res.status(500).json({ message: "An error occurred while updating the meal" });
++    res.status(500).json({
++      message: "An error occurred while updating the meal",
++    });
+   }
+ };
+ 
+-
+ export const deleteMeal = async (req: Request, res: Response) => {
+-    try {
+-      const meal = await Meal.findOneAndDelete({
+-        _id: req.params.id,
+-      }).exec();
+-      res.status(200).json(meal);
+-    } catch (err) {
+-      console.error(err);
+-      res.status(500).json({ message: "حدث خطأ!" });
+-    }
+-}; 
+\ No newline at end of file
++  try {
++    const meal = await Meal.findOneAndDelete({
++      _id: req.params.id,
++    }).exec();
++    res.status(200).json(meal);
++  } catch (err) {
++    console.error(err);
++    res.status(500).json({ message: "حدث خطأ!" });
++  }
++};
+diff --git a/api/src/models/MealModel.ts b/api/src/models/MealModel.ts
+new file mode 100644
+index 0000000..294e8b6
+--- /dev/null
++++ b/api/src/models/MealModel.ts
+@@ -0,0 +1,10 @@
++export interface MealModel {
++    _id: string;
++    name: string;
++    price: number;
++    image: string;
++    categoryID: string;
++    category_name: string;
++    description: string;
++    category: string;
++  }
+\ No newline at end of file
+diff --git a/api/src/routes/category.routes.ts b/api/src/routes/category.routes.ts
+index a0766c7..46395a1 100644
+--- a/api/src/routes/category.routes.ts
++++ b/api/src/routes/category.routes.ts
+@@ -18,4 +18,4 @@ router.put("/:id", updateCategory);
+ router.delete("/:id", deleteCategory);
+ 
+ 
+-export default router;
+\ No newline at end of file
++export default router;
+diff --git a/api/src/viewmodel/MealViewModel.ts b/api/src/viewmodel/MealViewModel.ts
+new file mode 100644
+index 0000000..21f4824
+--- /dev/null
++++ b/api/src/viewmodel/MealViewModel.ts
+@@ -0,0 +1,81 @@
++// MealViewModel.ts
++import { MealModel } from '../models/MealModel';
++
++export class MealViewModel {
++  private meal: MealModel;
++
++  constructor(meal: MealModel) {
++    this.meal = meal;
++  }
++
++  get id(): string {
++    return this.meal._id;
++  }
++
++  get name(): string {
++    return this.meal.name;
++  }
++
++  get discountedPrice(): number {
++    // Apply 20% discount
++    return this.meal.price * 0.8;
++  }
++
++  get image(): string {
++    return this.meal.image;
++  }
++
++  get categoryID(): string {
++    return this.meal.categoryID;
++  }
++
++  get categoryName(): string {
++    return this.meal.category_name;
++  }
++
++  get description(): string {
++    return this.meal.description;
++  }
++
++  get category(): string {
++    return this.meal.category;
++  }
++}
++
++// Node.js code to fetch meals from MongoDB and convert them to MealViewModels
++
++import { MealModel } from './MealModel';
++import { MealViewModel } from './MealViewModel';
++
++const url = 'localhost:3000/api/meals/meals'; // MongoDB connection URL
++const dbName = 'momfood'; // Name of your MongoDB database
++const collectionName = 'meals'; // Name of the collection storing meals
++
++async function fetchMealsFromDB(): Promise<MealModel[]> {
++  let client: MongoClient;
++  try {
++    // Connect to MongoDB
++    client = await MongoClient.connect(url);
++    const db: Db = client.db(dbName);
++    const collection: Collection = db.collection(collectionName);
++
++    // Fetch meals
++    const mealsCursor = collection.find({});
++    const meals: MealModel[] = await mealsCursor.toArray();
++
++    return meals;
++  } catch (error) {
++    console.error('Error fetching meals from MongoDB:', error);
++    throw error;
++  } finally {
++    // Close the MongoDB connection
++    if (client) {
++      client.close();
++    }
++  }
++}
++
++async function getMealViewModels(): Promise<MealViewModel[]> {
++  const meals = await fetchMealsFromDB();
++  return meals.map(meal => new MealViewModel(meal));
++}
+diff --git a/app/android/.gradle/7.6.3/executionHistory/executionHistory.bin b/app/android/.gradle/7.6.3/executionHistory/executionHistory.bin
+index bc89794..9931cc1 100644
+Binary files a/app/android/.gradle/7.6.3/executionHistory/executionHistory.bin and b/app/android/.gradle/7.6.3/executionHistory/executionHistory.bin differ
+diff --git a/app/android/.gradle/7.6.3/executionHistory/executionHistory.lock b/app/android/.gradle/7.6.3/executionHistory/executionHistory.lock
+index 97669e1..c98b7f0 100644
+Binary files a/app/android/.gradle/7.6.3/executionHistory/executionHistory.lock and b/app/android/.gradle/7.6.3/executionHistory/executionHistory.lock differ
+diff --git a/app/android/.gradle/7.6.3/fileHashes/fileHashes.bin b/app/android/.gradle/7.6.3/fileHashes/fileHashes.bin
+index 41c7330..a4cc0f7 100644
+Binary files a/app/android/.gradle/7.6.3/fileHashes/fileHashes.bin and b/app/android/.gradle/7.6.3/fileHashes/fileHashes.bin differ
+diff --git a/app/android/.gradle/7.6.3/fileHashes/fileHashes.lock b/app/android/.gradle/7.6.3/fileHashes/fileHashes.lock
+index f59e13a..f69846a 100644
+Binary files a/app/android/.gradle/7.6.3/fileHashes/fileHashes.lock and b/app/android/.gradle/7.6.3/fileHashes/fileHashes.lock differ
+diff --git a/app/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock b/app/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock
+index 3ca1b3a..dfece3d 100644
+Binary files a/app/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock and b/app/android/.gradle/buildOutputCleanup/buildOutputCleanup.lock differ
+diff --git a/app/android/.gradle/buildOutputCleanup/outputFiles.bin b/app/android/.gradle/buildOutputCleanup/outputFiles.bin
+index 2eb2cf4..b540392 100644
+Binary files a/app/android/.gradle/buildOutputCleanup/outputFiles.bin and b/app/android/.gradle/buildOutputCleanup/outputFiles.bin differ
+diff --git a/app/android/gradlew b/app/android/gradlew
+old mode 100644
+new mode 100755
+diff --git a/app/android/local.properties b/app/android/local.properties
+index b0e901f..04fddf7 100644
+--- a/app/android/local.properties
++++ b/app/android/local.properties
+@@ -1,5 +1,11 @@
++<<<<<<< HEAD
+ sdk.dir=C:/Users/Lenovo/AppData/Local/Android/Sdk
+ flutter.sdk=C:\\dev\\flutter
++=======
++sdk.dir=/mnt/projects/Android/Sdk
++flutter.sdk=/opt/flutter
++=======
++>>>>>>> origin/offer-experiment
+ flutter.buildMode=debug
+ flutter.versionName=1.0.0
+ flutter.versionCode=1
+\ No newline at end of file
+diff --git a/app/build/app/tmp/packLibsflutterBuildDebug/MANIFEST.MF b/app/build/app/tmp/packLibsflutterBuildDebug/MANIFEST.MF
+index 59499bc..58630c0 100644
+--- a/app/build/app/tmp/packLibsflutterBuildDebug/MANIFEST.MF
++++ b/app/build/app/tmp/packLibsflutterBuildDebug/MANIFEST.MF
+@@ -1,2 +1,2 @@
+-Manifest-Version: 1.0
+-
++Manifest-Version: 1.0
++
+diff --git a/app/lib/Model/MealModel.dart b/app/lib/Model/MealModel.dart
+index f30e653..f135dd2 100644
+--- a/app/lib/Model/MealModel.dart
++++ b/app/lib/Model/MealModel.dart
+@@ -20,7 +20,7 @@ class Meal {
+       id: json['_id'], // Adjust this based on your actual ID field
+       name: json['name'],
+       description: json['description'],
+-      price: json['price'].toDouble(),
++      price: double.tryParse(json['price']) ?? 0,
+       image: json['image'],
+       categoryId: json['category'], // Assuming the category ID is stored here
+     );
+diff --git a/app/lib/Model/offer-model.dart b/app/lib/Model/offer-model.dart
+new file mode 100644
+index 0000000..136d867
+--- /dev/null
++++ b/app/lib/Model/offer-model.dart
+@@ -0,0 +1,31 @@
++import 'package:flutter/material.dart';
++import 'package:http/http.dart' as http;
++import 'dart:convert';
++
++class Meal {
++  final String name;
++  final double price;
++  final String category;
++  final String imagePath;
++
++  Meal({
++    required this.name,
++    required this.price,
++    required this.category,
++    required this.imagePath,
++  });
++
++  factory Meal.fromJson(Map<String, dynamic> json) {
++    print("Trying to parse json");
++    print("Object I received: $json");
++    // print("Price after parsing: ${double.tryParse(json['price'].toString() ?? "0")}");
++    print("DONE");
++
++    return Meal(
++      name: json['name'] ?? "Unnamed",
++      price: double.tryParse(json['price'].toString() ?? "0") ?? 0,
++      category: json['category'] ?? "Unknown",
++      imagePath: json['image'],
++    );
++  }
++}
+diff --git a/app/lib/Services/MealCatecoryServices.dart b/app/lib/Services/MealCatecoryServices.dart
+index b004fe2..62795ce 100644
+--- a/app/lib/Services/MealCatecoryServices.dart
++++ b/app/lib/Services/MealCatecoryServices.dart
+@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
+ import '../Model/mealCategoryModel.dart';
+ 
+ class MealCategoryServices {
+-  static const url = "http://10.0.2.2:3000/api/categories";
++  static const url = "http://127.0.0.1:3000/api/categories";
+ 
+   Future<List<MealCategory>> fetchAllMealCategories() async {
+     try {
+diff --git a/app/lib/Services/MealServices.dart b/app/lib/Services/MealServices.dart
+index d31d5e7..8e2b6b8 100644
+--- a/app/lib/Services/MealServices.dart
++++ b/app/lib/Services/MealServices.dart
+@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
+ import '../Model/MealModel.dart';
+ 
+ Future<List<Meal>> fetchMealsByCategory(String categoryId) async {
+-  final response = await http.get(Uri.parse('http://localhost:3000/api/meals/meals/$categoryId'));
++  final response = await http.get(Uri.parse('http://127.0.0.1:3000/api/meals/meals/$categoryId'));
+   if (response.statusCode == 200) {
+     final List<dynamic> data = json.decode(response.body);
+     return data.map((json) => Meal.fromJson(json)).toList();
+diff --git a/app/lib/View/Screens/Home.dart b/app/lib/View/Screens/Home.dart
+index d6f169a..15e6b27 100644
+--- a/app/lib/View/Screens/Home.dart
++++ b/app/lib/View/Screens/Home.dart
+@@ -1,3 +1,5 @@
++import 'package:app/View/Screens/offer.dart';
++import 'package:app/View/Screens/offer_list_view.dart';
+ import 'package:flutter/material.dart';
+ import 'package:provider/provider.dart';
+ import '../../Model/search-model.dart';
+@@ -32,12 +34,12 @@ class _HomePageState extends State<HomePage> {
+         darkTheme: darkMode, // Dark theme
+         home: Scaffold(
+           appBar: PreferredSize(
+-            preferredSize: Size.fromHeight(100.0), // Adjust the height as needed
++            preferredSize: Size.fromHeight(130.0), // Adjust the height as needed
+             child: Column(
+               children: [
+                 MyAppBar(title: MomFoodTitle(), isLightTheme: !isDarkMode),
+                 Padding(
+-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
++                  padding: const EdgeInsets.symmetric(horizontal: 26.0),
+                   child: CustomSearchBar(
+                     onSearch: (query) {
+                       momFood.search(query);
+@@ -53,19 +55,19 @@ class _HomePageState extends State<HomePage> {
+                 child: taps[_selectedIndex],
+               ),
+               if (momFood.categories.isNotEmpty)
+-                Expanded(
+-                  child: ListView.builder(
+-                    itemCount: momFood.categories.length,
+-                    itemBuilder: (context, index) {
+-                      final category = momFood.categories[index];
+-                      return ListTile(
+-                        title: Text(category.name),
+-                        subtitle: Text('Price: ${category.price}, Offer: ${category.offer}'),
+-                        leading: Image.network(category.image),
+-                      );
+-                    },
+-                  ),
++              Expanded(
++                child: ListView.builder(
++                  itemCount: momFood.categories.length,
++                  itemBuilder: (context, index) {
++                    final category = momFood.categories[index];
++                    return ListTile(
++                      title: Text(category.name),
++                      subtitle: Text('Price: ${category.price}, Offer: ${category.offer}'),
++                      leading: Image.network(category.image),
++                    );
++                  },
+                 ),
++              ),
+             ],
+           ),
+           bottomNavigationBar: CustomBottomNavBar(
+@@ -82,8 +84,8 @@ class _HomePageState extends State<HomePage> {
+   }
+ 
+   List<Widget> taps = [
+-  const HomeTap(),
+-  //const CartTap(),
+-  //const ProfileTap(),
++    OfferListView(),
++    //const CartTap(),
++    //const ProfileTap(),
+   ];
+-}
+\ No newline at end of file
++}
+diff --git a/app/lib/View/Screens/OfferMeals.dart b/app/lib/View/Screens/OfferMeals.dart
+index 8e2351b..e833cbd 100644
+--- a/app/lib/View/Screens/OfferMeals.dart
++++ b/app/lib/View/Screens/OfferMeals.dart
+@@ -45,4 +45,4 @@ class MealOfferScreen extends StatelessWidget {
+       ),
+     );
+   }
+-}
+\ No newline at end of file
++}
+diff --git a/app/lib/View/Screens/OnBoarding1.dart b/app/lib/View/Screens/OnBoarding1.dart
+index 877976a..b4d52d7 100644
+--- a/app/lib/View/Screens/OnBoarding1.dart
++++ b/app/lib/View/Screens/OnBoarding1.dart
+@@ -7,8 +7,6 @@ import 'Home.dart';
+ import 'OnBoarding2.dart';
+ 
+ class Onboarding1 extends StatefulWidget {
+- // final ThemeMode themeMode;
+-
+   Onboarding1();
+ 
+   @override
+@@ -49,9 +47,8 @@ class _Onboarding1State extends State<Onboarding1> {
+               ),
+               SizedBox(height: 15),
+               SizedBox(width: 15),
+-
+               Padding(
+-                padding: const EdgeInsets.only(top: 50,left: 20),
++                padding: const EdgeInsets.only(top: 50, left: 20),
+                 child: Container(
+                   constraints: BoxConstraints.expand(width: 219, height: 229.25),
+                   child: Image.asset(
+@@ -71,33 +68,45 @@ class _Onboarding1State extends State<Onboarding1> {
+                       text: ' اهلا ',
+                       style: TextStyle(
+                         fontSize: 26,
+-                        color: Theme.of(context).brightness == Brightness.dark ? AppColors.textColor2 : AppColors.textColor1,
++                        color: Theme.of(context).brightness == Brightness.dark
++                            ? AppColors.textColor2
++                            : AppColors.textColor1,
+                       ),
+                       children: <TextSpan>[
+                         TextSpan(
+                           text: 'بكم',
+                           style: TextStyle(
+                             fontWeight: FontWeight.bold,
+-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
++                            color:
++                                Theme.of(context).brightness == Brightness.dark
++                                    ? AppColors.primary2
++                                    : AppColors.primary1,
+                           ),
+                         ),
+                         TextSpan(
+                           text: ' في ',
+-
+                         ),
+                         TextSpan(
+                           text: 'عالم',
+                           style: TextStyle(
+                             fontWeight: FontWeight.bold,
+-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
++                            color:
++                                Theme.of(context).brightness == Brightness.dark
++                                    ? AppColors.primary2
++                                    : AppColors.primary1,
+                           ),
+                         ),
+-                        TextSpan(text: ' النكهات ',),
++                        TextSpan(
++                          text: ' النكهات ',
++                        ),
+                         TextSpan(
+                           text: 'الاصيلة',
+                           style: TextStyle(
+                             fontWeight: FontWeight.bold,
+-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
++                            color:
++                                Theme.of(context).brightness == Brightness.dark
++                                    ? AppColors.primary2
++                                    : AppColors.primary1,
+                           ),
+                         ),
+                         TextSpan(text: ', حيث كل '),
+@@ -105,7 +114,10 @@ class _Onboarding1State extends State<Onboarding1> {
+                           text: 'طبق',
+                           style: TextStyle(
+                             fontWeight: FontWeight.bold,
+-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
++                            color:
++                                Theme.of(context).brightness == Brightness.dark
++                                    ? AppColors.primary2
++                                    : AppColors.primary1,
+                           ),
+                         ),
+                         TextSpan(text: ' يروي '),
+@@ -113,7 +125,10 @@ class _Onboarding1State extends State<Onboarding1> {
+                           text: 'قصته',
+                           style: TextStyle(
+                             fontWeight: FontWeight.bold,
+-                            color: Theme.of(context).brightness == Brightness.dark ? AppColors.primary2 : AppColors.primary1,
++                            color:
++                                Theme.of(context).brightness == Brightness.dark
++                                    ? AppColors.primary2
++                                    : AppColors.primary1,
+                           ),
+                         ),
+                       ],
+@@ -133,7 +148,8 @@ class _Onboarding1State extends State<Onboarding1> {
+                       if (index == 1) {
+                         Navigator.push(
+                           context,
+-                          MaterialPageRoute(builder: (context) => Onboarding2Screen()),
++                          MaterialPageRoute(
++                              builder: (context) => Onboarding2Screen()),
+                         );
+                       }
+                     },
+@@ -146,4 +162,4 @@ class _Onboarding1State extends State<Onboarding1> {
+       ),
+     );
+   }
+-}
+\ No newline at end of file
++}
+diff --git a/app/lib/View/Screens/OnBoarding2.dart b/app/lib/View/Screens/OnBoarding2.dart
+index c961cf5..7d6adf2 100644
+--- a/app/lib/View/Screens/OnBoarding2.dart
++++ b/app/lib/View/Screens/OnBoarding2.dart
+@@ -47,7 +47,11 @@ class Onboarding2Screen extends StatelessWidget {
+                   ),
+                   ContinueAsGuestButton(
+                       onPressed: (){
+-                        Navigator.pushReplacementNamed(context, '/Home');
++// <<<<<<< HEAD
++//                         Navigator.pushReplacementNamed(context, '/Home');
++// =======
++                        Navigator.pushReplacementNamed(context, '/offer');
++// >>>>>>> origin/offer-experiment
+                       }
+                   ),
+                   SizedBox(height: 10), // Spacing after "Complete as a guest" button
+diff --git a/app/lib/View/Screens/offer.dart b/app/lib/View/Screens/offer.dart
+new file mode 100644
+index 0000000..a1de7d8
+--- /dev/null
++++ b/app/lib/View/Screens/offer.dart
+@@ -0,0 +1,27 @@
++import 'package:app/View/Screens/offer_list_view.dart';
++import 'package:flutter/material.dart';
++
++class MealCategoryScreen extends StatelessWidget {
++  @override
++  Widget build(BuildContext context) {
++    return Scaffold(
++        appBar: AppBar(
++          title: Row(
++            mainAxisAlignment: MainAxisAlignment.end,
++            children: <Widget>[
++              Text(
++                'العروضات',
++                style: TextStyle(
++                  fontWeight: FontWeight.bold,
++                  fontSize: 26,
++                ),
++                textDirection: TextDirection.rtl,
++                textAlign: TextAlign.right,
++              ),
++            ],
++          ),
++        ),
++        body: OfferListView(),
++        );
++    }
++}
+diff --git a/app/lib/View/Widgets/cards/offer-card.dart b/app/lib/View/Widgets/cards/offer-card.dart
+new file mode 100644
+index 0000000..04a412c
+--- /dev/null
++++ b/app/lib/View/Widgets/cards/offer-card.dart
+@@ -0,0 +1,106 @@
++import 'dart:ffi';
++
++import 'package:app/colors.dart';
++import 'package:flutter/material.dart';
++
++class MealOfferCard extends StatelessWidget {
++  final String imagePath;
++  final String title;
++  final String originalPrice;
++  final double discountedPrice;
++
++  MealOfferCard({
++    required this.imagePath,
++    required this.title,
++    required this.originalPrice,
++    required this.discountedPrice,
++  });
++
++  @override
++  Widget build(BuildContext context) {
++    return Container(
++      width: 100,
++      height: 190,
++      margin: const EdgeInsets.fromLTRB(0, 0, 20, 30),
++      decoration: BoxDecoration(
++        border: Border.all(color: Colors.orange),
++        borderRadius: BorderRadius.circular(50),
++      ),
++      child: Column(
++        children: [
++          Padding(
++            padding: const EdgeInsets.only(top: 10),
++            child: ClipOval(
++              child: Image.network(
++                imagePath,
++                fit: BoxFit.cover,
++                width: 85,
++                height: 85,
++              ),
++            ),
++          ),
++          Container(
++            child: Text(
++              title,
++              textAlign: TextAlign.center,
++              style: const TextStyle(
++                fontWeight: FontWeight.bold,
++              ),
++            ),
++          ),
++          Container(
++            padding: const EdgeInsets.all(7),
++            child: Text(originalPrice,
++                style: const TextStyle(
++                  color: AppColors.primary1,
++                  decoration: TextDecoration.lineThrough,
++                )),
++          ),
++          // Discounted price
++          Container(
++            padding: const EdgeInsets.all(7),
++            child: Text(discountedPrice.toStringAsFixed(2).toString(),
++                style: const TextStyle(
++                  color: AppColors.primary2,
++                )),
++          ),
++          // Row(
++          //   mainAxisAlignment: MainAxisAlignment.center,
++          //   children: [
++          //     Image.asset(
++          //       originalPriceIconPath,
++          //       width: 20,
++          //       height: 20,
++          //     ),
++          //     SizedBox(width: 0),
++          //     Text(
++          //         originalPrice,
++          //         style: TextStyle(
++          //           color: AppColors.primary2,
++          //         )
++          //     ),
++          //   ],
++          // ),
++          // Row(
++          //   mainAxisAlignment: MainAxisAlignment.center,
++          //   children: [
++          //     Image.asset(
++          //       discountedPriceIconPath,
++          //       width: 20,
++          //       height: 20,
++          //     ),
++          //     SizedBox(width: 0),
++          //     Text(
++          //       discountedPrice,
++          //       style: const TextStyle(
++          //         decoration: TextDecoration.lineThrough,
++          //         color: AppColors.primary1,
++          //       ),
++          //     ),
++          //   ],
++          // ),
++        ],
++      ),
++    );
++  }
++}
+diff --git a/app/lib/View/Widgets/search-bar.dart b/app/lib/View/Widgets/search-bar.dart
+index 740a3a7..e137b05 100644
+--- a/app/lib/View/Widgets/search-bar.dart
++++ b/app/lib/View/Widgets/search-bar.dart
+@@ -1,3 +1,4 @@
++import 'package:app/ViewModel/meal_view_mode.dart';
+ import 'package:app/main.dart';
+ import 'package:flutter/material.dart';
+ import 'package:app/themes/dark.dart';
+@@ -29,7 +30,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
+   Widget build(BuildContext context) {
+     return Row(
+       children: [
+-        Expanded(child: Consumer<MomFood>(builder: (context, momFood, child) {
++        Expanded(child: Consumer2<MomFood, MealViewModel>(builder: (context, momFood, mealViewModel, child) {
+           return TextField(
+             controller: _controller,
+             decoration: InputDecoration(
+@@ -38,7 +39,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
+                 icon: Icon(Icons.search),
+                 onPressed: () {
+                   String query = _controller.text.trim();
+-                  momFood.search(query);
++                  // momFood.search(query);
++                  mealViewModel.search(query);
+                 },
+               ),
+             ),
+@@ -75,4 +77,4 @@ extension ThemeDataExtension on ThemeData {
+ 
+     // Apply the modified theme
+   }
+-}
+\ No newline at end of file
++}
+diff --git a/app/lib/ViewModel/meal_view_mode.dart b/app/lib/ViewModel/meal_view_mode.dart
+new file mode 100644
+index 0000000..ae8f5f5
+--- /dev/null
++++ b/app/lib/ViewModel/meal_view_mode.dart
+@@ -0,0 +1,32 @@
++import 'package:flutter/material.dart';
++import 'package:http/http.dart' as http;
++import 'dart:convert';
++import '../Model/offer-model.dart';
++
++class MealViewModel extends ChangeNotifier {
++  List<Meal> meals = [];
++
++  Future<void> search(String query) async {
++    final response =
++        await http.get(Uri.parse('http://127.0.0.1:3000/api/meals?query=$query'));
++    if (response.statusCode == 200) {
++      List<dynamic> mealsData = json.decode(response.body);
++      print("FETCHING MEALS");
++      meals = mealsData.map((mealJson) => Meal.fromJson(mealJson)).toList();
++      print(meals.length);
++      print("THOSE ARE THE MEALS");
++    } else {
++      throw Exception('Failed to fetch meals');
++    }
++  }
++  Future<void> fetchMeals() async {
++    final response =
++        await http.get(Uri.parse('http://127.0.0.1:3000/api/meals'));
++    if (response.statusCode == 200) {
++      List<dynamic> mealsData = json.decode(response.body);
++      meals = mealsData.map((mealJson) => Meal.fromJson(mealJson)).toList();
++    } else {
++      throw Exception('Failed to fetch meals');
++    }
++  }
++}
+diff --git a/app/lib/main.dart b/app/lib/main.dart
+index f7a46fb..e483a54 100644
+--- a/app/lib/main.dart
++++ b/app/lib/main.dart
+@@ -1,6 +1,7 @@
++import 'package:app/View/Screens/Home.dart';
++import 'package:app/ViewModel/meal_view_mode.dart';
+ import 'package:flutter/material.dart';
+ import 'Model/search-model.dart';
+-import 'View/Screens/Home.dart';
+ import 'View/Screens/OnBoarding2.dart';
+ import 'View/Screens/SplashScreen.dart';
+ import 'View/Screens/OnBoarding1.dart';
+@@ -9,12 +10,16 @@ import 'themes/light.dart';
+ import 'themes/theme-provider.dart';
+ import 'package:provider/provider.dart';
+ 
++import 'View/Screens/offer.dart';
++import 'package:app/View/Widgets/app_bar.dart';
++
+ void main() {
+   Provider.debugCheckInvalidValueType = null;
+   runApp(
+     MultiProvider(
+       providers: [
+         ChangeNotifierProvider(create: (_) => MomFood()),
++        ChangeNotifierProvider(create: (_) => MealViewModel()),
+       ],
+       child: MyApp(),
+     ),
+@@ -30,24 +35,38 @@ class _MyAppState extends State<MyApp> {
+   @override
+   Widget build(BuildContext context) {
+     return ChangeNotifierProvider(
+-        create: (context) => ThemeProvider(),
+-        child: Consumer<ThemeProvider>(
+-            builder: (context, themeProvider, child) {
+-              return MaterialApp(
+-                title: 'Flutter Demo',
+-                themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+-                theme: lightMode,
+-                darkTheme: darkMode,
+-                initialRoute: '/',
+-                routes: {
+-                  '/': (context) => SplashScreen(),
+-                  '/onboarding1': (context) => Onboarding1(),
+-                  '/onboarding2': (context) => Onboarding2Screen(),
+-                  '/Home': (context) => HomePage(),
++      create: (context) => ThemeProvider(),
++      child: Consumer<ThemeProvider>(
++        builder: (context, themeProvider, child) {
++          return MaterialApp(
++            title: 'Flutter Demo',
++            themeMode:
++                themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
++            theme: themeProvider.isDarkMode ? darkMode : lightMode,
++            home: Scaffold(
++              appBar: MyAppBar(
++                title: 'Mom Food',
++                isLightTheme: !themeProvider.isDarkMode,
++              ),
++              body: SplashScreen(),
++              floatingActionButton: FloatingActionButton(
++                onPressed: () {
++                  themeProvider.toggleTheme();
+                 },
+-              );
++                tooltip: 'Switch',
++                child: Icon(
++                  themeProvider.getThemeIcon(),
++                ),
++              ),
++            ),
++            routes: {
++              '/onboarding1': (context) => Onboarding1(),
++              '/onboarding2': (context) => Onboarding2Screen(),
++              '/offer': (context) => HomePage(),
+             },
+-        ),
+-        );
+-    }
+-}
+\ No newline at end of file
++          );
++        },
++      ),
++    );
++  }
++}
+diff --git a/app/pubspec.lock b/app/pubspec.lock
+index 465629b..8697e1e 100644
+--- a/app/pubspec.lock
++++ b/app/pubspec.lock
+@@ -102,6 +102,14 @@ packages:
+     description: flutter
+     source: sdk
+     version: "0.0.0"
++  flutter_dotenv:
++    dependency: "direct main"
++    description:
++      name: flutter_dotenv
++      sha256: "9357883bdd153ab78cbf9ffa07656e336b8bbb2b5a3ca596b0b27e119f7c7d77"
++      url: "https://pub.dev"
++    source: hosted
++    version: "5.1.0"
+   flutter_launcher_icons:
+     dependency: "direct dev"
+     description:
+diff --git a/app/pubspec.yaml b/app/pubspec.yaml
+index 61efb0c..6fefb11 100644
+--- a/app/pubspec.yaml
++++ b/app/pubspec.yaml
+@@ -38,6 +38,7 @@ dependencies:
+   cupertino_icons: ^1.0.6
+   smooth_page_indicator: ^1.0.0+2
+   provider: ^6.1.2
++  flutter_dotenv: ^5.1.0
+ 
+ dev_dependencies:
+   flutter_test:
