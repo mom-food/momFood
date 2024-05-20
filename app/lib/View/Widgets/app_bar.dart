@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../themes/theme-provider.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
@@ -8,6 +10,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     Key? key,
     required this.title,
     required this.isLightTheme,
+
   }) : super(key: key);
 
   @override
@@ -15,6 +18,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return AppBar(
       title: Column(
         children: [
@@ -94,6 +98,29 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: true,
       backgroundColor: isLightTheme ? Colors.white : Colors.black, // تم تعديل هنا لتناسب الثيم
       automaticallyImplyLeading: false,
+=======
+    return Consumer<ThemeProvider>(
+        builder: (context, themeProvider, child) {
+      return AppBar(
+        title: _buildTitleWidget(),
+        centerTitle: true,
+        backgroundColor:
+        themeProvider.isDarkMode ? Colors.black : Colors.white,
+        automaticallyImplyLeading: false,
+        actions: [
+          IconButton(
+            icon: Icon(
+              themeProvider.getThemeIcon(),
+              color: themeProvider.isDarkMode ? Colors.white : Colors.black,
+            ),
+            onPressed: () {
+              themeProvider.toggleTheme();
+            },
+          ),
+        ],
+      );
+        },
+>>>>>>> origin/home
     );
   }
 }
