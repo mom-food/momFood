@@ -9,7 +9,6 @@ class FoodDetailsPage extends StatelessWidget {
   FoodDetailsPage(this.cart);
   @override
   Widget build(BuildContext context) {
-    MealDetailsModel? meal ;
     MealDetailsServices mealDetailsServices = new MealDetailsServices();
     return Scaffold(
       appBar: AppBar(
@@ -88,7 +87,7 @@ class FoodDetailsPage extends StatelessWidget {
                   padding: EdgeInsets.all(16.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      cart.addItem(meal);
+                      cartItems.add(meal);
                       Navigator.pushNamed(context, '/cart');
                     },
                     child: Text('أضف إلى السلة', style: TextStyle(
