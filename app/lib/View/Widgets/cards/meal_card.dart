@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../Model/MealModel.dart';
+import '../../../Model/meal-model.dart';
 import '../../../colors.dart';
 
 class MealCard extends StatelessWidget {

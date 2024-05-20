@@ -1,6 +1,6 @@
 import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
-import '../../Model/MealModel.dart';
+import '../../Model/meal-model.dart';
 import '../../Services/MealServices.dart';
 import '../Widgets/cards/meal_card.dart';
 
