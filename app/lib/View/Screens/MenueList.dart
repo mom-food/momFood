@@ -1,19 +1,17 @@
 import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../../Model/MealModel.dart';
 import '../../Services/MealServices.dart';
 import '../Widgets/cards/meal_card.dart';
 import '../Screens/FoodDetails.dart';
 
-import 'package:flutter/material.dart';
-import '../../Model/MealModel.dart'; // Ensure this model has all needed properties.
-import '../../Services/MealServices.dart';
-import '../Widgets/cards/meal_card.dart';
+import 'Cart.dart';
 
 
 class MealList extends StatelessWidget {
   final String categoryId;
-
+  final Cart cart=new Cart();
   MealList({required this.categoryId});
 
   @override
@@ -46,7 +44,7 @@ class MealList extends StatelessWidget {
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => FoodDetailsPage(mealId: meal.id),
+                      builder: (context) =>FoodDetailsPage(cart,  meal.id),
                     ),
                   ),
                 );
@@ -58,3 +56,6 @@ class MealList extends StatelessWidget {
     );
   }
 }
+
+
+
