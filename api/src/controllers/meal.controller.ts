@@ -2,16 +2,14 @@ import { Request, Response } from 'express';
 import { Meal } from '../models'; // Ensure this path correctly imports the Meal model
 import { Category } from '../models';
 
+
+
 export const createMeal = async (req: Request, res: Response) => {
 try {
 const { name, description, price, image, category } = req.body;
 
-const meal = new Meal({
-name,
-description,
-price,
-image,
-category,
+const meal = new Meal({name,description,price,image,category,
+
 });
 
 await meal.save();
@@ -89,5 +87,22 @@ res.status(200).json({message:"success",meal});
 } catch (err) {
 console.error(err);
 res.status(500).json({ message: "حدث خطأ!"});
+}
+};
+export const getFilteredMeals = async (req: Request, res: Response) => {
+try {
+const query = req.query.query as string;
+
+const meals = await Meal.find({
+$or: [
+{ name: { $regex: query, $options: 'i' } },
+{ description: { $regex: query, $options: 'i' } },
+{ category_name: { $regex: query, $options: 'i' } }
+]
+}).exec();
+
+res.status(200).json(meals);
+} catch (error: any) {
+res.status(500).json({ message: error.message });
 }
 };
