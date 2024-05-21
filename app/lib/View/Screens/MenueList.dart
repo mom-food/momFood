@@ -5,10 +5,9 @@ import '../Widgets/cards/meal_card.dart';
 import '../Screens/FoodDetails.dart';
 import 'Cart.dart';
 
-
 class MealList extends StatelessWidget {
   final String categoryId;
-  //final Cart cart=new Cart();
+  final Cart cart = new Cart();
   MealList({required this.categoryId});
 
   @override
@@ -36,15 +35,15 @@ class MealList extends StatelessWidget {
               itemCount: meals.length,
               itemBuilder: (context, index) {
                 final meal = meals[index];
-                /*return MealCard(
+                return MealCard(
                   meal: meal,
                   onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>FoodDetailsPage(cart,  meal.id),
+                      builder: (context) => FoodDetailsPage(cart, meal.id),
                     ),
                   ),
-                );*/
+                );
               },
             );
           }
@@ -53,6 +52,3 @@ class MealList extends StatelessWidget {
     );
   }
 }
-
-
-
