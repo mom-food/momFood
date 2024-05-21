@@ -4,14 +4,14 @@ import '../../../colors.dart';
 
 class MealCard extends StatelessWidget {
   final Meal meal;
-  final VoidCallback? onTap;  // Optional callback for handling taps
+  final VoidCallback? onTap;
 
   const MealCard({Key? key, required this.meal, this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(  // Wrap with GestureDetector to handle taps
-        onTap: onTap,  // Execute the passed callback when tapped, if provided
+    return GestureDetector(
+        onTap: onTap,
         child: Card(
             elevation: 8,
             child: Padding(

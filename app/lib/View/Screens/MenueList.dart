@@ -1,60 +1,59 @@
+import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
-import '../../../Model/MealModel.dart';
-import '../../../colors.dart';
+import '../../Model/MealModel.dart';
+import '../../Services/MealServices.dart';
+import '../Widgets/cards/meal_card.dart';
+import '../Screens/FoodDetails.dart';
 
-class MealCard extends StatelessWidget {
-  final Meal meal;
+import 'Cart.dart';
 
-  const MealCard({required this.meal});
+
+class MealList extends StatelessWidget {
+  final String categoryId;
+  final Cart cart=new Cart();
+  MealList({required this.categoryId});
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        elevation: 8,
-        child: Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                AspectRatio(
-                  aspectRatio: 1.0,
-                  child: Image.network(
-                    meal.image,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-                SizedBox(height: 8.0),
-                Text(
-                  meal.name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'FontMAIN',
-                  ),
-                  textAlign: TextAlign.right,
-                ),
-                SizedBox(height: 4.0),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "${meal.price.toStringAsFixed(2)}",
-                      style: TextStyle(
-                        color: AppColors.primary1,
-                        fontFamily: 'FontMAIN',
-                      ),
+    return Scaffold(
+      body: FutureBuilder<List<Meal>>(
+        future: fetchMealsByCategory(categoryId),
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error loading data: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No meals found.'));
+          } else {
+            final meals = snapshot.data!;
+            return GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                mainAxisSpacing: 20.0,
+                crossAxisSpacing: 40.0,
+                childAspectRatio: 0.7,
+              ),
+              padding: EdgeInsets.all(35.0),
+              itemCount: meals.length,
+              itemBuilder: (context, index) {
+                final meal = meals[index];
+                return MealCard(
+                  meal: meal,
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) =>FoodDetailsPage(cart,  meal.id),
                     ),
-                    Flexible(
-                      child: Image.network(
-                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRa4xaPQAo3oj2JwqaFHV2oxB27mk5SB11LQ3RCtoF-Vg&s",
-                        width: 10,
-                        height: 12,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            ),
-        );
-    }
+                  ),
+                );
+              },
+            );
+          }
+        },
+      ),
+    );
+  }
 }
+
+

@@ -5,6 +5,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Model/search-model.dart';
+import 'View/Screens/Cart.dart';
+import 'View/Screens/CartScreen.dart';
+import 'View/Screens/CategoryMeal.dart';
+import 'View/Screens/FoodDetails.dart';
 import 'ViewModel/meal_view_model.dart';
 import 'View/Screens/Home.dart';
 import 'View/Screens/OnBoarding1.dart';
@@ -46,6 +50,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  final Cart cart = new Cart();
   ThemeMode _themeMode = ThemeMode.light; // Set the default theme mode
 
   void _toggleTheme() {
@@ -84,7 +89,7 @@ class _MyAppState extends State<MyApp> {
                   title: 'Mom Food',
                   isLightTheme: !themeProvider.isDarkMode,
                 ),
-                body: SplashScreen(),
+                body: MealCategoryScreen(),
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
                     themeProvider.toggleTheme();
@@ -99,6 +104,11 @@ class _MyAppState extends State<MyApp> {
                 '/onboarding1': (context) => Onboarding1(),
                 '/onboarding2': (context) => Onboarding2Screen(),
                 '/Home': (context) => HomePage(),
+                '/MealCategoryScreen': (context) => MealCategoryScreen(),
+                '/cart': (context) => CartScreen(cart),
+
+
+
               },
             );
           },

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class MealCategoryScreen extends StatelessWidget {
+class MealOfferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

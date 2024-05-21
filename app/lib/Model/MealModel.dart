@@ -1,10 +1,10 @@
 class Meal {
-  final String id; // You might need an ID property if it's part of your schema
+  final String id;
   final String name;
   final String description;
   final double price;
   final String image;
-  final String categoryId; // Reference to the Category (category ID)
+  final String categoryId;
 
   Meal({
     required this.id,
@@ -17,12 +17,12 @@ class Meal {
 
   factory Meal.fromJson(Map<String, dynamic> json) {
     return Meal(
-      id: json['_id'], // Adjust this based on your actual ID field
+      id: json['_id'],
       name: json['name'],
       description: json['description'],
       price: json['price'].toDouble(),
       image: json['image'],
-      categoryId: json['category'], // Assuming the category ID is stored here
+      categoryId: json['category'],
     );
   }
 }
