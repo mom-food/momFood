@@ -11,3 +11,4 @@ class Cart {
     items.remove(meal);
   }
 }
+final List<MealDetailsModel> cartItems = [];
