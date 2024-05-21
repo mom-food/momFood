@@ -20,24 +20,7 @@ class SignUpScreenController extends ChangeNotifier {
   TextEditingController phone;
   TextEditingController password;
   TextEditingController repeatPassword;
-/*
-  Future<void> signUpWithEmail(String email, String password) async {
-    try {
-      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: email,
-        password: password,
-      );
-      // Create a new document for the user in the ‘users’ collection
-      await FirebaseFirestore.instance.collection(‘users’).doc(userCredential.user.uid).set({
-      ‘email’: email,
-      // Additional user data can be added here
-      });
-    } catch (e) {
-      print(‘Failed to sign up with email and password: $e’);
-    }
-  }
 
- */
   Future<void> createAccount() async {
     if(loading){
       return;
@@ -53,7 +36,7 @@ class SignUpScreenController extends ChangeNotifier {
         name: name.text,
         password: password.text,
         phone: phone.text);
-    bool result = await UserServices().signUp(request);
+        await UserServices().signUp(request);
     _updateStateLoading = false;
     //todo handle sign up result
   }
