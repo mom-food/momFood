@@ -98,7 +98,7 @@ class _MyAppState extends State<MyApp> {
               routes: {
                 '/onboarding1': (context) => Onboarding1(),
                 '/onboarding2': (context) => Onboarding2Screen(),
-                '/offer': (context) => HomePage(),
+                '/Home': (context) => HomePage(),
               },
             );
           },
