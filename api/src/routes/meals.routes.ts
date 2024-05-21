@@ -1,5 +1,3 @@
-// src/routes/meal.routes.ts
-
 import express from 'express';
 import {
   createMeal,
@@ -8,7 +6,8 @@ import {
   updateMeal,
   deleteMeal,
   getFilteredMeals,
-} from '../controllers'; // Import the meal controller functions
+  getMealsByCategory,
+} from '../controllers';
 
 const router = express.Router();
 
@@ -19,5 +18,6 @@ router.get('/:id', getMeal); // READ a meal by ID
 router.get('/search', getFilteredMeals); // SEARCH for meals
 router.put('/:id', updateMeal); // UPDATE a meal (using PUT method)
 router.delete('/:id', deleteMeal); // DELETE a meal
+router.get('/meals/:id', getMealsByCategory);
 
 export default router;
