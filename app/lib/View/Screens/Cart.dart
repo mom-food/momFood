@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import '../../Model/mealDetailsModel.dart';
 
 class Cart {
@@ -12,3 +13,5 @@ class Cart {
   }
 }
 final List<MealDetailsModel> cartItems = [];
+=======
+>>>>>>> origin/menue-list

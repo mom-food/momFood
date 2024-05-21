@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import 'package:app/Services/mealDetailsServices.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -117,3 +118,5 @@ class FoodDetailsPage extends StatelessWidget {
         );
     }
 }
+=======
+>>>>>>> origin/menue-list
