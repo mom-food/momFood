@@ -41,6 +41,37 @@ void main() async {
   runApp(MyApp());
 }
 
+final _router = GoRouter(
+  initialLocation: "/Home",
+  routes: [
+    GoRoute(
+      path: '/successful_checkout',
+      builder: (context, state) => SuccessCheckoutScreen(),
+    ),
+    GoRoute(
+      path: '/',
+      builder: (context, state) => HomePageScreen(),
+    ),
+    GoRoute(
+      path: '/Home',
+      builder: (context, state) => HomePageScreen(),
+    ),
+    GoRoute(
+      path: '/onboarding1',
+      builder: (context, state) => Onboarding1(),
+    ),
+    GoRoute(
+      path: '/onboarding2',
+      builder: (context, state) => Onboarding2Screen(),
+    ),
+    GoRoute(
+      path: '/meals/:mealId',
+      builder: (context, state) =>
+          MealDetailsScreen(mealId: state.pathParameters['mealId']!),
+    ),
+  ],
+);
+
 class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
@@ -55,7 +86,7 @@ class _MyAppState extends State<MyApp> {
   void _toggleTheme() {
     setState(() {
       _themeMode =
-      _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+          _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     });
   }
 

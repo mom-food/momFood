@@ -1,3 +1,4 @@
+import 'package:app/View/Screens/temporary_cart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -120,14 +121,9 @@ class _HomePageScreenState extends State<HomePageScreen> {
               index: _selectedIndex,
               children: [
                 MealOfferScreen(),
+                TemporaryCart(),
+                Text("اطلعوا برا"),
               ],
-            ),
-          ),
-          SizedBox(height: 0),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(0), // ضبط الحشو الداخلي
-              child: MealCategoryScreen(),
             ),
           ),
         ],
