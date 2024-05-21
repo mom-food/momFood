@@ -1,10 +1,9 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-
 import '../Model/mealCategoryModel.dart';
 
 class MealCategoryServices {
-  static const url = "http://localhost:3000/api/categories";
+  static const url = "http://10.0.2.2:3000/api/categories";
 
   Future<List<MealCategory>> fetchAllMealCategories() async {
     try {

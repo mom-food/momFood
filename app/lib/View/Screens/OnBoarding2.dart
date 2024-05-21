@@ -47,11 +47,7 @@ class Onboarding2Screen extends StatelessWidget {
                   ),
                   ContinueAsGuestButton(
                       onPressed: (){
-// <<<<<<< HEAD
-//                         Navigator.pushReplacementNamed(context, '/Home');
-// =======
-                        Navigator.pushReplacementNamed(context, '/offer');
-// >>>>>>> origin/offer-experiment
+                         Navigator.pushReplacementNamed(context, '/Home');
                       }
                   ),
                   SizedBox(height: 10), // Spacing after "Complete as a guest" button

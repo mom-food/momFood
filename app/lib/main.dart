@@ -72,37 +72,37 @@ class _MyAppState extends State<MyApp> {
           ChangeNotifierProvider(create: (_) => ThemeProvider()),
         ],
         child: Consumer<ThemeProvider>(
-            builder: (context, themeProvider, child) {
-              return MaterialApp(
-                title: 'Flutter Demo',
-                themeMode:
-                themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-                theme: themeProvider.isDarkMode ? darkMode : lightMode,
-                debugShowCheckedModeBanner: false,
-                home: Scaffold(
-                  appBar: MyAppBar(
-                    title: 'Mom Food',
-                    isLightTheme: !themeProvider.isDarkMode,
-                  ),
-                  body: SplashScreen(),
-                  floatingActionButton: FloatingActionButton(
-                    onPressed: () {
-                      themeProvider.toggleTheme();
-                    },
-                    tooltip: 'Switch',
-                    child: Icon(
-                      themeProvider.getThemeIcon(),
-                    ),
+          builder: (context, themeProvider, child) {
+            return MaterialApp(
+              title: 'Flutter Demo',
+              themeMode:
+              themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              theme: themeProvider.isDarkMode ? darkMode : lightMode,
+              debugShowCheckedModeBanner: false,
+              home: Scaffold(
+                appBar: MyAppBar(
+                  title: 'Mom Food',
+                  isLightTheme: !themeProvider.isDarkMode,
+                ),
+                body: SplashScreen(),
+                floatingActionButton: FloatingActionButton(
+                  onPressed: () {
+                    themeProvider.toggleTheme();
+                  },
+                  tooltip: 'Switch',
+                  child: Icon(
+                    themeProvider.getThemeIcon(),
                   ),
                 ),
-                routes: {
-                  '/onboarding1': (context) => Onboarding1(),
-                  '/onboarding2': (context) => Onboarding2Screen(),
-                  '/offer': (context) => HomePage(),
-                },
-              );
-            },
-           ),
+              ),
+              routes: {
+                '/onboarding1': (context) => Onboarding1(),
+                '/onboarding2': (context) => Onboarding2Screen(),
+                '/offer': (context) => HomePage(),
+              },
+            );
+          },
+        ),
         );
     }
 }

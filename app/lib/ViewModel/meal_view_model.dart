@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import '../Model/meal-model.dart';
+import '../Model/MealModel.dart';
 
 class MealViewModel extends ChangeNotifier {
   List<Meal> meals = [];
