@@ -1,10 +1,12 @@
 import 'dart:io';
+import 'package:app/View/Screens/Authentication/SignUp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'Model/search-model.dart';
+import 'View/Screens/controller/sign_up_screen_controller.dart';
 import 'ViewModel/meal_view_model.dart';
 import 'View/Screens/Home.dart';
 import 'View/Screens/OnBoarding1.dart';
@@ -70,6 +72,7 @@ class _MyAppState extends State<MyApp> {
           //ChangeNotifierProvider(create: (_) => MomFood()),
           ChangeNotifierProvider(create: (_) => MealViewModel()),
           ChangeNotifierProvider(create: (_) => ThemeProvider()),
+          ChangeNotifierProvider(create: (_) => SignUpScreenController())
         ],
         child: Consumer<ThemeProvider>(
             builder: (context, themeProvider, child) {
