@@ -8,7 +8,6 @@ import 'Model/search-model.dart';
 import 'View/Screens/Cart.dart';
 import 'View/Screens/CartScreen.dart';
 import 'View/Screens/CategoryMeal.dart';
-import 'View/Screens/FoodDetails.dart';
 import 'ViewModel/meal_view_model.dart';
 import 'View/Screens/Home.dart';
 import 'View/Screens/OnBoarding1.dart';
@@ -89,7 +88,7 @@ class _MyAppState extends State<MyApp> {
                   title: 'Mom Food',
                   isLightTheme: !themeProvider.isDarkMode,
                 ),
-                body: MealCategoryScreen(),
+                body: SplashScreen(),
                 floatingActionButton: FloatingActionButton(
                   onPressed: () {
                     themeProvider.toggleTheme();
@@ -106,8 +105,6 @@ class _MyAppState extends State<MyApp> {
                 '/Home': (context) => HomePage(),
                 '/MealCategoryScreen': (context) => MealCategoryScreen(),
                 '/cart': (context) => CartScreen(cart),
-
-
 
               },
             );
