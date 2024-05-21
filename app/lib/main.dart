@@ -102,6 +102,7 @@ class _MyAppState extends State<MyApp> {
                   '/onboarding1': (context) => Onboarding1(),
                   '/onboarding2': (context) => Onboarding2Screen(),
                   '/offer': (context) => HomePage(),
+                  '/sign-up': (context) => SignUpScreen(),
                 },
               );
             },
