@@ -11,7 +11,7 @@ import 'Cart.dart';
 
 class MealList extends StatelessWidget {
   final String categoryId;
-  final Cart cart=new Cart();
+  //final Cart cart=new Cart();
   MealList({required this.categoryId});
 
   @override
@@ -39,7 +39,7 @@ class MealList extends StatelessWidget {
               itemCount: meals.length,
               itemBuilder: (context, index) {
                 final meal = meals[index];
-                return MealCard(
+                /*return MealCard(
                   meal: meal,
                   onTap: () => Navigator.push(
                     context,
@@ -47,7 +47,7 @@ class MealList extends StatelessWidget {
                       builder: (context) =>FoodDetailsPage(cart,  meal.id),
                     ),
                   ),
-                );
+                );*/
               },
             );
           }

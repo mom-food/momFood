@@ -46,11 +46,11 @@ class _MealCategoryScreenState extends State<MealCategoryScreen> {
               itemCount: mealCategories.length,
               itemBuilder: (context, index) {
                 final category = mealCategories[index];
-                return MealCategoryCard(
+                /*return MealCategoryCard(
                   categoryId: category.id,
                   categoryName: category.name,
                   categoryImage: category.image,
-                );
+                );*/
               },
             );
           }
