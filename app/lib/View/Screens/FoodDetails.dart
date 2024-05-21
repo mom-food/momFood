@@ -1,24 +1,31 @@
 import 'package:app/Services/mealDetailsServices.dart';
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
 import '../../Model/mealDetailsModel.dart';
 import '../../colors.dart';
 import 'Cart.dart';
+import '../../Model/Cart_ItemModel.dart';
+
 class FoodDetailsPage extends StatelessWidget {
   final String mealId;
   final Cart cart;
 
   FoodDetailsPage(this.cart,this.mealId);
+
   @override
   Widget build(BuildContext context) {
-    MealDetailsServices mealDetailsServices = new MealDetailsServices();
+    final mealDetailsServices = MealDetailsServices();
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('Food Order / Food Details',  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-          fontSize: 22,
-          color: Colors.white, // Ensuring good contrast against the AppBar background
-          fontWeight: FontWeight.bold,
-        )),
+        title: Text(
+          'تفاصيل الطعام',
+          style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontSize: 22,
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(icon: Icon(Icons.share), onPressed: () {}),
           IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
@@ -28,11 +35,11 @@ class FoodDetailsPage extends StatelessWidget {
         future: mealDetailsServices.fetchMealDetails(mealId),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error: ${snapshot.error}'));
-          } else if (!snapshot.hasData || snapshot.data == null) {
-            return Center(child: Text('No data found'));
+          } else if (snapshot.data == null) {
+            return const Center(child: Text('No data found'));
           } else {
             MealDetailsModel meal = snapshot.data!;
             return Column(
@@ -106,7 +113,7 @@ class FoodDetailsPage extends StatelessWidget {
             );
           }
         },
-      ),
-    );
-  }
+          ),
+        );
+    }
 }
