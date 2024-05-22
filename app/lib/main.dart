@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app/View/Screens/Authentication/SignIn.dart';
 import 'package:app/View/Screens/Authentication/SignUp.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -103,6 +104,7 @@ class _MyAppState extends State<MyApp> {
                   '/onboarding2': (context) => Onboarding2Screen(),
                   '/offer': (context) => HomePage(),
                   '/sign-up': (context) => SignUpScreen(),
+                  '/signIn': (context) => SignInScreen(),
                 },
               );
             },
