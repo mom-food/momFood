@@ -21,7 +21,7 @@ class SignUpScreenController extends ChangeNotifier {
   TextEditingController password;
   TextEditingController repeatPassword;
 
-  Future<void> createAccount() async {
+  Future<void> createAccount(BuildContext context) async {
     if(loading){
       return;
     }
@@ -36,7 +36,10 @@ class SignUpScreenController extends ChangeNotifier {
         name: name.text,
         password: password.text,
         phone: phone.text);
-        await UserServices().signUp(request);
+    bool res = await UserServices().signUp(request);
+    if(res) {
+      Navigator.pushReplacementNamed(context, '/offer');
+    }
     _updateStateLoading = false;
     //todo handle sign up result
   }

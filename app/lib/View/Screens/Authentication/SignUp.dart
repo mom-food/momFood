@@ -47,7 +47,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 0,bottom: 5), // الهامش العلوي للزر فقط
               child: OutlinedButton(
-                onPressed: controller.createAccount,
+                onPressed: () {
+                  controller.createAccount(context);
+                },
                 child: controller.loading
                     ? CircularProgressIndicator()
                     : Text(
@@ -82,10 +84,7 @@ class AskUserToLoginButton extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => Onboarding1()),
-              );
+              Navigator.pushReplacementNamed(context, '/signIn');
             },
             child: Text(
               'تسجيل دخول',
@@ -116,35 +115,35 @@ class _SignUpForm extends StatelessWidget {
                 SizedBox(height: 25),
                 _FormField(
                   icon: Icons.email,
-                    controller: controller.email,
-                    label: 'الإيميل',
-                    //icon: Icons.email,
-                    validator: controller.emailValidator,
-                    hint: 'ادخل ايميلك',
+                  controller: controller.email,
+                  label: 'الإيميل',
+                  //icon: Icons.email,
+                  validator: controller.emailValidator,
+                  hint: 'ادخل ايميلك',
                   minHeight: 48,
                   width: 360,
-                    ),
+                ),
                 SizedBox(height: 15),
                 _FormField(
                   icon: Icons.person,
-                    controller: controller.name,
+                  controller: controller.name,
                   validator: controller.nameValidation,
-                    label: 'الاسم',
-                    hint: 'ادخل اسمك',
+                  label: 'الاسم',
+                  hint: 'ادخل اسمك',
                   minHeight: 48,
                   width: 360,
-                    // icon: Icons.person,
-                    ),
+                  // icon: Icons.person,
+                ),
                 SizedBox(height: 15),
                 _FormField(
                   icon:Icons.phone ,
-                    controller: controller.phone,
+                  controller: controller.phone,
                   validator: controller.phoneValidation,
-                    label: 'الهاتف',
-                    hint: 'ادخل رقمك',
+                  label: 'الهاتف',
+                  hint: 'ادخل رقمك',
                   minHeight: 48,
                   width: 360,
-                    //icon: Icons.phone,
+                  //icon: Icons.phone,
                 ),
                 SizedBox(height: 15),
                 _FormField(
@@ -210,27 +209,27 @@ class _FormField extends StatelessWidget {
     Widget? icon = this.icon == null ? null : Icon(this.icon!);
     return Directionality(
       textDirection: TextDirection.rtl,
-        child: Container(
+      child: Container(
         width: width,
-          constraints: BoxConstraints(minHeight: minHeight),
-      child: TextFormField(
-        controller: controller,
-        validator: validator,
-        decoration: InputDecoration(
-          prefixIcon: icon,
-          hintText: hint,
-          labelText: label,
-          suffixIcon: suffixIcon,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.0),
-            borderSide: BorderSide(color: Colors.grey),
+        constraints: BoxConstraints(minHeight: minHeight),
+        child: TextFormField(
+          controller: controller,
+          validator: validator,
+          decoration: InputDecoration(
+            prefixIcon: icon,
+            hintText: hint,
+            labelText: label,
+            suffixIcon: suffixIcon,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(5.0),
+              borderSide: BorderSide(color: Colors.grey),
+            ),
+            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           ),
-          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+          obscureText: isObscure,
+          textAlign: TextAlign.right, // تعيين محاذاة النص على اليمين
         ),
-        obscureText: isObscure,
-        textAlign: TextAlign.right, // تعيين محاذاة النص على اليمين
       ),
-        ),
     );
   }
 }
