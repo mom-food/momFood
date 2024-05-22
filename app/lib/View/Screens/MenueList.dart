@@ -3,14 +3,11 @@ import 'package:flutter/material.dart';
 import '../../Model/MealModel.dart';
 import '../../Services/MealServices.dart';
 import '../Widgets/cards/meal_card.dart';
-import '../Screens/FoodDetails.dart';
 
-import 'Cart.dart';
 
 
 class MealList extends StatelessWidget {
   final String categoryId;
-  final Cart cart=new Cart();
   MealList({required this.categoryId});
 
   @override
@@ -40,12 +37,7 @@ class MealList extends StatelessWidget {
                 final meal = meals[index];
                 return MealCard(
                   meal: meal,
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>FoodDetailsPage(cart,  meal.id),
-                    ),
-                  ),
+                  onTap: () => {},
                 );
               },
             );
