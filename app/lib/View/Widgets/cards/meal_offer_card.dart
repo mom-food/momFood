@@ -1,89 +1,71 @@
-
-
 import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MealOfferCard extends StatelessWidget {
-  final String imagePath;
+  final String mealId;
+  final String imageUrl;
   final String title;
   final String originalPrice;
   final String discountedPrice;
-  final String originalPriceIconPath;
-  final String discountedPriceIconPath;
 
   MealOfferCard({
-    required this.imagePath,
+    required this.mealId,
+    required this.imageUrl,
     required this.title,
     required this.originalPrice,
     required this.discountedPrice,
-    required this.originalPriceIconPath,
-    required this.discountedPriceIconPath,
-
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 100,
-      height: 190,
-      margin: const EdgeInsets.fromLTRB(0, 0, 20, 30),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.orange),
-        borderRadius: BorderRadius.circular(50),
-      ),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 10),
-            child: ClipOval(
-              child: Image.asset(
-                imagePath,
-                fit: BoxFit.fill,
+    return GestureDetector(
+        onTap: () {
+          context.go("/meals/${mealId}");
+        },
+        child: Container(
+          width: 100,
+          height: 220,
+          margin: const EdgeInsets.fromLTRB(0, 0, 20, 30),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.orange),
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Column(
+            children: [
+              SizedBox(
                 width: 85,
                 height: 85,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: ClipOval(
+                    child: FadeInImage(
+                      image: NetworkImage(imageUrl),
+                      placeholder: AssetImage('assets/images/placeholder.png'),
+                      fit: BoxFit.fill,
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(7),
-            child: Text(
-              title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
+              Container(
+                padding: const EdgeInsets.all(7),
+                constraints: const BoxConstraints(minHeight: 60, maxHeight: 60),
+                child: Text(
+                  title,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
-            ),
-          ),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                originalPriceIconPath,
-                fit: BoxFit.fill,
-                width: 10,
-                height: 10,
-              ),
-              SizedBox(width: 0),
               Text(
-                  originalPrice,
-                  style: TextStyle(
-                    color: AppColors.primary2,
-                  )
+                "₪ $originalPrice",
+                style: const TextStyle(
+                  color: AppColors.primary2,
+                ),
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                discountedPriceIconPath,
-                fit: BoxFit.cover,
-                width: 10,
-                height: 10,
-              ),
-              SizedBox(width: 0),
               Text(
-                discountedPrice,
+                "₪ $discountedPrice",
                 style: const TextStyle(
                   decoration: TextDecoration.lineThrough,
                   color: AppColors.primary1,
@@ -91,8 +73,6 @@ class MealOfferCard extends StatelessWidget {
               ),
             ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
