@@ -62,7 +62,7 @@ class MealDetailsScreen extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: meal.price.toString(), // Price part
+                                text: (meal.price*0.8).toString(), // Price part
                                 style: GoogleFonts.ibmPlexSansArabic(
                                   textStyle: Theme.of(context)
                                       .textTheme

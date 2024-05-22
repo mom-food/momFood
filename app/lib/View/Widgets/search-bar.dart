@@ -1,8 +1,5 @@
 import 'package:app/ViewModel/meal_view_model.dart';
-import 'package:app/main.dart';
 import 'package:flutter/material.dart';
-import 'package:app/themes/dark.dart';
-import 'package:app/themes/light.dart';
 import 'package:provider/provider.dart';
 
 class CustomSearchBar extends StatefulWidget {
@@ -34,7 +31,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
           return TextField(
             controller: _controller,
             decoration: InputDecoration(
-              hintText: 'Search...',
+              hintText: 'البحث',
               suffixIcon: IconButton(
                 icon: Icon(Icons.search),
                 onPressed: () {
