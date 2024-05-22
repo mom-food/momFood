@@ -40,7 +40,7 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: '/successful_checkout',
-      builder: (context, state) => SuccessCheckoutScreen(),
+      builder: (context, state) => SuccessMessageScreen(),
     ),
     GoRoute(
       path: '/',
