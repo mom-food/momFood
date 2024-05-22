@@ -1,9 +1,11 @@
+import 'package:app/Model/order_model.dart';
+
 class CreateUserRequestBody{
-  final String? email;
-  final String? name;
-  final String? phone;
-  final String? password;
-  final List? orderHistory;
+  String? email;
+  String? name;
+  String? phone;
+  String? password;
+  List<OrderModel>? orderHistory;
   CreateUserRequestBody( {required this.email, required this.name, required this.password, required this.phone,this.orderHistory=const []});
 
   Map<String,dynamic> toJson()=>{
