@@ -31,7 +31,7 @@ class Onboarding2Screen extends StatelessWidget {
                       Expanded(
                         child: SignUpButton(onPressed: (){
                           // Handle Sign Up Logic
-                          Navigator.pushNamed(context, '/signUp');
+                          Navigator.pushReplacementNamed(context, '/sign-up');
                         }),
                       ),
                       SizedBox(width: 15), // Spacing between the buttons
@@ -39,7 +39,7 @@ class Onboarding2Screen extends StatelessWidget {
                         child: SignInButton(
                             onPressed: () {
                               // Handle Sign In Logic
-                              Navigator.pushNamed(context, '/signIn');
+                              Navigator.pushReplacementNamed(context, '/signIn');
                             }
                         ),
                       ),
