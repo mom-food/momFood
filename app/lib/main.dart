@@ -4,6 +4,10 @@ import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'View/Screens/Authentication/SignIn.dart';
+import 'View/Screens/Authentication/SignUp.dart';
+import 'View/Screens/CategoryMeal.dart';
+import 'View/Screens/MenueList.dart';
 import 'ViewModel/meal_view_model.dart';
 import 'View/Screens/HomePage.dart';
 import 'View/Screens/OnBoarding1.dart';
@@ -36,19 +40,23 @@ void main() async {
 }
 
 final _router = GoRouter(
-  initialLocation: "/Home",
+  initialLocation: "/onboarding1",
   routes: [
-    GoRoute(
-      path: '/successful_checkout',
-      builder: (context, state) => SuccessMessageScreen(),
-    ),
     GoRoute(
       path: '/',
       builder: (context, state) => HomePageScreen(),
     ),
+    // GoRoute(
+    //   path: '/Home',
+    //   builder: (context, state) => HomePageScreen(),
+    // ),
     GoRoute(
-      path: '/Home',
-      builder: (context, state) => HomePageScreen(),
+      path: '/signIn',
+      builder: (context, state) => SignInScreen(),
+    ),
+    GoRoute(
+      path: '/sign-up',
+      builder: (context, state) => SignUpScreen(),
     ),
     GoRoute(
       path: '/onboarding1',
@@ -59,10 +67,20 @@ final _router = GoRouter(
       builder: (context, state) => Onboarding2Screen(),
     ),
     GoRoute(
-      path: '/meals/:mealId',
+      path: '/MealCategoryScreen',
+      builder: (context, state) => MealCategoryScreen(),
+    ),
+    GoRoute(
+      path: '/mealDetailsScreen/:mealId',
       builder: (context, state) =>
           MealDetailsScreen(mealId: state.pathParameters['mealId']!),
     ),
+    GoRoute(
+      path: '/meal-list/:categoryId',
+      builder: (context, state) => MealList(categoryId: state.pathParameters['categoryId']!),
+    ),
+
+
   ],
 );
 

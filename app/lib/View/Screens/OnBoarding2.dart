@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../Widgets/Button/SignInButton.dart';
 import '../Widgets/Button/SignUpButton.dart';
 import '../Widgets/Button/continue_as_guest_button.dart';
@@ -31,7 +32,8 @@ class Onboarding2Screen extends StatelessWidget {
                       Expanded(
                         child: SignUpButton(onPressed: (){
                           // Handle Sign Up Logic
-                          Navigator.pushReplacementNamed(context, '/sign-up');
+                          context.go("/sign-up");
+                          // Navigator.pushReplacementNamed(context, '/sign-up');
                         }),
                       ),
                       SizedBox(width: 15), // Spacing between the buttons

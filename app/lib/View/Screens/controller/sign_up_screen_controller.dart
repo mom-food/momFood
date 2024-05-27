@@ -2,6 +2,7 @@ import 'package:app/Model/user/user_model.dart';
 import 'package:app/Services/user_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:go_router/go_router.dart';
 
 class SignUpScreenController extends ChangeNotifier {
   SignUpScreenController()
@@ -22,7 +23,7 @@ class SignUpScreenController extends ChangeNotifier {
   TextEditingController repeatPassword;
 
   Future<void> createAccount(BuildContext context) async {
-    if(loading){
+    if (loading) {
       return;
     }
     bool isValid = formKey.currentState?.validate() ?? false;
@@ -32,16 +33,19 @@ class SignUpScreenController extends ChangeNotifier {
 
     _updateStateLoading = true;
     final request = CreateUserRequestBody(
-        email: email.text,
-        name: name.text,
-        password: password.text,
-        phone: phone.text);
+      email: email.text,
+      name: name.text,
+      password: password.text,
+      phone: phone.text,
+    );
     bool res = await UserServices().signUp(request);
-    if(res) {
-      Navigator.pushReplacementNamed(context, '/offer');
+    if (res) {
+      bool res = await UserServices().signIn(email.text, password.text);
+      if (res && UserServices.isSignedIn()) {
+        context.go('/');
+      }
     }
     _updateStateLoading = false;
-    //todo handle sign up result
   }
 
   set _updateStateLoading(bool value) {
