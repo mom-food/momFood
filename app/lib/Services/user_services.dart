@@ -51,34 +51,37 @@ class UserServices extends ChangeNotifier {
       return false;
     }
   }
+
   Future<bool> signIn(String email, String password) async {
+    await UserServices.signout();
     try {
       print(email);
       FirebaseAuth instance = FirebaseAuth.instance;
       await instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then(
-        (value) async {
+            (value) async {
           print("value::::::::::::: $value");
-          var querySnapshot = await FirebaseFirestore.instance
-              .collection('users')
-              .where('email', isEqualTo: email)
-              .get();
-
-          if (querySnapshot.docs.isNotEmpty) {
-            print("aaaaaaaaaaa:: ${querySnapshot.docs.first['email']}");
-            //
-            userData?.name = querySnapshot.docs.first['name'] ?? "";
-            userData?.email = querySnapshot.docs.first['email'] ?? "";
-            userData?.phone = querySnapshot.docs.first['phone'] ?? "";
-            for(var el in querySnapshot.docs.first['orderHistory'] ?? []) {
-              userData?.orderHistory!.add(OrderModel.fromJson(el));
-            }
-            print("object: ${userData?.orderHistory}");
-            return true;
-          } else {
-            return false;
-          }
+          // var querySnapshot = await FirebaseFirestore.instance
+          //     .collection('users')
+          //     .where('email', isEqualTo: email)
+          //     .get();
+          //
+          // if (querySnapshot.docs.isNotEmpty) {
+          //   print("aaaaaaaaaaa:: ${querySnapshot.docs.first['email']}");
+          //   //
+          //   userData?.name = querySnapshot.docs.first['name'] ?? "";
+          //   userData?.email = querySnapshot.docs.first['email'] ?? "";
+          //   userData?.phone = querySnapshot.docs.first['phone'] ?? "";
+          //   for (var el in querySnapshot.docs.first['orderHistory'] ?? []) {
+          //     userData?.orderHistory!.add(OrderModel.fromJson(el));
+          //   }
+          //   print("object: ${userData?.orderHistory}");
+          //   return true;
+          // } else {
+          //   return false;
+          // }
+          return await getUserByEmail(email);
         },
       );
       return true;
@@ -86,6 +89,52 @@ class UserServices extends ChangeNotifier {
       print(e);
       return false;
     }
+  }
+
+  Future<void> forgetPassword(String email) async {
+    FirebaseAuth instance = FirebaseAuth.instance;
+    await instance.sendPasswordResetEmail(email: email);
+  }
+
+  Future<bool> getUserByEmail(String email) async {
+    final response = await http.get(
+      Uri.parse(url + email),
+      headers: {'Content-Type': 'application/json'},
+    );
+    print("response.statusCode: ${response.statusCode}");
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      final jsonData = jsonDecode(response.body);
+      print("response.body: ${response.body}");
+      userData?.id = jsonData['_id'] ?? "";
+      userData?.name = jsonData['name'] ?? "";
+      userData?.email = jsonData['email'] ?? "";
+      userData?.phone = jsonData['phone'] ?? "";
+      for (var el in jsonData['orderHistory'] ?? []) {
+        userData?.orderHistory!.add(OrderModel.fromJson(el));
+      }
+      return true;
+    }
+    return false;
+  }
+
+  Future<bool> updateUserByEmail() async {
+    final response = await http.patch(
+      Uri.parse(url),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(userData!.toJson()),
+    );
+    print("response.statusCode: ${response.statusCode}");
+    if (response.statusCode >= 200 && response.statusCode < 300) {
+      final jsonData = jsonDecode(response.body);
+      print("response.body: ${response.body}");
+      userData?.name = jsonData['name'] ?? "";
+      userData?.phone = jsonData['phone'] ?? "";
+      for (var el in jsonData['orderHistory'] ?? []) {
+        userData?.orderHistory!.add(OrderModel.fromJson(el));
+      }
+      return true;
+    }
+    return false;
   }
 
   static bool isSignedIn() {

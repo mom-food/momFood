@@ -23,7 +23,7 @@ class SignUpScreenController extends ChangeNotifier {
   TextEditingController repeatPassword;
 
   Future<void> createAccount(BuildContext context) async {
-    if (loading) {
+    if(loading){
       return;
     }
     bool isValid = formKey.currentState?.validate() ?? false;
@@ -33,19 +33,19 @@ class SignUpScreenController extends ChangeNotifier {
 
     _updateStateLoading = true;
     final request = CreateUserRequestBody(
-      email: email.text,
-      name: name.text,
-      password: password.text,
-      phone: phone.text,
-    );
+        email: email.text,
+        name: name.text,
+        password: password.text,
+        phone: phone.text);
     bool res = await UserServices().signUp(request);
-    if (res) {
+    if(res) {
       bool res = await UserServices().signIn(email.text, password.text);
-      if (res && UserServices.isSignedIn()) {
+      if(res && UserServices.isSignedIn()) {
         context.go('/');
       }
     }
     _updateStateLoading = false;
+    //todo handle sign up result
   }
 
   set _updateStateLoading(bool value) {
