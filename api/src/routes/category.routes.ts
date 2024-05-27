@@ -5,15 +5,13 @@ import {
   getCategoryById,
   updateCategory,
   deleteCategory,
-  getFilteredCategories,
-} from "../controllers/category.controller";
+} from "../controllers";
 
 const router: Router = express.Router();
 
 router.post("/", createCategory);
 router.get("/", getAllCategories);
 router.get("/:id", getCategoryById);
-router.get("/search", getFilteredCategories);
 router.put("/:id", updateCategory);
 router.delete("/:id", deleteCategory);
 
