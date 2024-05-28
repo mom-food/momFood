@@ -5,7 +5,7 @@ import 'package:app/View/Widgets/nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:go_router/go_router.dart';
 import '../OnBoarding1.dart';
 
 class SignInScreenController extends ChangeNotifier {
@@ -31,13 +31,8 @@ class SignInScreenController extends ChangeNotifier {
 
     _updateStateLoading = true;
     bool res = await UserServices().signIn(email.text, password.text);
-    if (res) {
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(
-          builder: (context) => Onboarding1(),
-        ),
-      );
+    if (res && UserServices.isSignedIn()) {
+      context.go("/");
     }
     _updateStateLoading = false;
     //
