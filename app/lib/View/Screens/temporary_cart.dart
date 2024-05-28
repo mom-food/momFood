@@ -1,8 +1,10 @@
+import 'package:app/Model/meal_model.dart';
+import 'package:app/View/Screens/Checkout.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'checkout.dart';
+
 
 class TemporaryCart extends StatelessWidget {
   const TemporaryCart({Key? key}) : super(key: key);
@@ -16,9 +18,9 @@ class TemporaryCart extends StatelessWidget {
           title: Text('عربة التسوق المؤقتة'),
         ),
         body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
-          var filteredCartItems =
-          viewModel.cartItems.where((item) => item.quantity > 0);
-          final totalPrice = filteredCartItems.fold(
+          List<({Meal meal, int quantity})> filteredCartItems =
+          viewModel.cartItems.where((item) => item.quantity > 0).toList();
+          final double totalPrice = filteredCartItems.fold(
               0.0, (a, b) => a + (b.meal.price * b.quantity));
           return Column(
             children: [
@@ -39,22 +41,24 @@ class TemporaryCart extends StatelessWidget {
                 padding: EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    showModalBottomSheet(
+                   /* showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
-                        return CheckoutScreen(totalPrice: totalPrice);
+                        return CheckoutScreen(
+                          totalPrice: totalPrice,
+                          items: filteredCartItems,
+                        );
                       },
-                    );
+                    );*/
                   },
                   child: Text(
                     'اطلب الآن!',
                     style: GoogleFonts.ibmPlexSansArabic(
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(
+                      textStyle:
+                      Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontSize: 24,
-                        color: Colors.white, // Text color on button for contrast
+                        color: Colors
+                            .white, // Text color on button for contrast
                       ),
                     ),
                   ),
@@ -74,12 +78,11 @@ class TemporaryCart extends StatelessWidget {
                   child: Text(
                     'حذف محتويات السلة',
                     style: GoogleFonts.ibmPlexSansArabic(
-                      textStyle: Theme.of(context)
-                          .textTheme
-                          .headlineSmall
-                          ?.copyWith(
+                      textStyle:
+                      Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontSize: 24,
-                        color: Colors.white, // Text color on button for contrast
+                        color: Colors
+                            .white, // Text color on button for contrast
                       ),
                     ),
                   ),

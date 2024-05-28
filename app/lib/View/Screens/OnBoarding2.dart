@@ -33,15 +33,13 @@ class Onboarding2Screen extends StatelessWidget {
                         child: SignUpButton(onPressed: (){
                           // Handle Sign Up Logic
                           context.go("/sign-up");
-                          // Navigator.pushReplacementNamed(context, '/sign-up');
                         }),
                       ),
                       SizedBox(width: 15), // Spacing between the buttons
                       Expanded(
                         child: SignInButton(
                             onPressed: () {
-                              // Handle Sign In Logic
-                              Navigator.pushReplacementNamed(context, '/signIn');
+                              context.go("/signIn");
                             }
                         ),
                       ),
@@ -49,7 +47,7 @@ class Onboarding2Screen extends StatelessWidget {
                   ),
                   ContinueAsGuestButton(
                       onPressed: (){
-                         Navigator.pushReplacementNamed(context, '/MealCategoryScreen');
+                        context.go("/");
                       }
                   ),
                   SizedBox(height: 10), // Spacing after "Complete as a guest" button

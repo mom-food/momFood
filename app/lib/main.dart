@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'View/Screens/Authentication/SignIn.dart';
 import 'View/Screens/Authentication/SignUp.dart';
 import 'View/Screens/CategoryMeal.dart';
-import 'View/Screens/MenueList.dart';
+import 'View/Screens/MenuList.dart';
 import 'ViewModel/meal_view_model.dart';
 import 'View/Screens/HomePage.dart';
 import 'View/Screens/OnBoarding1.dart';
