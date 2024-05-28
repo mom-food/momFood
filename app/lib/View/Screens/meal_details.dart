@@ -1,5 +1,6 @@
 import 'package:app/Model/meal_model.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
+import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
@@ -166,7 +167,7 @@ class MealDetailsScreen extends StatelessWidget {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.green,
+                            color: AppColors.primary2,
                             borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(30.0),
                               bottomLeft: Radius.circular(30.0),
@@ -205,7 +206,7 @@ class MealDetailsScreen extends StatelessWidget {
                         },
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.red,
+                            color: AppColors.primary1,
                             borderRadius: BorderRadius.only(
                               topRight: Radius.circular(30.0),
                               bottomRight: Radius.circular(30.0),
@@ -235,11 +236,12 @@ class MealDetailsScreen extends StatelessWidget {
                             .headlineSmall
                             ?.copyWith(
                           fontSize: 16,
-                          color: Colors.white70,
+                          color: AppColors.textColor1,
                         ),
                       )),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.red,
+                    padding: const EdgeInsets.symmetric(horizontal: 86, vertical: 15),
+                    backgroundColor: AppColors.backgroundColorLight,
                   ),
                 ),
               )

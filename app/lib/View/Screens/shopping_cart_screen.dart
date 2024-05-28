@@ -1,6 +1,7 @@
 import 'package:app/Model/meal_model.dart';
 import 'package:app/View/Screens/Checkout.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
+import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,7 @@ class TemporaryCart extends StatelessWidget {
       textDirection: TextDirection.rtl,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('عربة التسوق المؤقتة'),
+          title: Text('عربة التسوق'),
         ),
         body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
           List<({Meal meal, int quantity})> filteredCartItems =
@@ -30,18 +31,87 @@ class TemporaryCart extends StatelessWidget {
                   itemCount: filteredCartItems.length,
                   itemBuilder: (context, index) {
                     final item = filteredCartItems.elementAt(index);
-                    return ListTile(
-                      subtitle: Text(
-                          '${item.meal.name}:\n${item.meal.price} x ${item.quantity} = ${item.meal.price * item.quantity}'),
+                    return Container(
+                      margin: EdgeInsets.all(8.0),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(7.28),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 2,
+                            blurRadius: 5,
+                            offset: Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: Stack(
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 88,
+                                height: 88,
+                                margin: EdgeInsets.all(8.0),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(7.28),
+                                  image: DecorationImage(
+                                    image: NetworkImage(item.meal.image),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        item.meal.name,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      SizedBox(height: 8.0),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            '${item.meal.price.toStringAsFixed(2)} ₪',
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.orange,
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              Text(
+                                                '${item.meal.price * item.quantity}'),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     );
                   },
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(16.0),
+                padding: EdgeInsets.all(4.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    /*showModalBottomSheet(
+                    showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
                         return CheckoutScreen(
@@ -49,23 +119,27 @@ class TemporaryCart extends StatelessWidget {
                           items: filteredCartItems,
                         );
                       },
-                    );*/
+                    );
                   },
                   child: Text(
                     'اطلب الآن!',
                     style: GoogleFonts.ibmPlexSansArabic(
                       textStyle:
                           Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontSize: 24,
-                                color: Colors
-                                    .white, // Text color on button for contrast
+                                fontSize: 19,
+                                color: Colors.white,
+                            fontWeight: FontWeight.w700,
+                            height: 0.06,
                               ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 50),
-                    padding: EdgeInsets.all(18),
-                    backgroundColor: Color(0xFFFCB34C),
+                    minimumSize: Size(296, 53),
+                    padding: const EdgeInsets.symmetric(horizontal: 86, vertical: 15),
+                    backgroundColor: AppColors.primary1,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
                   ),
                 ),
               ),
@@ -79,17 +153,22 @@ class TemporaryCart extends StatelessWidget {
                     'حذف محتويات السلة',
                     style: GoogleFonts.ibmPlexSansArabic(
                       textStyle:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontSize: 24,
-                                color: Colors
-                                    .white, // Text color on button for contrast
-                              ),
+                      Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontSize: 19,
+                        color: AppColors.primary1,
+                        fontWeight: FontWeight.w700,
+                        height: 0.06,
+                      ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 50),
-                      padding: EdgeInsets.all(18),
-                      backgroundColor: Colors.red),
+                    minimumSize: Size(296, 53),
+                    padding: const EdgeInsets.symmetric(horizontal: 86, vertical: 15),
+                    backgroundColor: AppColors.backgroundColorLight,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
                 ),
               ),
             ],
