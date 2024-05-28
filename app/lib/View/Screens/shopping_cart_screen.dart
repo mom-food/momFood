@@ -3,6 +3,7 @@ import 'package:app/View/Screens/Checkout.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -17,6 +18,10 @@ class TemporaryCart extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: Text('عربة التسوق'),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => context.go('/'),
+          ),
         ),
         body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
           List<({Meal meal, int quantity})> filteredCartItems =
