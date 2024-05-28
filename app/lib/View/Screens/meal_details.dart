@@ -20,26 +20,21 @@ class MealDetailsScreen extends StatelessWidget {
         title: Text(
           'تفاصيل الطعام',
           style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                fontSize: 22,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
+            fontSize: 22,
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        actions: [
-          IconButton(
-              icon: Icon(Icons.arrow_forward),
-              onPressed: () {
-                try {
-                  context.go("/");
-                } catch (e) {}
-              })
-        ],
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => context.go('/'),
+        ),
       ),
       body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
         var meal =
-            viewModel.meals.firstWhere((element) => element.id == mealId);
+        viewModel.meals.firstWhere((element) => element.id == mealId);
         var item =
-            viewModel.cartItems.firstWhereOrNull((m) => m.meal.id == mealId);
+        viewModel.cartItems.firstWhereOrNull((m) => m.meal.id == mealId);
         if (item != null) {
           _controller.text = item.quantity.toString();
         }
@@ -62,17 +57,18 @@ class MealDetailsScreen extends StatelessWidget {
                           TextSpan(
                             children: [
                               TextSpan(
-                                text: (meal.price*0.8).toString(), // Price part
+                                text:
+                                (meal.price * 0.8).toString(), // Price part
                                 style: GoogleFonts.ibmPlexSansArabic(
                                   textStyle: Theme.of(context)
                                       .textTheme
                                       .titleLarge
                                       ?.copyWith(
-                                        fontSize: 24,
-                                        color:
-                                            Color(0xFFFF9500), // Orange color
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                    fontSize: 24,
+                                    color:
+                                    Color(0xFFFF9500), // Orange color
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
                               TextSpan(
@@ -82,10 +78,10 @@ class MealDetailsScreen extends StatelessWidget {
                                       .textTheme
                                       .titleLarge
                                       ?.copyWith(
-                                        fontSize: 24,
-                                        color: Colors.black, // Black color
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                    fontSize: 24,
+                                    color: Colors.black, // Black color
+                                    fontWeight: FontWeight.w600,
+                                  ),
                                 ),
                               ),
                             ],
@@ -98,10 +94,10 @@ class MealDetailsScreen extends StatelessWidget {
                                   .textTheme
                                   .headlineSmall
                                   ?.copyWith(
-                                    fontSize: 24,
-                                    color: Colors.black87,
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                                fontSize: 24,
+                                color: Colors.black87,
+                                fontWeight: FontWeight.bold,
+                              )),
                         ),
                       ],
                     ),
@@ -114,10 +110,10 @@ class MealDetailsScreen extends StatelessWidget {
                         meal.description,
                         style: GoogleFonts.ibmPlexSansArabic(
                           textStyle:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    fontSize: 18,
-                                    color: Colors.black87,
-                                  ),
+                          Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            fontSize: 18,
+                            color: Colors.black87,
+                          ),
                         ),
                         textAlign: TextAlign.right,
                         textDirection: TextDirection.rtl,
@@ -130,124 +126,124 @@ class MealDetailsScreen extends StatelessWidget {
             SizedBox(height: 20),
             ...(item == null
                 ? [
-                    Padding(
-                      padding: EdgeInsets.all(16.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          viewModel.addToCart(meal);
-                        },
-                        child: Text('أضف إلى السلة',
-                            style: GoogleFonts.ibmPlexSansArabic(
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                    fontSize: 24,
-                                    color: Colors
-                                        .white, // Text color on button for contrast
-                                  ),
-                            )),
-                        style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 50),
-                          padding: EdgeInsets.all(18),
-                          backgroundColor: Color(0xFFFCB34C),
+              Padding(
+                padding: EdgeInsets.all(16.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    viewModel.addToCart(meal);
+                  },
+                  child: Text('أضف إلى السلة',
+                      style: GoogleFonts.ibmPlexSansArabic(
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(
+                          fontSize: 24,
+                          color: Colors
+                              .white, // Text color on button for contrast
                         ),
-                      ),
-                    )
-                  ]
+                      )),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 50),
+                    padding: EdgeInsets.all(18),
+                    backgroundColor: Color(0xFFFCB34C),
+                  ),
+                ),
+              )
+            ]
                 : [
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                      child: Row(children: [
-                        Expanded(
-                            child: InkWell(
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(30.0),
-                            bottomLeft: Radius.circular(30.0),
-                          ),
-                          onTap: () {
-                            // Your onTap function here
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.green,
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(30.0),
-                                bottomLeft: Radius.circular(30.0),
-                              ),
-                            ),
-                            child: IconButton(
-                              icon: Icon(Icons.add),
-                              onPressed: () {
-                                viewModel.increaseQuantity(meal);
-                              },
-                            ),
-                          ),
-                        )),
-                        Expanded(
-                            child: TextField(
-                          keyboardType: TextInputType.number,
-                          controller: _controller,
-                          onChanged: (value) {
-                            viewModel.setQuantity(meal, int.parse(value));
-                          },
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(),
-                            labelText: 'الكمية',
-                            floatingLabelAlignment:
-                                FloatingLabelAlignment.center,
-                          ),
-                        )),
-                        Expanded(
-                            child: InkWell(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30.0),
-                            bottomRight: Radius.circular(30.0),
-                          ),
-                          onTap: () {
-                            // Your onTap function here
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(30.0),
-                                bottomRight: Radius.circular(30.0),
-                              ),
-                            ),
-                            child: IconButton(
-                              icon: Icon(Icons.remove),
-                              onPressed: () {
-                                viewModel.decreaseQuantity(meal);
-                              },
-                            ),
-                          ),
-                        )),
-                      ]),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                      // delete button
-                      child: ElevatedButton(
-                        onPressed: () {
-                          viewModel.removeFromCart(meal);
-                        },
-                        child: Text('حذف من السلة',
-                            style: GoogleFonts.ibmPlexSansArabic(
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                    fontSize: 16,
-                                    color: Colors.white70,
-                                  ),
-                            )),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red,
+              Padding(
+                padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                child: Row(children: [
+                  Expanded(
+                      child: InkWell(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(30.0),
+                          bottomLeft: Radius.circular(30.0),
                         ),
-                      ),
-                    )
-                  ]),
+                        onTap: () {
+                          // Your onTap function here
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.green,
+                            borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(30.0),
+                              bottomLeft: Radius.circular(30.0),
+                            ),
+                          ),
+                          child: IconButton(
+                            icon: Icon(Icons.add),
+                            onPressed: () {
+                              viewModel.increaseQuantity(meal);
+                            },
+                          ),
+                        ),
+                      )),
+                  Expanded(
+                      child: TextField(
+                        keyboardType: TextInputType.number,
+                        controller: _controller,
+                        onChanged: (value) {
+                          viewModel.setQuantity(meal, int.parse(value));
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: 'الكمية',
+                          floatingLabelAlignment:
+                          FloatingLabelAlignment.center,
+                        ),
+                      )),
+                  Expanded(
+                      child: InkWell(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(30.0),
+                          bottomRight: Radius.circular(30.0),
+                        ),
+                        onTap: () {
+                          // Your onTap function here
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(30.0),
+                              bottomRight: Radius.circular(30.0),
+                            ),
+                          ),
+                          child: IconButton(
+                            icon: Icon(Icons.remove),
+                            onPressed: () {
+                              viewModel.decreaseQuantity(meal);
+                            },
+                          ),
+                        ),
+                      )),
+                ]),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                // delete button
+                child: ElevatedButton(
+                  onPressed: () {
+                    viewModel.removeFromCart(meal);
+                  },
+                  child: Text('حذف من السلة',
+                      style: GoogleFonts.ibmPlexSansArabic(
+                        textStyle: Theme.of(context)
+                            .textTheme
+                            .headlineSmall
+                            ?.copyWith(
+                          fontSize: 16,
+                          color: Colors.white70,
+                        ),
+                      )),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+              )
+            ]),
           ],
         );
       }),

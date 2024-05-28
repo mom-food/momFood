@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../History.dart';
 import '../OnBoarding1.dart';
 
 class SignInScreenController extends ChangeNotifier {
