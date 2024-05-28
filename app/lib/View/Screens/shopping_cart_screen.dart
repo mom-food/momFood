@@ -19,7 +19,7 @@ class TemporaryCart extends StatelessWidget {
         ),
         body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
           List<({Meal meal, int quantity})> filteredCartItems =
-          viewModel.cartItems.where((item) => item.quantity > 0).toList();
+              viewModel.cartItems.where((item) => item.quantity > 0).toList();
           final double totalPrice = filteredCartItems.fold(
               0.0, (a, b) => a + (b.meal.price * b.quantity));
           return Column(
@@ -41,7 +41,7 @@ class TemporaryCart extends StatelessWidget {
                 padding: EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                   /* showModalBottomSheet(
+                    /*showModalBottomSheet(
                       context: context,
                       builder: (BuildContext context) {
                         return CheckoutScreen(
@@ -55,11 +55,11 @@ class TemporaryCart extends StatelessWidget {
                     'اطلب الآن!',
                     style: GoogleFonts.ibmPlexSansArabic(
                       textStyle:
-                      Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontSize: 24,
-                        color: Colors
-                            .white, // Text color on button for contrast
-                      ),
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontSize: 24,
+                                color: Colors
+                                    .white, // Text color on button for contrast
+                              ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -79,11 +79,11 @@ class TemporaryCart extends StatelessWidget {
                     'حذف محتويات السلة',
                     style: GoogleFonts.ibmPlexSansArabic(
                       textStyle:
-                      Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontSize: 24,
-                        color: Colors
-                            .white, // Text color on button for contrast
-                      ),
+                          Theme.of(context).textTheme.headlineSmall?.copyWith(
+                                fontSize: 24,
+                                color: Colors
+                                    .white, // Text color on button for contrast
+                              ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(

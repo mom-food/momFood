@@ -1,18 +1,23 @@
-import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../Model/MealModel.dart';
 import '../../Services/MealServices.dart';
 import '../Widgets/cards/meal_card.dart';
 
-
-
 class MealList extends StatelessWidget {
   final String categoryId;
+
   MealList({required this.categoryId});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => context.go('/'),
+        ),
+      ),
       body: FutureBuilder<List<Meal>>(
         future: fetchMealsByCategory(categoryId),
         builder: (context, snapshot) {
@@ -37,7 +42,9 @@ class MealList extends StatelessWidget {
                 final meal = meals[index];
                 return MealCard(
                   meal: meal,
-                  onTap: () => {},
+                  onTap: () {
+                    context.go("/mealDetailsScreen/${meal.id}");
+                  },
                 );
               },
             );
@@ -47,5 +54,3 @@ class MealList extends StatelessWidget {
     );
   }
 }
-
-

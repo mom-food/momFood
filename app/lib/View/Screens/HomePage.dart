@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import '../../ViewModel/meal_view_model.dart';
 import '../../Model/meal_model.dart';
 import '../Widgets/search-bar.dart';
-import 'package:app/View/Screens/temporary_cart.dart';
+import 'package:app/View/Screens/shopping_cart_screen.dart';
 import '../../themes/theme-provider.dart';
 import 'CategoryMeal.dart';
 import 'OfferMeals.dart';
