@@ -1,0 +1,12 @@
+diff a/app/lib/View/Screens/controller/Sign_in_screen_controller.dart b/app/lib/View/Screens/controller/Sign_in_screen_controller.dart	(rejected hunks)
+@@ -37,6 +37,10 @@ class SignInScreenController extends ChangeNotifier {
+           builder: (context) => Onboarding1(),
+         ),
+       );
++    } else {
++      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
++        content: Text('الإيميل أو كلمة المرور خاطئة'),
++      ));
+     }
+     _updateStateLoading = false;
+     //

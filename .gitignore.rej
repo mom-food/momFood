@@ -1,0 +1,7 @@
+diff a/.gitignore b/.gitignore	(rejected hunks)
+@@ -130,4 +130,4 @@ yarn-error.log
+ /app/android/.gradle/7.6.3/executionHistory
+ /app/android/.gradle/7.6.3/executionHistory
+ /app/android/.gradle/7.6.3
+->>>>>>> origin/home
++/api/node_modules

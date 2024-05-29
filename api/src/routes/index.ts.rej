@@ -1,0 +1,16 @@
+diff a/api/src/routes/index.ts b/api/src/routes/index.ts	(rejected hunks)
+@@ -3,10 +3,12 @@
+ import express from 'express';
+ import categoryRoutes from './category.routes';
+ import mealRoutes from './meals.routes';
++import resetPasswordRoutes from './reset-password.routes';
+ 
+ const router = express.Router();
+ 
+ router.use('/categories', categoryRoutes);
+ router.use('/meals', mealRoutes);
++router.use('/auth/resetPassword', resetPasswordRoutes);
+ 
+-export default router;
+\ No newline at end of file
++export default router;

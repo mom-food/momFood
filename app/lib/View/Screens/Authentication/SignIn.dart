@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../controller/Sign_in_screen_controller.dart';
 import '../controller/sign_up_screen_controller.dart';
+import 'ForgetPassword.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -51,15 +52,25 @@ class _SignInScreenState extends State<SignInScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 25),
                   child: Row(
                     children: [
-                      Text("هل نسيت كلمة المرور؟"),
-                      SizedBox(width: 20),
-                      Flexible(
-                          child: Text(
-                            "تغيير كلمة السر",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
+                      TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ForgetPassword()),
+                          );
+                        },
+                        child: Text(
+                          'هل نسيت كلمة المرور؟',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ),
+
                     ],
                   ),
+
                 ),
                 SizedBox(height: 20),
                 Padding(

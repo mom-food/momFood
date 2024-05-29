@@ -1,0 +1,12 @@
+diff a/app/android/local.properties b/app/android/local.properties	(rejected hunks)
+@@ -1,6 +1,6 @@
+ flutter.buildMode=debug
+ flutter.minSdkVersion=24
+-flutter.sdk=C:\\dev\\flutter
++flutter.sdk=/opt/flutter
+ flutter.versionCode=1
+ flutter.versionName=1.0.0
+-sdk.dir=C:/Users/Lenovo/AppData/Local/Android/Sdk
+\ No newline at end of file
++sdk.dir=/mnt/projects/Android/Sdk
+\ No newline at end of file

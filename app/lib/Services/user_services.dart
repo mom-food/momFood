@@ -28,9 +28,9 @@ class UserServices extends ChangeNotifier {
       FirebaseAuth instance = FirebaseAuth.instance;
       await instance
           .createUserWithEmailAndPassword(
-          email: request.email!, password: request.password!)
+              email: request.email!, password: request.password!)
           .then(
-            (value) async {
+        (value) async {
           // --------- Save in FireStore
           // var db = FirebaseFirestore.instance;
           // await db.collection(FbCollections.users).add(request.toJson());
@@ -60,7 +60,7 @@ class UserServices extends ChangeNotifier {
       await instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then(
-            (value) async {
+        (value) async {
           print("value::::::::::::: $value");
           // var querySnapshot = await FirebaseFirestore.instance
           //     .collection('users')
@@ -94,6 +94,26 @@ class UserServices extends ChangeNotifier {
   Future<void> forgetPassword(String email) async {
     FirebaseAuth instance = FirebaseAuth.instance;
     await instance.sendPasswordResetEmail(email: email);
+  }
+
+  static Future<bool> resetPassword(String password, String oobCode) async {
+    try {
+      FirebaseAuth instance = FirebaseAuth.instance;
+
+      try {
+        print(
+            "Trying out of band code that's $oobCode, setting the password to $password");
+        await instance.confirmPasswordReset(
+            code: oobCode, newPassword: password);
+      } catch (e) {
+        print("Couldn't reset password, error: $e");
+        return false;
+      }
+      return true;
+    } catch (e) {
+      print(e);
+      return false;
+    }
   }
 
   Future<bool> getUserByEmail(String email) async {

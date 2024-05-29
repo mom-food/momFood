@@ -1,23 +1,30 @@
+import 'dart:async';
 import 'dart:io';
+import 'package:app_links/app_links.dart';
 import 'package:app/View/Screens/Authentication/EditProfile.dart';
 import 'package:app/View/Screens/meal_details.dart';
 import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'Services/user_services.dart';
 import 'View/Screens/Authentication/SignIn.dart';
 import 'View/Screens/Authentication/SignUp.dart';
+import 'View/Screens/Authentication/ResetPassword.dart';
+import 'View/Screens/Authentication/forgetPassword.dart';
 import 'View/Screens/CategoryMeal.dart';
 import 'View/Screens/MenuList.dart';
-import 'ViewModel/meal_view_model.dart';
 import 'View/Screens/HomePage.dart';
 import 'View/Screens/OnBoarding1.dart';
 import 'View/Screens/OnBoarding2.dart';
+import 'View/Screens/SplashScreen.dart';
+import 'View/Widgets/app_bar.dart';
+import 'View/Screens/controller/sign_up_screen_controller.dart';
+import 'ViewModel/meal_view_model.dart';
 import 'themes/theme-provider.dart';
 import 'themes/dark.dart';
 import 'themes/light.dart';
-import 'package:go_router/go_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,10 +55,6 @@ final _router = GoRouter(
       path: '/',
       builder: (context, state) => HomePageScreen(),
     ),
-    // GoRoute(
-    //   path: '/Home',
-    //   builder: (context, state) => HomePageScreen(),
-    // ),
     GoRoute(
       path: '/signIn',
       builder: (context, state) => SignInScreen(),
@@ -89,6 +92,10 @@ final _router = GoRouter(
       path: '/edit-profile',
       builder: (context, state) => EditProfileScreen(),
     ),
+    GoRoute(
+      path: '/reset-password/:oobCode/:apiKey/:mode',
+      builder: (context, state) => ResetPassword(state.pathParameters['oobCode']!),
+    ),
   ],
 );
 
@@ -100,12 +107,59 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.light; // Set the default theme mode
+  ThemeMode _themeMode = ThemeMode.light;
+  final _navigatorKey = GlobalKey<NavigatorState>();
+  late AppLinks _appLinks;
+  StreamSubscription<Uri>? _linkSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    initDeepLinks();
+  }
+
+  @override
+  void dispose() {
+    _linkSubscription?.cancel();
+    super.dispose();
+  }
+
+  Future<void> initDeepLinks() async {
+    _appLinks = AppLinks();
+    _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
+      print('onAppLink: $uri');
+      openAppLink(uri, context);
+    });
+  }
+
+  void openAppLink(Uri uri, BuildContext context) {
+    print("🔴 I'M TRYING TO OPEN ${uri.query}");
+
+    if (uri.host == "resetpassword") {
+      final oobCode = uri.queryParameters['oobCode'];
+      final apiKey = uri.queryParameters['apiKey'];
+      final mode = uri.queryParameters['mode'];
+
+      if (oobCode == null) {
+        print("Could not find oobCode");
+        return;
+      } else if (apiKey == null) {
+        print("Could not find apiKey");
+        return;
+      } else if (mode == null) {
+        print("Could not find mode");
+        return;
+      }
+
+      print("SUCCESSFULLY FOUND THE HOST");
+      _navigatorKey.currentState?.pushReplacementNamed(
+          '/reset-password/$oobCode/$apiKey/$mode');
+    }
+  }
 
   void _toggleTheme() {
     setState(() {
-      _themeMode =
-      _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+      _themeMode = _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     });
   }
 
@@ -124,14 +178,15 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => UserServices()),
         ChangeNotifierProvider(create: (_) => MealViewModel()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => SignUpScreenController()),
       ],
       child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
           print(_router.configuration);
           return MaterialApp.router(
+           // navigatorKey: _navigatorKey,
             title: 'Flutter Demo',
-            themeMode:
-            themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             theme: themeProvider.isDarkMode ? darkMode : lightMode,
             debugShowCheckedModeBanner: false,
             routerConfig: _router,
@@ -139,5 +194,38 @@ class _MyAppState extends State<MyApp> {
         },
       ),
     );
+  }
+}
+
+class EpicScreen extends StatelessWidget {
+  final RouteSettings settings;
+
+  EpicScreen(this.settings);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Padding(
+      padding: const EdgeInsets.all(18.0),
+      child: Scaffold(
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("Route name: ${settings.name?.split('/').join('\n')}"),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed('/onboarding1');
+                },
+                child: Text("Click")),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).pushReplacementNamed('/');
+                },
+                child: Text("Click"))
+          ],
+        )),
+      ),
+    ));
   }
 }

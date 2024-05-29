@@ -68,7 +68,7 @@ class SignInScreenController extends ChangeNotifier {
     if (value.isEmpty) {
       return 'يرجى ادخال كلمة المرور';
     }
-    if (value.length < 8) {
+    if (value.length < 5) {
       return 'كلمة المرور تقل عن 8 ارقام';
     }
     if (!value.contains(RegExp(r'[0-9]')) ||
