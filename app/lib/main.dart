@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app/View/Screens/Authentication/EditProfile.dart';
 import 'package:app/View/Screens/meal_details.dart';
 import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -84,7 +85,10 @@ final _router = GoRouter(
       path: '/successful_checkout',
       builder: (context, state) => SuccessMessageScreen(),
     ),
-
+    GoRoute(
+      path: '/edit-profile',
+      builder: (context, state) => EditProfileScreen(),
+    ),
   ],
 );
 
