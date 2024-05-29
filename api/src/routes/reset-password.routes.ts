@@ -1,14 +1,12 @@
-// src/routes/meal.routes.ts
+// src/routes/reset-password.routes.ts
 
 import express from 'express';
-import {
-  //resetPasswordRedirect
-} from '../controllers'; // Import the meal controller functions
+import { Request, Response } from 'express';
+import { resetPassword } from '../controllers/reset-password.controller';;
 
 const router = express.Router();
 
-
 // Routes for password reset
-router.get('/', resetPasswordRedirect);
+router.get('/', resetPassword);
 
 export default router;
