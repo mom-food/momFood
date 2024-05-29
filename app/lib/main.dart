@@ -79,7 +79,10 @@ final _router = GoRouter(
       path: '/meal-list/:categoryId',
       builder: (context, state) => MealList(categoryId: state.pathParameters['categoryId']!),
     ),
-
+    GoRoute(
+      path: '/successful_checkout',
+      builder: (context, state) => SuccessMessageScreen(),
+    ),
 
   ],
 );

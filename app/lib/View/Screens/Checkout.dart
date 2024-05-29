@@ -1,7 +1,9 @@
 import 'package:app/Model/meal_model.dart';
 import 'package:app/Services/user_services.dart';
+import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -102,7 +104,9 @@ class CheckoutScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ElevatedButton(
-                        onPressed: () => mealViewModel.createNewOrder(context, items),
+                        onPressed: () {
+                          context.go("/successful_checkout");
+                        },
                         child: Text(
                           'تأكيد الطلب',
                           style: GoogleFonts.ibmPlexSansArabic(
@@ -111,8 +115,7 @@ class CheckoutScreen extends StatelessWidget {
                                 .headlineSmall
                                 ?.copyWith(
                               fontSize: 16,
-                              color: Colors
-                                  .black, // Text color on button for contrast
+                              color: Colors.black, // Text color on button for contrast
                             ),
                           ),
                         ),
