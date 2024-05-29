@@ -1,9 +1,11 @@
 import 'dart:io';
+import 'package:app/View/Screens/Authentication/EditProfile.dart';
 import 'package:app/View/Screens/meal_details.dart';
 import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'Services/user_services.dart';
 import 'View/Screens/Authentication/SignIn.dart';
 import 'View/Screens/Authentication/SignUp.dart';
 import 'View/Screens/CategoryMeal.dart';
@@ -83,7 +85,10 @@ final _router = GoRouter(
       path: '/successful_checkout',
       builder: (context, state) => SuccessMessageScreen(),
     ),
-
+    GoRoute(
+      path: '/edit-profile',
+      builder: (context, state) => EditProfileScreen(),
+    ),
   ],
 );
 
@@ -116,7 +121,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        //ChangeNotifierProvider(create: (_) => MomFood()),
+        ChangeNotifierProvider(create: (_) => UserServices()),
         ChangeNotifierProvider(create: (_) => MealViewModel()),
         ChangeNotifierProvider(create: (_) => ThemeProvider()),
       ],
