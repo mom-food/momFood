@@ -167,7 +167,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               children: [
                 MealOfferScreen(),
                 TemporaryCart(),
-               // ProfileScreen(),
+                ProfileScreen(),
               ],
             ),
           ),
