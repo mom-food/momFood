@@ -1,9 +1,10 @@
+import 'package:app/View/Screens/Authentication/Profile.dart';
+import 'package:app/View/Screens/shopping_cart_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../ViewModel/meal_view_model.dart';
 import '../../Model/meal_model.dart';
 import '../Widgets/search-bar.dart';
-import 'package:app/View/Screens/shopping_cart_screen.dart';
 import '../../themes/theme-provider.dart';
 import 'CategoryMeal.dart';
 import 'OfferMeals.dart';
@@ -166,7 +167,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               children: [
                 MealOfferScreen(),
                 TemporaryCart(),
-                Text(" "),
+               // ProfileScreen(),
               ],
             ),
           ),
