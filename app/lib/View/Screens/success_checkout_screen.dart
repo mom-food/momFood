@@ -5,6 +5,9 @@ import 'package:app/View/Screens/Home.dart';
 import 'package:app/View/Screens/OnBoarding1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+
+import 'HomePage.dart';
 
 class SuccessMessageScreen extends StatefulWidget {
   @override
@@ -18,12 +21,10 @@ class _SuccessMessageScreen extends State<SuccessMessageScreen> {
   }
 
   navigateToHome() async {
-    // You can replace this with your own duration
-    await Future.delayed(Duration(seconds: 3), () {});
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => Onboarding1()),
-    );
+    await Future.delayed(Duration(microseconds: 3), () {});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.go("/");
+    });
   }
   @override
   Widget build(BuildContext context) {
