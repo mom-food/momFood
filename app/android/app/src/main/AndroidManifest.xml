@@ -29,6 +29,9 @@ package="com.example.app">
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.firebase.auth.API_KEY"
+            android:value="AIzaSyAh1_uBnxz3toNPno1uvm0knZwtOwSKrek" />
     </application>
     <!-- Required to query activities that can process text, see:
          https://developer.android.com/training/package-visibility?hl=en and

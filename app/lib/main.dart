@@ -1,23 +1,30 @@
 import 'dart:io';
+
 import 'package:app/View/Screens/Authentication/EditProfile.dart';
 import 'package:app/View/Screens/meal_details.dart';
 import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
+
 import 'Services/user_services.dart';
 import 'View/Screens/Authentication/SignIn.dart';
 import 'View/Screens/Authentication/SignUp.dart';
+import 'View/Screens/Authentication/congratulatory_message.dart';
+import 'View/Screens/Authentication/cubit/phone_auth/phone_auth_cubit.dart';
+import 'View/Screens/Authentication/otp/otp_screen.dart';
 import 'View/Screens/CategoryMeal.dart';
-import 'View/Screens/MenuList.dart';
-import 'ViewModel/meal_view_model.dart';
 import 'View/Screens/HomePage.dart';
+import 'View/Screens/MenuList.dart';
 import 'View/Screens/OnBoarding1.dart';
 import 'View/Screens/OnBoarding2.dart';
-import 'themes/theme-provider.dart';
+import 'ViewModel/meal_view_model.dart';
 import 'themes/dark.dart';
 import 'themes/light.dart';
-import 'package:go_router/go_router.dart';
+import 'themes/theme-provider.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -79,7 +86,8 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: '/meal-list/:categoryId',
-      builder: (context, state) => MealList(categoryId: state.pathParameters['categoryId']!),
+      builder: (context, state) =>
+          MealList(categoryId: state.pathParameters['categoryId']!),
     ),
     GoRoute(
       path: '/successful_checkout',
@@ -88,6 +96,16 @@ final _router = GoRouter(
     GoRoute(
       path: '/edit-profile',
       builder: (context, state) => EditProfileScreen(),
+    ),
+    GoRoute(
+      path: '/otp',
+      builder: (context, state) => OtpScreen(
+        phoneNumber:state.pathParameters['phoneNumber']!,
+      ),
+    ),
+    GoRoute(
+      path: '/SuccessDialog',
+      builder: (context, state) => SuccessDialog(),
     ),
   ],
 );
@@ -105,7 +123,7 @@ class _MyAppState extends State<MyApp> {
   void _toggleTheme() {
     setState(() {
       _themeMode =
-      _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+          _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     });
   }
 
@@ -119,24 +137,27 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => UserServices()),
-        ChangeNotifierProvider(create: (_) => MealViewModel()),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-      ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
-          print(_router.configuration);
-          return MaterialApp.router(
-            title: 'Flutter Demo',
-            themeMode:
-            themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            theme: themeProvider.isDarkMode ? darkMode : lightMode,
-            debugShowCheckedModeBanner: false,
-            routerConfig: _router,
-          );
-        },
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => PhoneAuthCubit())],
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => UserServices()),
+          ChangeNotifierProvider(create: (_) => MealViewModel()),
+          ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ],
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            print(_router.configuration);
+            return MaterialApp.router(
+              title: 'Flutter Demo',
+              themeMode:
+                  themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              theme: themeProvider.isDarkMode ? darkMode : lightMode,
+              debugShowCheckedModeBanner: false,
+              routerConfig: _router,
+            );
+          },
+        ),
       ),
     );
   }

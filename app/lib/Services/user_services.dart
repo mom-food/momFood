@@ -1,10 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:app/Model/order_model.dart';
 import 'package:app/Model/user/user_model.dart';
-import 'package:app/constants/fb_collection.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
@@ -24,30 +23,34 @@ class UserServices extends ChangeNotifier {
     await UserServices.signout();
     try {
       bool isSignedUp = false;
-      print(request.email);
       FirebaseAuth instance = FirebaseAuth.instance;
-      await instance
-          .createUserWithEmailAndPassword(
-          email: request.email!, password: request.password!)
-          .then(
+      final userCredential = await instance.createUserWithEmailAndPassword(
+              email: request.email!, password: request.password!)
+              .then(
             (value) async {
-          // --------- Save in FireStore
-          // var db = FirebaseFirestore.instance;
-          // await db.collection(FbCollections.users).add(request.toJson());
-          // --------- Save in MongoDB
-          final response = await http.post(
-            Uri.parse(url),
-            headers: {'Content-Type': 'application/json'},
-            body: jsonEncode(request.toJson()),
-          );
-          if (response.statusCode >= 200 && response.statusCode < 300) {
-            isSignedUp = true;
-          }
-        },
-      );
-      return isSignedUp;
+              log('user is ${value.user!.uid}');
+              // --------- Save in FireStore
+              // var db = FirebaseFirestore.instance;
+              // await db.collection(FbCollections.users).add(request.toJson());
+              // --------- Save in MongoDB
+              final response = await http.post(
+                Uri.parse(url),
+                headers: {'Content-Type': 'application/json'},
+                body: jsonEncode(request.toJson()),
+              );
+              log('response ${response.body}');
+              if (response.statusCode >= 200 && response.statusCode < 300) {
+                isSignedUp = true;
+              }
+            },
+          )
+          ;
+      final user = instance.currentUser;
+      log('user is " ${user?.uid}');
+      return user?.uid != null;
+      //   return isSignedUp;
     } catch (e) {
-      print(e);
+      log(e.toString());
       return false;
     }
   }
@@ -60,7 +63,7 @@ class UserServices extends ChangeNotifier {
       await instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then(
-            (value) async {
+        (value) async {
           print("value::::::::::::: $value");
           // var querySnapshot = await FirebaseFirestore.instance
           //     .collection('users')
