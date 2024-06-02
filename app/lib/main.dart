@@ -100,7 +100,7 @@ final _router = GoRouter(
     GoRoute(
       path: '/otp',
       builder: (context, state) => OtpScreen(
-        phoneNumber:state.pathParameters['phoneNumber']!,
+        phoneNumber:'0569359015'//state.pathParameters['phoneNumber']!,
       ),
     ),
     GoRoute(
