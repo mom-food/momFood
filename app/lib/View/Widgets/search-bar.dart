@@ -58,6 +58,5 @@ extension ThemeDataExtension on ThemeData {
       colorScheme: themeData.colorScheme,
     );
 
-    // Apply the modified theme
   }
 }

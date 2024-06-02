@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:app/View/Screens/OfferMeals.dart';
 import 'package:app/View/Screens/meal_details.dart';
 import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -67,6 +68,10 @@ final _router = GoRouter(
       builder: (context, state) => Onboarding2Screen(),
     ),
     GoRoute(
+      path: '/MealOffer',
+      builder: (context, state) => MealOfferScreen(),
+    ),
+    GoRoute(
       path: '/MealCategoryScreen',
       builder: (context, state) => MealCategoryScreen(),
     ),
@@ -77,13 +82,13 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: '/meal-list/:categoryId',
-      builder: (context, state) => MealList(categoryId: state.pathParameters['categoryId']!),
+      builder: (context, state) =>
+          MealList(categoryId: state.pathParameters['categoryId']!),
     ),
     GoRoute(
       path: '/successful_checkout',
       builder: (context, state) => SuccessMessageScreen(),
     ),
-
   ],
 );
 
@@ -100,7 +105,7 @@ class _MyAppState extends State<MyApp> {
   void _toggleTheme() {
     setState(() {
       _themeMode =
-      _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+          _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
     });
   }
 
@@ -126,7 +131,7 @@ class _MyAppState extends State<MyApp> {
           return MaterialApp.router(
             title: 'Flutter Demo',
             themeMode:
-            themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+                themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
             theme: themeProvider.isDarkMode ? darkMode : lightMode,
             debugShowCheckedModeBanner: false,
             routerConfig: _router,
