@@ -56,7 +56,7 @@ class SignUpScreenController extends ChangeNotifier {
     if (isSignedUp) {
       log("register started");
       await context.read<PhoneAuthCubit>().submitPhoneNumber(phone.text);
-      context.go('/otp');
+      context.go("/otp");
       log("register finsished");
     }
     _updateStateLoading = false;
