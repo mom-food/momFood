@@ -15,7 +15,7 @@ class MealOfferScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[],
         ),
-        automaticallyImplyLeading: false, // هذا السطر يحذف زر العودة
+        automaticallyImplyLeading: false,
       ),
       body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
         return RefreshIndicator(
@@ -38,28 +38,23 @@ class MealOfferScreen extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              viewModel.refresh();
-                            },
-                            child: Text("click me")),
                         ...viewModel
                             .getFilteredMeals()
                             .map((meal) => MealOfferCard(
-                                  title: meal.name,
-                                  mealId: meal.id,
-                                  imageUrl: meal.image,
-                                  originalPrice: meal.price.toStringAsFixed(2),
-                                  discountedPrice:
-                                      (meal.price * 0.8).toStringAsFixed(2),
-                                )),
+                          title: meal.name,
+                          mealId: meal.id,
+                          imageUrl: meal.image,
+                          originalPrice: meal.price.toStringAsFixed(2),
+                          discountedPrice:
+                          (meal.price * 0.8).toStringAsFixed(2),
+                        )),
                       ],
                     ),
                   ),
                   SizedBox(height: 0),
                   Expanded(
                     child: Padding(
-                      padding: const EdgeInsets.all(0), // ضبط الحشو الداخلي
+                      padding: const EdgeInsets.all(0),
                       child: MealCategoryScreen(),
                     ),
                   ),

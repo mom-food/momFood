@@ -29,7 +29,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
       child: Column(
         children: [
           Container(
-            width: 300,
+            width: 370,
             height: 36,
             child: Stack(
               children: [
@@ -37,7 +37,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   left: 0,
                   top: 0,
                   child: Container(
-                    width: 300,
+                    width: 370,
                     height: 36,
                     decoration: BoxDecoration(
                       boxShadow: [
