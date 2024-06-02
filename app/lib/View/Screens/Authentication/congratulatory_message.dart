@@ -20,7 +20,7 @@ class SuccessDialog extends StatelessWidget {
             ),
             SizedBox(height: 20),
             TextButton(
-              onPressed: () => context.go("/Home"),
+              onPressed: () => context.go("/"),
               style: TextButton.styleFrom(
                 foregroundColor: Colors.white, backgroundColor: Colors.orange,
               ),

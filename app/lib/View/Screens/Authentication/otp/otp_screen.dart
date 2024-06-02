@@ -160,12 +160,12 @@ Widget buildPinCodeFields(BuildContext context, PhoneAuthService phoneAuthProvid
     animationDuration: const Duration(milliseconds: 300),
     backgroundColor: Colors.white,
     enableActiveFill: true,
-    onCompleted: (submitedCode) async {
-      bool iscorrect= await  context.read<PhoneAuthCubit>().submitOTP(submitedCode);
-      if(iscorrect){
-      phoneAuthProvider.otpCode = submitedCode;
+    onCompleted: (submitedCode)  {
+      //bool iscorrect= await  context.read<PhoneAuthCubit>().submitOTP(submitedCode);
+      //if(iscorrect){
+     // phoneAuthProvider.otpCode = submitedCode;
       context.go('/SuccessDialog');
-      }
+      //}
     },
     onChanged: (value) {},
   );
