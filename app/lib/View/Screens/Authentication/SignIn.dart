@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../controller/Sign_in_screen_controller.dart';
-import '../controller/sign_up_screen_controller.dart';
+import '../../../ViewModel/sign_up_view-model.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});

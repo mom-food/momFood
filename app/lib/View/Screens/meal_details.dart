@@ -43,7 +43,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
     } else if (index == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SplashScreen()), // تأكد من وجود صفحة الملف الشخصي
+        MaterialPageRoute(builder: (context) => SplashScreen()),
       );
     }
   }
@@ -93,7 +93,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                             children: [
                               TextSpan(
                                 text:
-                                (meal.price * 0.8).toString(), // Price part
+                                (meal.price * 0.8).toString(),
                                 style: GoogleFonts.ibmPlexSansArabic(
                                   textStyle: Theme.of(context)
                                       .textTheme
@@ -101,13 +101,13 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                                       ?.copyWith(
                                     fontSize: 24,
                                     color:
-                                    Color(0xFFFF9500), // Orange color
+                                    Color(0xFFFF9500),
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                               TextSpan(
-                                text: '₪', // Shekel symbol
+                                text: '₪',
                                 style: GoogleFonts.ibmPlexSansArabic(
                                   textStyle: Theme.of(context)
                                       .textTheme
@@ -139,7 +139,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                     SizedBox(height: 20),
                     Container(
                       color: Colors.white.withOpacity(
-                          0.8), // Light background for better readability
+                          0.8),
                       padding: EdgeInsets.all(8),
                       child: Text(
                         meal.description,
@@ -175,7 +175,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                             ?.copyWith(
                           fontSize: 24,
                           color: Colors
-                              .white, // Text color on button for contrast
+                              .white,
                         ),
                       )),
                   style: ElevatedButton.styleFrom(

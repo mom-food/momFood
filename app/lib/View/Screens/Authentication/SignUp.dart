@@ -3,7 +3,7 @@ import 'package:app/View/Screens/OnBoarding1.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../controller/sign_up_screen_controller.dart';
+import '../../../ViewModel/sign_up_view-model.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
