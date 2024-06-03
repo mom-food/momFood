@@ -7,12 +7,46 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
+import '../Widgets/nav_bar.dart';
+import 'SplashScreen.dart';
+import 'shopping_cart_screen.dart'; // استيراد صفحة السلة
 
-class MealDetailsScreen extends StatelessWidget {
+import 'OfferMeals.dart'; // استيراد صفحة عرض الوجبات
+
+class MealDetailsScreen extends StatefulWidget {
   final String mealId;
-  TextEditingController _controller = TextEditingController(text: '0');
-
   MealDetailsScreen({required this.mealId});
+
+  @override
+  _MealDetailsScreenState createState() => _MealDetailsScreenState();
+}
+
+class _MealDetailsScreenState extends State<MealDetailsScreen> {
+  TextEditingController _controller = TextEditingController(text: '0');
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => MealOfferScreen()),
+      );
+    } else if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TemporaryCart()),
+      );
+    } else if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SplashScreen()), // تأكد من وجود صفحة الملف الشخصي
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +67,9 @@ class MealDetailsScreen extends StatelessWidget {
       ),
       body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
         var meal =
-        viewModel.meals.firstWhere((element) => element.id == mealId);
+        viewModel.meals.firstWhere((element) => element.id == widget.mealId);
         var item =
-        viewModel.cartItems.firstWhereOrNull((m) => m.meal.id == mealId);
+        viewModel.cartItems.firstWhereOrNull((m) => m.meal.id == widget.mealId);
         if (item != null) {
           _controller.text = item.quantity.toString();
         }
@@ -249,6 +283,10 @@ class MealDetailsScreen extends StatelessWidget {
           ],
         );
       }),
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
+      ),
     );
   }
 }
