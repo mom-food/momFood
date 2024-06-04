@@ -14,7 +14,6 @@ import '../Widgets/nav_bar.dart';
 import 'home_page.dart';
 import 'shopping_cart_screen.dart';
 
-
 class MealDetailsScreen extends StatefulWidget {
   final String mealId;
   MealDetailsScreen({required this.mealId});
@@ -90,51 +89,56 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              TextSpan(
-                                text:
-                                (meal.price * 0.8).toString(),
-                                style: GoogleFonts.ibmPlexSansArabic(
-                                  textStyle: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                    fontSize: 24,
-                                    color:
-                                    Color(0xFFFF9500),
-                                    fontWeight: FontWeight.bold,
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text:
+                                  (meal.price * 0.8).toString(),
+                                  style: GoogleFonts.ibmPlexSansArabic(
+                                    textStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                      fontSize: 24,
+                                      color:
+                                      Color(0xFFFF9500),
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              TextSpan(
-                                text: '₪',
-                                style: GoogleFonts.ibmPlexSansArabic(
-                                  textStyle: Theme.of(context)
-                                      .textTheme
-                                      .titleLarge
-                                      ?.copyWith(
-                                    fontSize: 24,
-                                    color: Colors.black, // Black color
-                                    fontWeight: FontWeight.w600,
+                                TextSpan(
+                                  text: '₪',
+                                  style: GoogleFonts.ibmPlexSansArabic(
+                                    textStyle: Theme.of(context)
+                                        .textTheme
+                                        .titleLarge
+                                        ?.copyWith(
+                                      fontSize: 24,
+                                      color: Colors.black, // Black color
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
-                        Text(
-                          meal.name,
-                          style: GoogleFonts.ibmPlexSansArabic(
-                              textStyle: Theme.of(context)
-                                  .textTheme
-                                  .headlineSmall
-                                  ?.copyWith(
-                                fontSize: 24,
-                                color: Colors.black87,
-                                fontWeight: FontWeight.bold,
-                              )),
+                        Expanded(
+                          child: Text(
+                            meal.name,
+                            style: GoogleFonts.ibmPlexSansArabic(
+                                textStyle: Theme.of(context)
+                                    .textTheme
+                                    .headlineSmall
+                                    ?.copyWith(
+                                  fontSize: 24,
+                                  color: Colors.black87,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                            textAlign: TextAlign.right,
+                          ),
                         ),
                       ],
                     ),
