@@ -1,4 +1,5 @@
 import 'package:app/Model/meal_model.dart';
+import 'package:app/View/Screens/splash_screen.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
@@ -7,12 +8,45 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
+import '../Widgets/nav_bar.dart';
+import 'home_page.dart';
+import 'shopping_cart_screen.dart';
 
-class MealDetailsScreen extends StatelessWidget {
+
+class MealDetailsScreen extends StatefulWidget {
   final String mealId;
-  TextEditingController _controller = TextEditingController(text: '0');
-
   MealDetailsScreen({required this.mealId});
+
+  @override
+  _MealDetailsScreenState createState() => _MealDetailsScreenState();
+}
+
+class _MealDetailsScreenState extends State<MealDetailsScreen> {
+  TextEditingController _controller = TextEditingController(text: '0');
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    if (index == 0) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => HomePageScreen()),
+      );
+    } else if (index == 1) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => TemporaryCart()),
+      );
+    } else if (index == 2) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SplashScreen()),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -33,9 +67,9 @@ class MealDetailsScreen extends StatelessWidget {
       ),
       body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
         var meal =
-        viewModel.meals.firstWhere((element) => element.id == mealId);
+        viewModel.meals.firstWhere((element) => element.id == widget.mealId);
         var item =
-        viewModel.cartItems.firstWhereOrNull((m) => m.meal.id == mealId);
+        viewModel.cartItems.firstWhereOrNull((m) => m.meal.id == widget.mealId);
         if (item != null) {
           _controller.text = item.quantity.toString();
         }
@@ -59,7 +93,7 @@ class MealDetailsScreen extends StatelessWidget {
                             children: [
                               TextSpan(
                                 text:
-                                (meal.price * 0.8).toString(), // Price part
+                                (meal.price * 0.8).toString(),
                                 style: GoogleFonts.ibmPlexSansArabic(
                                   textStyle: Theme.of(context)
                                       .textTheme
@@ -67,13 +101,13 @@ class MealDetailsScreen extends StatelessWidget {
                                       ?.copyWith(
                                     fontSize: 24,
                                     color:
-                                    Color(0xFFFF9500), // Orange color
+                                    Color(0xFFFF9500),
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                               TextSpan(
-                                text: '₪', // Shekel symbol
+                                text: '₪',
                                 style: GoogleFonts.ibmPlexSansArabic(
                                   textStyle: Theme.of(context)
                                       .textTheme
@@ -105,7 +139,7 @@ class MealDetailsScreen extends StatelessWidget {
                     SizedBox(height: 20),
                     Container(
                       color: Colors.white.withOpacity(
-                          0.8), // Light background for better readability
+                          0.8),
                       padding: EdgeInsets.all(8),
                       child: Text(
                         meal.description,
@@ -141,7 +175,7 @@ class MealDetailsScreen extends StatelessWidget {
                             ?.copyWith(
                           fontSize: 24,
                           color: Colors
-                              .white, // Text color on button for contrast
+                              .white,
                         ),
                       )),
                   style: ElevatedButton.styleFrom(
@@ -249,6 +283,10 @@ class MealDetailsScreen extends StatelessWidget {
           ],
         );
       }),
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped,
+      ),
     );
   }
 }

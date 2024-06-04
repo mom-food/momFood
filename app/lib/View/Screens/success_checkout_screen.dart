@@ -17,7 +17,7 @@ class _SuccessMessageScreen extends State<SuccessMessageScreen> {
   }
 
   navigateToHome() async {
-    await Future.delayed(Duration(microseconds: 3), () {});
+    await Future.delayed(Duration(microseconds: 10), () {});
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go("/");
     });

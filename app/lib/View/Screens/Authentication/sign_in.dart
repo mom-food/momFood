@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../controllers/sign_in_screen_controller.dart';
+import '../../../ViewModel/sign_in_view_model.dart';
 
 
 class SignInScreen extends StatefulWidget {
