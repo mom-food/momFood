@@ -1,11 +1,10 @@
 import 'package:app/View/Screens/Home.dart';
 import 'package:app/View/Screens/OnBoarding1.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 import '../controller/Sign_in_screen_controller.dart';
 import '../controller/sign_up_screen_controller.dart';
-import 'ForgetPassword.dart';
+import 'forget_password.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -60,17 +59,13 @@ class _SignInScreenState extends State<SignInScreen> {
                           );
                         },
                         child: Text(
-                          'هل نسيت كلمة المرور؟',
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.green,
-                          ),
+                          'نسيت كلمة السر؟',
+                          style: TextStyle(color: Colors.green),
                         ),
-                      ),
 
+                      ),
                     ],
                   ),
-
                 ),
                 SizedBox(height: 20),
                 Padding(
@@ -83,11 +78,11 @@ class _SignInScreenState extends State<SignInScreen> {
                     child: controller.loading
                         ? CircularProgressIndicator()
                         : Text(
-                      'تسجيل دخول',
-                      style: TextStyle(
-                        fontSize: 16, // حجم الخط
-                      ),
-                    ),
+                            'تسجيل دخول',
+                            style: TextStyle(
+                              fontSize: 16, // حجم الخط
+                            ),
+                          ),
                     style: OutlinedButton.styleFrom(
                       foregroundColor: Colors.white,
                       minimumSize: Size(301, 55),
@@ -116,8 +111,7 @@ class AskUserToLoginButton extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () {
-              context.go("/sign-up");
-              // Navigator.pushReplacementNamed(context, '/sign-up');
+              Navigator.pushReplacementNamed(context, '/sign-up');
             },
             child: Text(
               'إنشاء حساب',
@@ -140,39 +134,39 @@ class _SignInForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: controller.formKey,
-      child: Column(
-        children: [
-          SizedBox(height: 25),
-          _FormField(
-            icon: Icons.email,
-            controller: controller.email,
-            label: 'الإيميل',
-            //icon: Icons.email,
-            validator: controller.emailValidator,
-            hint: 'ادخل ايميلك',
-            minHeight: 48,
-            width: 360,
-          ),
-          SizedBox(height: 15),
-          _FormField(
-            controller: controller.password,
-            label: 'كلمة المرور',
-            hint: 'ادخل كلمة المرور',
-            minHeight: 48,
-            width: 360,
-            icon: Icons.lock,
-            validator: controller.passwordValidator,
-            isObscure: !controller.showPassword,
-            suffixIcon: ShowPasswordButton(
-              show: controller.showPassword,
-              onTap: controller.showHidePassword,
+        key: controller.formKey,
+        child: Column(
+              children: [
+                SizedBox(height: 25),
+                _FormField(
+                  icon: Icons.email,
+                  controller: controller.email,
+                  label: 'الإيميل',
+                  //icon: Icons.email,
+                  validator: controller.emailValidator,
+                  hint: 'ادخل ايميلك',
+                  minHeight: 48,
+                  width: 360,
+                ),
+                SizedBox(height: 15),
+                _FormField(
+                  controller: controller.password,
+                  label: 'كلمة المرور',
+                  hint: 'ادخل كلمة المرور',
+                  minHeight: 48,
+                  width: 360,
+                  icon: Icons.lock,
+                  validator: controller.passwordValidator,
+                  isObscure: !controller.showPassword,
+                  suffixIcon: ShowPasswordButton(
+                    show: controller.showPassword,
+                    onTap: controller.showHidePassword,
+                  ),
+                ),
+                SizedBox(height: 10),
+              ],
             ),
-          ),
-          SizedBox(height: 10),
-        ],
-      ),
-    );
+          );
   }
 }
 

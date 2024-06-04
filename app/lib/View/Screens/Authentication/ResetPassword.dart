@@ -1,6 +1,5 @@
 import 'package:app/Services/user_services.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ResetPassword extends StatefulWidget {
@@ -134,16 +133,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                       return;
                     }
 
-                    if (await UserServices.resetPassword(
-                      _passwordController.text,
-                      widget.oobCode,
-                    )) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("تم إعادة تعيين كلمة المرور"),
-                      ));
-                      Navigator.pushReplacementNamed(context, '/signin');
-                    }
-                    ;
+                      if (await UserServices.resetPassword(
+                        _passwordController.text,
+                        widget.oobCode,
+                      )) {
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          content: Text("تم إعادة تعيين كلمة المرور"),
+                        ));
+                        Navigator.pushReplacementNamed(context, '/onboarding1');
+                      }
+                      ;
 
                   },
                   child: Text('حفظ',

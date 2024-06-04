@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../ViewModel/meal_view_model.dart';
-import '../../Model/meal_model.dart';
-import '../Widgets/search-bar.dart';
+import '../../Model/meal-model.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -46,3 +45,41 @@ class HomePage extends StatelessWidget {
   }
 }
 
+class CustomSearchBar extends StatefulWidget {
+  final Function(String) onSearch;
+
+  const CustomSearchBar({Key? key, required this.onSearch}) : super(key: key);
+
+  @override
+  _CustomSearchBarState createState() => _CustomSearchBarState();
+}
+
+class _CustomSearchBarState extends State<CustomSearchBar> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: TextField(
+        controller: _controller,
+        decoration: InputDecoration(
+          hintText: 'Search for meals...',
+          suffixIcon: IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {
+              String query = _controller.text.trim();
+              widget.onSearch(query);
+            },
+          ),
+        ),
+      ),
+    );
+  }
+}

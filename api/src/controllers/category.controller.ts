@@ -1,9 +1,23 @@
 import { Request, Response } from "express";
-import { Category} from "../models";
+import { Category } from "../models/category";
+
+export const getFilteredCategories = async (req: Request, res: Response) => {
+  console.log("User is trying to get some categories");
+  try {
+    const search = req.query?.search as string | undefined;
+    console.log("What the user is trying to search for: ", search);
+    const categories = await Category.find({
+      name: { $regex: new RegExp(search ?? "", "i") },
+    }).exec();
+    res.status(200).json(categories);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
 
 export const createCategory = async (req: Request, res: Response) => {
   try {
-    const { name, image } = req.body; 
+    const { name, image } = req.body;
 
     const category = new Category({
       name,
@@ -12,7 +26,7 @@ export const createCategory = async (req: Request, res: Response) => {
 
     await category.save();
     console.log("A category has been added to database");
-    res.status(201).json({message:"success",category});
+    res.status(201).json(category);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
@@ -45,16 +59,17 @@ export const updateCategory = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const { name, image } = req.body;
-    const category = await Category.findByIdAndUpdate(id, { name, image }).exec();
+    const category = await Category.findByIdAndUpdate(id, { name, image })
+      .exec();
     if (!category) {
       res.status(404).json({ message: "Category not found" });
     } else {
-      res.status(201).json({message:"success",category});
+      res.status(200).json(category);
     }
   } catch (error: any) {
     console.error(error);
     res.status(500).json({ message: "Unknown error" });
-  } 
+  }
 };
 
 export const deleteCategory = async (req: Request, res: Response) => {
@@ -62,7 +77,7 @@ export const deleteCategory = async (req: Request, res: Response) => {
     const { id } = req.params;
     const category = await Category.findByIdAndDelete(id).exec();
     if (!category) {
-      res.status(201).json({message:"success",category});
+      res.status(404).json({ message: "Category not found" });
     } else {
       res.status(200).json(category);
     }

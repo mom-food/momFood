@@ -2,7 +2,6 @@ import 'package:app/Model/user/user_model.dart';
 import 'package:app/Services/user_services.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 
 class SignUpScreenController extends ChangeNotifier {
   SignUpScreenController()
@@ -39,10 +38,7 @@ class SignUpScreenController extends ChangeNotifier {
         phone: phone.text);
     bool res = await UserServices().signUp(request);
     if(res) {
-      bool res = await UserServices().signIn(email.text, password.text);
-      if(res && UserServices.isSignedIn()) {
-        context.go('/');
-      }
+      Navigator.pushReplacementNamed(context, '/offer');
     }
     _updateStateLoading = false;
     //todo handle sign up result
