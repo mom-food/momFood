@@ -1,4 +1,4 @@
-import '../Model/mealDetailsModel.dart';
+import '../Model/meal_details_model.dart';
 
 class Cart {
   final List<MealDetailsModel> items = [];

@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 
 class UserServices extends ChangeNotifier {
   final String url = "http://10.0.2.2:3000/api/users/";
+  //
   static CreateUserRequestBody? userData = CreateUserRequestBody(
     email: "",
     name: "",
@@ -18,6 +19,7 @@ class UserServices extends ChangeNotifier {
     phone: "",
     orderHistory: [],
   );
+  //
   Future<bool> signUp(CreateUserRequestBody request) async {
     await UserServices.signout();
     try {
@@ -29,6 +31,9 @@ class UserServices extends ChangeNotifier {
           email: request.email!, password: request.password!)
           .then(
             (value) async {
+          // --------- Save in FireStore
+          // var db = FirebaseFirestore.instance;
+          // await db.collection(FbCollections.users).add(request.toJson());
           // --------- Save in MongoDB
           final response = await http.post(
             Uri.parse(url),
@@ -57,6 +62,25 @@ class UserServices extends ChangeNotifier {
           .then(
             (value) async {
           print("value::::::::::::: $value");
+          // var querySnapshot = await FirebaseFirestore.instance
+          //     .collection('users')
+          //     .where('email', isEqualTo: email)
+          //     .get();
+          //
+          // if (querySnapshot.docs.isNotEmpty) {
+          //   print("aaaaaaaaaaa:: ${querySnapshot.docs.first['email']}");
+          //   //
+          //   userData?.name = querySnapshot.docs.first['name'] ?? "";
+          //   userData?.email = querySnapshot.docs.first['email'] ?? "";
+          //   userData?.phone = querySnapshot.docs.first['phone'] ?? "";
+          //   for (var el in querySnapshot.docs.first['orderHistory'] ?? []) {
+          //     userData?.orderHistory!.add(OrderModel.fromJson(el));
+          //   }
+          //   print("object: ${userData?.orderHistory}");
+          //   return true;
+          // } else {
+          //   return false;
+          // }
           return await getUserByEmail(email);
         },
       );

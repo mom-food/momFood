@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../Screens/HomePage.dart';
+import '../../Screens/home_page.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({Key? key}) : super(key: key);

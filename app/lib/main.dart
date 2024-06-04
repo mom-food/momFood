@@ -1,19 +1,19 @@
 import 'dart:io';
-import 'package:app/View/Screens/OfferMeals.dart';
+import 'package:app/View/Screens/offer_meals.dart';
 import 'package:app/View/Screens/meal_details.dart';
 import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'View/Screens/Authentication/SignIn.dart';
-import 'View/Screens/Authentication/SignUp.dart';
-import 'View/Screens/CategoryMeal.dart';
-import 'View/Screens/MenuList.dart';
+import 'View/Screens/Authentication/sign_in.dart';
+import 'View/Screens/Authentication/sign_up.dart';
+import 'View/Screens/category_meal.dart';
+import 'View/Screens/menu_list.dart';
 import 'ViewModel/meal_view_model.dart';
-import 'View/Screens/HomePage.dart';
-import 'View/Screens/OnBoarding1.dart';
-import 'View/Screens/OnBoarding2.dart';
-import 'themes/theme-provider.dart';
+import 'View/Screens/home_page.dart';
+import 'View/Screens/on_boarding1.dart';
+import 'View/Screens/on_boarding2.dart';
+import 'themes/theme_provider.dart';
 import 'themes/dark.dart';
 import 'themes/light.dart';
 import 'package:go_router/go_router.dart';
@@ -74,6 +74,11 @@ final _router = GoRouter(
     GoRoute(
       path: '/MealCategoryScreen',
       builder: (context, state) => MealCategoryScreen(),
+    ),
+    GoRoute(
+      path: '/meals/:mealId',
+      builder: (context, state) =>
+          MealDetailsScreen(mealId: state.pathParameters['mealId']!),
     ),
     GoRoute(
       path: '/mealDetailsScreen/:mealId',

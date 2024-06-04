@@ -1,13 +1,9 @@
 import 'dart:ui';
-import 'dart:ui';
-
-import 'package:app/View/Screens/Home.dart';
-import 'package:app/View/Screens/OnBoarding1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'HomePage.dart';
+import 'home_page.dart';
 
 class SuccessMessageScreen extends StatefulWidget {
   @override

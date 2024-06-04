@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../Screens/MenuList.dart';
+import '../../Screens/menu_list.dart';
 
 class MealCategoryCard extends StatelessWidget {
   final String categoryId;

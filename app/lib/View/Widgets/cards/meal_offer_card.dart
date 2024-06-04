@@ -61,13 +61,14 @@ class MealOfferCard extends StatelessWidget {
               Text(
                 "₪ $originalPrice",
                 style: const TextStyle(
+                  decoration: TextDecoration.lineThrough,
+
                   color: AppColors.primary2,
                 ),
               ),
               Text(
                 "₪ $discountedPrice",
                 style: const TextStyle(
-                  decoration: TextDecoration.lineThrough,
                   color: AppColors.primary1,
                 ),
               ),

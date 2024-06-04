@@ -7,46 +7,12 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
-import '../Widgets/nav_bar.dart';
-import 'SplashScreen.dart';
-import 'shopping_cart_screen.dart'; // استيراد صفحة السلة
 
-import 'OfferMeals.dart'; // استيراد صفحة عرض الوجبات
-
-class MealDetailsScreen extends StatefulWidget {
+class MealDetailsScreen extends StatelessWidget {
   final String mealId;
-  MealDetailsScreen({required this.mealId});
-
-  @override
-  _MealDetailsScreenState createState() => _MealDetailsScreenState();
-}
-
-class _MealDetailsScreenState extends State<MealDetailsScreen> {
   TextEditingController _controller = TextEditingController(text: '0');
-  int _selectedIndex = 0;
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    if (index == 0) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => MealOfferScreen()),
-      );
-    } else if (index == 1) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => TemporaryCart()),
-      );
-    } else if (index == 2) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SplashScreen()),
-      );
-    }
-  }
+  MealDetailsScreen({required this.mealId});
 
   @override
   Widget build(BuildContext context) {
@@ -67,9 +33,9 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
       ),
       body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
         var meal =
-        viewModel.meals.firstWhere((element) => element.id == widget.mealId);
+        viewModel.meals.firstWhere((element) => element.id == mealId);
         var item =
-        viewModel.cartItems.firstWhereOrNull((m) => m.meal.id == widget.mealId);
+        viewModel.cartItems.firstWhereOrNull((m) => m.meal.id == mealId);
         if (item != null) {
           _controller.text = item.quantity.toString();
         }
@@ -93,7 +59,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                             children: [
                               TextSpan(
                                 text:
-                                (meal.price * 0.8).toString(),
+                                (meal.price * 0.8).toString(), // Price part
                                 style: GoogleFonts.ibmPlexSansArabic(
                                   textStyle: Theme.of(context)
                                       .textTheme
@@ -101,13 +67,13 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                                       ?.copyWith(
                                     fontSize: 24,
                                     color:
-                                    Color(0xFFFF9500),
+                                    Color(0xFFFF9500), // Orange color
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                               TextSpan(
-                                text: '₪',
+                                text: '₪', // Shekel symbol
                                 style: GoogleFonts.ibmPlexSansArabic(
                                   textStyle: Theme.of(context)
                                       .textTheme
@@ -139,7 +105,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                     SizedBox(height: 20),
                     Container(
                       color: Colors.white.withOpacity(
-                          0.8),
+                          0.8), // Light background for better readability
                       padding: EdgeInsets.all(8),
                       child: Text(
                         meal.description,
@@ -175,7 +141,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                             ?.copyWith(
                           fontSize: 24,
                           color: Colors
-                              .white,
+                              .white, // Text color on button for contrast
                         ),
                       )),
                   style: ElevatedButton.styleFrom(
@@ -283,10 +249,6 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
           ],
         );
       }),
-      bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: _selectedIndex,
-        onItemTapped: _onItemTapped,
-      ),
     );
   }
 }

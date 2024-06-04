@@ -1,5 +1,5 @@
 import 'package:app/Model/meal_model.dart';
-import 'package:app/View/Screens/Checkout.dart';
+import 'package:app/View/Screens/checkout.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
