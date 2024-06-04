@@ -1,11 +1,15 @@
 import 'package:app/Model/meal_model.dart';
 import 'package:app/View/Screens/checkout.dart';
+import 'package:app/View/Screens/splash_screen.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../Widgets/nav_bar.dart';
+import 'home_page.dart';
 
 
 class TemporaryCart extends StatelessWidget {
@@ -25,7 +29,7 @@ class TemporaryCart extends StatelessWidget {
         ),
         body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
           List<({Meal meal, int quantity})> filteredCartItems =
-              viewModel.cartItems.where((item) => item.quantity > 0).toList();
+          viewModel.cartItems.where((item) => item.quantity > 0).toList();
           final double totalPrice = filteredCartItems.fold(
               0.0, (a, b) => a + (b.meal.price * b.quantity));
           return Column(
@@ -95,7 +99,7 @@ class TemporaryCart extends StatelessWidget {
                                           Row(
                                             children: [
                                               Text(
-                                                '${item.meal.price * item.quantity}'),
+                                                  '${item.meal.price * item.quantity}'),
                                             ],
                                           ),
                                         ],
@@ -130,12 +134,12 @@ class TemporaryCart extends StatelessWidget {
                     'اطلب الآن!',
                     style: GoogleFonts.ibmPlexSansArabic(
                       textStyle:
-                          Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontSize: 19,
-                                color: Colors.white,
-                            fontWeight: FontWeight.w700,
-                            height: 0.06,
-                              ),
+                      Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontSize: 19,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w700,
+                        height: 0.06,
+                      ),
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
@@ -179,6 +183,27 @@ class TemporaryCart extends StatelessWidget {
             ],
           );
         }),
+        bottomNavigationBar: CustomBottomNavBar(
+          selectedIndex: 1,
+          onItemTapped: (index) {
+            switch (index) {
+              case 0:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => HomePageScreen()),
+                );
+                break;
+              case 1:
+                break;
+              case 2:
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SplashScreen()),
+                );
+                break;
+            }
+          },
+        ),
       ),
     );
   }
