@@ -1,8 +1,12 @@
+import 'package:app/View/Screens/shopping_cart_screen.dart';
+import 'package:app/View/Screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../Model/meal_model.dart';
 import '../../Services/meal_services.dart';
 import '../Widgets/cards/meal_card.dart';
+import '../Widgets/nav_bar.dart';
+import 'home_page.dart';
 
 class MealList extends StatelessWidget {
   final String categoryId;
@@ -48,6 +52,27 @@ class MealList extends StatelessWidget {
                 );
               },
             );
+          }
+        },
+      ),
+      bottomNavigationBar: CustomBottomNavBar(
+        selectedIndex: 1,
+        onItemTapped: (index) {
+          switch (index) {
+            case 0:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePageScreen()),
+              );
+              break;
+            case 1:
+              break;
+            case 2:
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SplashScreen()),
+              );
+              break;
           }
         },
       ),
