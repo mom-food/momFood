@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import { Meal } from "../models";
 import { auth } from "firebase-admin";
 import { getAuth } from "firebase-admin/auth";
- import { firebaseApp } from "../app";
 
 export const resetPasswordRedirect = async (req: Request, res: Response) => {
    //Just redirect to momFood://resetPassword/?[KEEP QUERY STRING]
