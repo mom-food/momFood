@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import 'package:app/Services/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -49,45 +48,32 @@ class ProfileScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('المعلومات الشخصية',
-                        style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
+                    Text('المعلومات الشخصية', style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
                     SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(UserServices.userData!.name!,
-                            style: TextStyle(fontSize: 15)),
+                        Text(UserServices.userData!.name!, style: TextStyle(fontSize: 15)),
                         SizedBox(width: 15),
-                        Text(':الاسم ',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                        Text(':الاسم ', style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(UserServices.userData!.email!,
-                            style: TextStyle(
-                              fontSize: 15,
-                            )),
+                        Text(UserServices.userData!.email!, style: TextStyle(fontSize: 15,)),
                         SizedBox(width: 15),
-                        Text(':البريد الإلكتروني ',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                        Text(':البريد الإلكتروني ', style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(UserServices.userData!.phone!,
-                            style: TextStyle(fontSize: 15)),
+                        Text(UserServices.userData!.phone!, style: TextStyle(fontSize: 15)),
                         SizedBox(width: 15),
-                        Text(':رقم الهاتف   ',
-                            style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                        Text(':رقم الهاتف   ', style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ],
@@ -97,16 +83,15 @@ class ProfileScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () {
                   context.go('/edit-profile');
-                },
-                child: Container(
-                  width: 301,
-                  height: 53,
-                  alignment: Alignment.center,
-                  child: Text(
-                    "تعديل المعلومات",
-                    style: TextStyle(fontSize: 19, color: Colors.white),
-                  ),
+                }, child: Container(
+                width: 301,
+                height: 53,
+                alignment: Alignment.center,
+                child: Text(
+                  "تعديل المعلومات",
+                  style: TextStyle(fontSize: 19,color: Colors.white),
                 ),
+              ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFFF6BD60),
                   shape: RoundedRectangleBorder(
@@ -121,5 +106,3 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 }
-=======
->>>>>>> origin/password1

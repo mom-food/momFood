@@ -1,26 +1,9 @@
-import 'dart:developer';
-
 import 'package:app/Model/user/user_model.dart';
 import 'package:app/Services/user_services.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-<<<<<<< HEAD
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-=======
->>>>>>> origin/password1
-
-import '../Authentication/cubit/phone_auth/phone_auth_cubit.dart';
 
 class SignUpScreenController extends ChangeNotifier {
-  final FirebaseAuth auth = FirebaseAuth.instance;
-  String? _verificationId;
-  String? _errorMessage;
-  bool _isVerificationCompleted = false;
-  String? get verificationId => _verificationId;
-  String? get errorMessage => _errorMessage;
-  bool get isVerificationCompleted => _isVerificationCompleted;
   SignUpScreenController()
       : email = TextEditingController(),
         name = TextEditingController(),
@@ -39,8 +22,7 @@ class SignUpScreenController extends ChangeNotifier {
   TextEditingController repeatPassword;
 
   Future<void> createAccount(BuildContext context) async {
-    log("create account");
-    if (loading) {
+    if(loading){
       return;
     }
     bool isValid = formKey.currentState?.validate() ?? false;
@@ -54,19 +36,12 @@ class SignUpScreenController extends ChangeNotifier {
         name: name.text,
         password: password.text,
         phone: phone.text);
-<<<<<<< HEAD
-    bool isSignedUp = await UserServices().signUp(request);
-    log('isSignedUp: $isSignedUp');
-    if (isSignedUp) {
-      log("register started");
-      await context.read<PhoneAuthCubit>().submitPhoneNumber(phone.text);
-      context.go("/otp");
-      log("register finsished");
-=======
     bool res = await UserServices().signUp(request);
     if(res) {
-      Navigator.pushReplacementNamed(context, '/offer');
->>>>>>> origin/password1
+      bool res = await UserServices().signIn(email.text, password.text);
+      if(res && UserServices.isSignedIn()) {
+        context.go('/');
+      }
     }
     _updateStateLoading = false;
     //todo handle sign up result
@@ -95,9 +70,9 @@ class SignUpScreenController extends ChangeNotifier {
     return null;
   }
 
-  String? nameValidation(String? value) {
+  String? nameValidation(String? value){
     value ??= '';
-    if (value.isEmpty) {
+    if(value.isEmpty){
       return 'يرجى ادخال الاسم';
     }
     if (!RegExp(r'^[ء-ي ]+$').hasMatch(value)) {
@@ -106,14 +81,14 @@ class SignUpScreenController extends ChangeNotifier {
     return null;
   }
 
-  String? phoneValidation(String? value) {
+  String? phoneValidation(String? value){
     value ??= '';
-    if (value.isEmpty) {
+    if(value.isEmpty){
       return 'يرجى ادخال رقم الهاتف';
     }
-    // if (value.length < 10) {
-    //   return 'يرجى ادخال رقم الهاتف بشكل صحيح';
-    // }
+    if(value.length<10){
+      return 'يرجى ادخال رقم الهاتف بشكل صحيح';
+    }
     return null;
   }
 
@@ -125,8 +100,7 @@ class SignUpScreenController extends ChangeNotifier {
     if (value.length < 8) {
       return 'كلمة المرور تقل عن 8 ارقام';
     }
-    if (!value.contains(RegExp(r'[0-9]')) ||
-        !value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
+    if (!value.contains(RegExp(r'[0-9]')) || !value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
       return 'يجب أن تحتوي كلمة المرور على أرقام ورموز وحروف عربية';
     }
     return null;
@@ -137,82 +111,14 @@ class SignUpScreenController extends ChangeNotifier {
     if (value.isEmpty) {
       return 'يرجى ادخال كلمة المرور';
     }
-    if (password.text != repeatPassword.text) {
+    if(password.text != repeatPassword.text){
       return 'كلمات المرور غير متطابقة';
     }
     return null;
   }
-
-  void showHidePassword() {
-    showPassword = !showPassword;
+  void showHidePassword(){
+    showPassword =! showPassword;
     notifyListeners();
   }
 
-  Future<void> phoneAuthentication(String phoneNumber) async {
-    await auth.verifyPhoneNumber(
-      phoneNumber: phoneNumber,
-      verificationCompleted: (PhoneAuthCredential credential) async {
-        await auth.signInWithCredential(credential);
-        _isVerificationCompleted = true;
-        notifyListeners();
-      },
-      verificationFailed: (FirebaseAuthException e) {
-        _errorMessage = 'حدث خطأ أثناء التحقق: ${e.message}';
-        notifyListeners();
-      },
-      codeSent: (String verificationId, int? resendToken) {
-        _verificationId = verificationId;
-        notifyListeners();
-      },
-      codeAutoRetrievalTimeout: (String verificationId) {
-        _verificationId = verificationId;
-        notifyListeners();
-      },
-    );
-  }
-
-  void reset() {
-    _verificationId = null;
-    _errorMessage = null;
-    _isVerificationCompleted = false;
-    notifyListeners();
-  }
-
-  // Function to handle phone number input and send OTP
-  Future<void> sendOTP(String phoneNumber) async {
-    try {
-      await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: phoneNumber,
-        verificationCompleted: (PhoneAuthCredential credential) async {
-          await auth.signInWithCredential(credential);
-        },
-        verificationFailed: (FirebaseAuthException e) {
-          // Handle verification failure (show error message)
-          print(e.message);
-        },
-        codeSent: (String verificationId, int? resendToken) {
-          String enteredOTP; // Store user-entered OTP here
-          // Display a dialog or UI element to prompt user to enter the OTP
-          // Once the user enters the OTP, call verifyOTP function with enteredOTP and verificationId
-        },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          // Handle auto-retrieval timeout (inform user to enter code manually)
-        },
-      );
-    } catch (e) {
-      print(e.toString()); // Handle other exceptions
-    }
-  }
-
-// Function to verify the entered OTP
-  Future<void> verifyOTP(String enteredOTP, String verificationId) async {
-    try {
-      PhoneAuthCredential credential = PhoneAuthProvider.credential(
-          verificationId: verificationId, smsCode: enteredOTP);
-      await auth.signInWithCredential(credential);
-      // Handle successful sign-in (navigate to home screen etc.)
-    } catch (e) {
-      print(e.toString()); // Handle verification failure (show error message)
-    }
-  }
 }
