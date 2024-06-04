@@ -13,8 +13,7 @@ void showLoginDialog(BuildContext context) {
         ),
         child: Container(
           width: 328,
-          height: 221,
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(16),
           decoration: ShapeDecoration(
             color: Colors.white,
             shape: RoundedRectangleBorder(
@@ -34,32 +33,26 @@ void showLoginDialog(BuildContext context) {
             children: [
               Container(
                 width: double.infinity,
-                height: 131,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 child: Text(
                   'هل تريد الاضافة الى السلة ؟ قم بتسجيل الدخول',
                   textAlign: TextAlign.center,
                   style: GoogleFonts.ibmPlexSansArabic(
                     textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontSize: 26,
+                      fontSize: 20,
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                 ),
               ),
-              // Add margin between top container and buttons row
-              const SizedBox(height: 16), // Adjust height as needed
+              const SizedBox(height: 16),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  // Add margin around the first button
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(16.0, 0, 8.0, 0),
-                    child: Container(
-                      width: 136,
-                      height: 42,
-                      decoration: BoxDecoration(color: Color(0xFFF7F2ED)),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xFFF7F2ED),
@@ -86,35 +79,32 @@ void showLoginDialog(BuildContext context) {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(8.0, 0, 16.0, 0),
-                    child: Expanded(
-                      child: Container(
-                        height: 42,
-                        child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color(0xFFA65D0B),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFFA65D0B),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          child: Text(
-                            'تسجيل الدخول',
-                            textAlign: TextAlign.center,
-                            style: GoogleFonts.ibmPlexSansArabic(
-                              textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                                fontSize: 13,
-                                color: Colors.white,
-                                fontWeight: FontWeight.w300,
-                              ),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            context.go('/signIn');
-                          },
                         ),
+                        child: Text(
+                          'تسجيل الدخول',
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.ibmPlexSansArabic(
+                            textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                              fontSize: 13,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w300,
+                            ),
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          context.go('/signIn');
+                        },
                       ),
                     ),
                   ),
