@@ -8,6 +8,8 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
+import '../../Services/user_services.dart';
+import '../Widgets/dialog/login_dialog.dart';
 import '../Widgets/nav_bar.dart';
 import 'home_page.dart';
 import 'shopping_cart_screen.dart';
@@ -165,23 +167,25 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                 padding: EdgeInsets.all(16.0),
                 child: ElevatedButton(
                   onPressed: () {
-                    viewModel.addToCart(meal);
+                    if (UserServices.isSignedIn()) {
+                      viewModel.addToCart(meal);
+                    } else {
+                      showLoginDialog(context);
+                    }
                   },
-                  child: Text('أضف إلى السلة',
-                      style: GoogleFonts.ibmPlexSansArabic(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(
-                          fontSize: 24,
-                          color: Colors
-                              .white,
-                        ),
-                      )),
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 50),
-                    padding: EdgeInsets.all(18),
-                    backgroundColor: Color(0xFFFCB34C),
+                    minimumSize: const Size(double.infinity, 50),
+                    padding: const EdgeInsets.all(18),
+                    backgroundColor: const Color(0xFFFCB34C),
+                  ),
+                  child: Text(
+                    'أضف إلى السلة',
+                    style: GoogleFonts.ibmPlexSansArabic(
+                      textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                        fontSize: 24,
+                        color: Colors.white,
+                      ),
+                    ),
                   ),
                 ),
               )

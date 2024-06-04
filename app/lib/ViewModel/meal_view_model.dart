@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:app/Services/user_services.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:go_router/go_router.dart';
@@ -22,9 +23,11 @@ class MealViewModel extends ChangeNotifier {
       for(var e in items) {
         cartItemsCheckout.add({"id": e.meal.id, "quantity": e.quantity});
       }
-      print(cartItemsCheckout);
+      if (kDebugMode) {
+        print(cartItemsCheckout);
+      }
       // ----------
-      final String url = "http://10.0.2.2:3000/api/orders";
+      const String url = "http://10.0.2.2:3000/api/orders";
       final response = await http.post(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
@@ -34,8 +37,12 @@ class MealViewModel extends ChangeNotifier {
           "meals": cartItemsCheckout,
         }),
       );
-      print("response.statusCode:: ${response.statusCode}");
-      print("response.body:: ${response.body}");
+      if (kDebugMode) {
+        print("response.statusCode:: ${response.statusCode}");
+      }
+      if (kDebugMode) {
+        print("response.body:: ${response.body}");
+      }
       if(response.statusCode >= 200 && response.statusCode < 300) {
         context.go("/successful_checkout");
       }
@@ -45,7 +52,11 @@ class MealViewModel extends ChangeNotifier {
   }
 
   void addToCart(Meal meal) {
-    cartItems.add((meal: meal, quantity: 1));
+    if (UserServices.isSignedIn()) {
+      cartItems.add((meal: meal, quantity: 1));
+    } else {
+      print("User is not logged in, cannot add to cart.");
+    }
     notifyListeners();
   }
 
@@ -57,7 +68,7 @@ class MealViewModel extends ChangeNotifier {
       cartItems = [
         ...cartItems.where((m) {
           return m.meal.id != meal.id;
-        }).toList(),
+        }),
         (
         meal: meal,
         quantity: item.quantity + 1,
@@ -83,7 +94,7 @@ class MealViewModel extends ChangeNotifier {
       cartItems = [
         ...cartItems.where((m) {
           return m.meal.id != meal.id;
-        }).toList(),
+        }),
       ];
     }
     notifyListeners();
@@ -102,7 +113,7 @@ class MealViewModel extends ChangeNotifier {
       cartItems = [
         ...cartItems.where((m) {
           return m.meal.id != meal.id;
-        }).toList(),
+        }),
         (
         meal: meal,
         quantity: quantity,
@@ -129,7 +140,7 @@ class MealViewModel extends ChangeNotifier {
       cartItems = [
         ...cartItems.where((m) {
           return m.meal.id != meal.id;
-        }).toList(),
+        }),
         (
         meal: meal,
         quantity: max(0, item.quantity - 1),
@@ -159,10 +170,14 @@ class MealViewModel extends ChangeNotifier {
         try {
           fetchedMeals.add(Meal.fromJson(mealJson));
         } catch (e) {
-          print('Error parsing meal json: $e');
+          if (kDebugMode) {
+            print('Error parsing meal json: $e');
+          }
         }
       }
-      print("Fetched meals: $fetchedMeals");
+      if (kDebugMode) {
+        print("Fetched meals: $fetchedMeals");
+      }
       meals = fetchedMeals;
       notifyListeners(); // Notify listeners after data is fetched
     } else {
