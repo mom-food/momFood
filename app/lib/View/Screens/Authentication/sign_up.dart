@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../controllers/sign_up_screen_controller.dart';
+import '../../../ViewModel/sign_up_view_model.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
