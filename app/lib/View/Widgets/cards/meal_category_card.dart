@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../Screens/MenuList.dart';
+
+import '../../Screens/MenueList.dart';
+
 
 class MealCategoryCard extends StatelessWidget {
   final String categoryId;
@@ -12,7 +14,7 @@ class MealCategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.push(
+       Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => MealList(categoryId: categoryId,),

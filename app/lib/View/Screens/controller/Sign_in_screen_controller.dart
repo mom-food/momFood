@@ -5,7 +5,6 @@ import 'package:app/View/Widgets/nav_bar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import '../OnBoarding1.dart';
 
 class SignInScreenController extends ChangeNotifier {
@@ -31,8 +30,17 @@ class SignInScreenController extends ChangeNotifier {
 
     _updateStateLoading = true;
     bool res = await UserServices().signIn(email.text, password.text);
-    if (res && UserServices.isSignedIn()) {
-      context.go("/");
+    if (res) {
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => Onboarding1(),
+        ),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text('الإيميل أو كلمة المرور خاطئة'),
+      ));
     }
     _updateStateLoading = false;
     //
@@ -68,7 +76,7 @@ class SignInScreenController extends ChangeNotifier {
     if (value.isEmpty) {
       return 'يرجى ادخال كلمة المرور';
     }
-    if (value.length < 8) {
+    if (value.length < 5) {
       return 'كلمة المرور تقل عن 8 ارقام';
     }
     if (!value.contains(RegExp(r'[0-9]')) ||
