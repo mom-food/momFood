@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../ViewModel/sign_up_view_model.dart';
+import '../../Widgets/back_button.dart';
+
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -11,6 +13,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final SignUpScreenController controller = SignUpScreenController();
+
   @override
   void initState() {
     super.initState();
@@ -23,8 +26,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: CustomBackButton(
+            onPressed: () {
+              context.go('/onboarding2'); // Adjust this route as necessary
+            },
+          ),
+        ),
         body: Column(
           children: [
             Text(
@@ -65,12 +76,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             AskUserToLoginButton()
           ],
-        ));
+        ),
+      ),
+    );
   }
 }
 
 class AskUserToLoginButton extends StatelessWidget {
   const AskUserToLoginButton({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -103,79 +117,77 @@ class _SignUpForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Form(
-        key: controller.formKey,
-        child: Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(height: 25),
-                _FormField(
-                  icon: Icons.email,
-                  controller: controller.email,
-                  label: 'الإيميل',
-                  //icon: Icons.email,
-                  validator: controller.emailValidator,
-                  hint: 'ادخل ايميلك',
-                  minHeight: 48,
-                  width: 360,
+      key: controller.formKey,
+      child: Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 25),
+              _FormField(
+                icon: Icons.email,
+                controller: controller.email,
+                label: 'الإيميل',
+                validator: controller.emailValidator,
+                hint: 'ادخل ايميلك',
+                minHeight: 48,
+                width: 360,
+              ),
+              SizedBox(height: 15),
+              _FormField(
+                icon: Icons.person,
+                controller: controller.name,
+                validator: controller.nameValidation,
+                label: 'الاسم',
+                hint: 'ادخل اسمك',
+                minHeight: 48,
+                width: 360,
+              ),
+              SizedBox(height: 15),
+              _FormField(
+                icon: Icons.phone,
+                controller: controller.phone,
+                validator: controller.phoneValidation,
+                label: 'الهاتف',
+                hint: 'ادخل رقمك',
+                minHeight: 48,
+                width: 360,
+              ),
+              SizedBox(height: 15),
+              _FormField(
+                controller: controller.password,
+                label: 'كلمة المرور',
+                hint: 'ادخل كلمة المرور',
+                minHeight: 48,
+                width: 360,
+                icon: Icons.lock,
+                validator: controller.passwordValidator,
+                isObscure: !controller.showPassword,
+                suffixIcon: ShowPasswordButton(
+                  show: controller.showPassword,
+                  onTap: controller.showHidePassword,
                 ),
-                SizedBox(height: 15),
-                _FormField(
-                  icon: Icons.person,
-                  controller: controller.name,
-                  validator: controller.nameValidation,
-                  label: 'الاسم',
-                  hint: 'ادخل اسمك',
-                  minHeight: 48,
-                  width: 360,
-                  // icon: Icons.person,
+              ),
+              SizedBox(height: 15),
+              _FormField(
+                controller: controller.repeatPassword,
+                label: 'اعادة كلمة المرور',
+                hint: 'تاكيد كلمة المرور',
+                minHeight: 48,
+                width: 360,
+                icon: Icons.lock,
+                isObscure: !controller.showPassword,
+                suffixIcon: ShowPasswordButton(
+                  show: controller.showPassword,
+                  onTap: controller.showHidePassword,
                 ),
-                SizedBox(height: 15),
-                _FormField(
-                  icon: Icons.phone,
-                  controller: controller.phone,
-                  validator: controller.phoneValidation,
-                  label: 'الهاتف',
-                  hint: 'ادخل رقمك',
-                  minHeight: 48,
-                  width: 360,
-                  //icon: Icons.phone,
-                ),
-                SizedBox(height: 15),
-                _FormField(
-                  controller: controller.password,
-                  label: 'كلمة المرور',
-                  hint: 'ادخل كلمة المرور',
-                  minHeight: 48,
-                  width: 360,
-                  icon: Icons.lock,
-                  validator: controller.passwordValidator,
-                  isObscure: !controller.showPassword,
-                  suffixIcon: ShowPasswordButton(
-                    show: controller.showPassword,
-                    onTap: controller.showHidePassword,
-                  ),
-                ),
-                SizedBox(height: 15),
-                _FormField(
-                  controller: controller.repeatPassword,
-                  label: 'اعادة كلمة المرور',
-                  hint: 'تاكيد كلمة المرور',
-                  minHeight: 48,
-                  width: 360,
-                  icon: Icons.lock,
-                  isObscure: !controller.showPassword,
-                  suffixIcon: ShowPasswordButton(
-                    show: controller.showPassword,
-                    onTap: controller.showHidePassword,
-                  ),
-                  validator: controller.repeatedPasswordValidator,
-                ),
-                SizedBox(height: 10),
-              ],
-            ),
+                validator: controller.repeatedPasswordValidator,
+              ),
+              SizedBox(height: 10),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
 
@@ -238,7 +250,8 @@ class ShowPasswordButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-        onPressed: onTap,
-        icon: Icon(show ? Icons.visibility_off : Icons.visibility));
+      onPressed: onTap,
+      icon: Icon(show ? Icons.visibility_off : Icons.visibility),
+    );
   }
 }

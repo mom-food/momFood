@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../ViewModel/sign_in_view_model.dart';
+import '../../Widgets/back_button.dart';
 
 
 class SignInScreen extends StatefulWidget {
@@ -13,6 +13,7 @@ class SignInScreen extends StatefulWidget {
 
 class _SignInScreenState extends State<SignInScreen> {
   final SignInScreenController controller = SignInScreenController();
+
   @override
   void initState() {
     super.initState();
@@ -28,65 +29,73 @@ class _SignInScreenState extends State<SignInScreen> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-          appBar: AppBar(),
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Text(
-                  'تسجيل دخول',
-                  style: TextStyle(fontSize: 32),
-                ),
-                SizedBox(height: 20),
-                Image.asset(
-                  'assets/images/SignUpImage.png',
-                  height: 124,
-                  width: 183,
-                ),
-                _SignInForm(
-                  controller: controller,
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 25),
-                  child: Row(
-                    children: [
-                      Text("هل نسيت كلمة المرور؟"),
-                      SizedBox(width: 20),
-                      Flexible(
-                          child: Text(
-                            "تغيير كلمة السر",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          )),
-                    ],
-                  ),
-                ),
-                SizedBox(height: 20),
-                Padding(
-                  padding: const EdgeInsets.only(
-                      top: 0, bottom: 5), // الهامش العلوي للزر فقط
-                  child: OutlinedButton(
-                    onPressed: () {
-                      controller.signIn(context);
-                    },
-                    child: controller.loading
-                        ? CircularProgressIndicator()
-                        : Text(
-                      'تسجيل دخول',
-                      style: TextStyle(
-                        fontSize: 16, // حجم الخط
+        appBar: AppBar(
+          leading: CustomBackButton(
+            onPressed: () {
+              context.go('/onboarding2'); // Adjust this route as necessary
+            },
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Text(
+                'تسجيل دخول',
+                style: TextStyle(fontSize: 32),
+              ),
+              SizedBox(height: 20),
+              Image.asset(
+                'assets/images/SignUpImage.png',
+                height: 124,
+                width: 183,
+              ),
+              _SignInForm(
+                controller: controller,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 25),
+                child: Row(
+                  children: [
+                    Text("هل نسيت كلمة المرور؟"),
+                    SizedBox(width: 20),
+                    Flexible(
+                      child: Text(
+                        "تغيير كلمة السر",
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    style: OutlinedButton.styleFrom(
-                      foregroundColor: Colors.white,
-                      minimumSize: Size(301, 55),
-                      backgroundColor: Color(0xFFF6BD60),
-                      side: BorderSide(color: Color(0xFFF6BD60)),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.only(
+                    top: 0, bottom: 5), // الهامش العلوي للزر فقط
+                child: OutlinedButton(
+                  onPressed: () {
+                    controller.signIn(context);
+                  },
+                  child: controller.loading
+                      ? CircularProgressIndicator()
+                      : Text(
+                    'تسجيل دخول',
+                    style: TextStyle(
+                      fontSize: 16, // حجم الخط
                     ),
                   ),
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    minimumSize: Size(301, 55),
+                    backgroundColor: Color(0xFFF6BD60),
+                    side: BorderSide(color: Color(0xFFF6BD60)),
+                  ),
                 ),
-                AskUserToLoginButton()
-              ],
-            ),
-          )),
+              ),
+              AskUserToLoginButton()
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -107,13 +116,13 @@ class AskUserToLoginButton extends StatelessWidget {
               // Navigator.pushReplacementNamed(context, '/sign-up');
             },
             child: Text(
-              'إنشاء حساب',
+              'هل تمتلك حساب ؟',
               style: TextStyle(
                 color: Color(0xFFA8DF83),
               ),
             ),
           ),
-          Text('إنشاء حساب؟'),
+          Text('إنشاء حساب'),
         ],
       ),
     );
@@ -134,10 +143,10 @@ class _SignInForm extends StatelessWidget {
           _FormField(
             icon: Icons.email,
             controller: controller.email,
-            label: 'الإيميل',
+            label: 'البريد الالكنروني',
             //icon: Icons.email,
             validator: controller.emailValidator,
-            hint: 'ادخل ايميلك',
+            hint: 'ادخل بريدك الالكتروني',
             minHeight: 48,
             width: 360,
           ),
