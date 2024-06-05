@@ -21,7 +21,7 @@ void showLoginDialog(BuildContext context) {
             ),
             shadows: [
               BoxShadow(
-                color: AppColors.backgroundColorLight,
+                color: Color(0x28000000),
                 blurRadius: 36,
                 offset: Offset(0, 8),
                 spreadRadius: 0,
