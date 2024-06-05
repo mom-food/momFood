@@ -1,22 +1,34 @@
 import 'dart:io';
 import 'package:app/View/Screens/offer_meals.dart';
+import 'package:app/View/Screens/Authentication/EditProfile.dart';
 import 'package:app/View/Screens/meal_details.dart';
 import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'View/Screens/Authentication/sign_in.dart';
 import 'View/Screens/Authentication/sign_up.dart';
 import 'View/Screens/category_meal.dart';
 import 'View/Screens/menu_list.dart';
+import 'package:provider/provider.dart';
 import 'ViewModel/meal_view_model.dart';
 import 'View/Screens/home_page.dart';
 import 'View/Screens/on_boarding1.dart';
 import 'View/Screens/on_boarding2.dart';
 import 'themes/theme_provider.dart';
+
+
+import 'Services/user_services.dart';
+
+import 'View/Screens/Authentication/congratulatory_message.dart';
+import 'View/Screens/Authentication/cubit/phone_auth/phone_auth_cubit.dart';
+import 'View/Screens/Authentication/otp/otp_screen.dart';
+
+import 'ViewModel/meal_view_model.dart';
 import 'themes/dark.dart';
 import 'themes/light.dart';
-import 'package:go_router/go_router.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -94,6 +106,21 @@ final _router = GoRouter(
       path: '/successful_checkout',
       builder: (context, state) => SuccessMessageScreen(),
     ),
+
+    GoRoute(
+      path: '/edit-profile',
+      builder: (context, state) => EditProfileScreen(),
+    ),
+    GoRoute(
+      path: '/otp',
+      builder: (context, state) => OtpScreen(
+        phoneNumber:'0569359015'//state.pathParameters['phoneNumber']!,
+      ),
+    ),
+    GoRoute(
+      path: '/SuccessDialog',
+      builder: (context, state) => SuccessDialog(),
+    ),
   ],
 );
 
@@ -124,24 +151,28 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        //ChangeNotifierProvider(create: (_) => MomFood()),
-        ChangeNotifierProvider(create: (_) => MealViewModel()),
-        ChangeNotifierProvider(create: (_) => ThemeProvider()),
-      ],
-      child: Consumer<ThemeProvider>(
-        builder: (context, themeProvider, child) {
-          print(_router.configuration);
-          return MaterialApp.router(
-            title: 'Flutter Demo',
-            themeMode:
-                themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-            theme: themeProvider.isDarkMode ? darkMode : lightMode,
-            debugShowCheckedModeBanner: false,
-            routerConfig: _router,
-          );
-        },
+
+    return MultiBlocProvider(
+      providers: [BlocProvider(create: (context) => PhoneAuthCubit())],
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => UserServices()),
+          ChangeNotifierProvider(create: (_) => MealViewModel()),
+          ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ],
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            print(_router.configuration);
+            return MaterialApp.router(
+              title: 'Flutter Demo',
+              themeMode:
+                  themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              theme: themeProvider.isDarkMode ? darkMode : lightMode,
+              debugShowCheckedModeBanner: false,
+              routerConfig: _router,
+            );
+          },
+        ),
       ),
     );
   }
