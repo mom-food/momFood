@@ -1,11 +1,12 @@
 import 'dart:developer';
+
 import 'package:app/Model/user/user_model.dart';
 import 'package:app/Services/user_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+
 import '../View/Screens/Authentication/cubit/phone_auth/phone_auth_cubit.dart';
 
 class SignUpScreenController extends ChangeNotifier {
@@ -33,9 +34,9 @@ class SignUpScreenController extends ChangeNotifier {
   TextEditingController password;
   TextEditingController repeatPassword;
 
+
   Future<void> createAccount(BuildContext context) async {
-    log("create account");
-    if (loading) {
+    if(loading){
       return;
     }
     bool isValid = formKey.currentState?.validate() ?? false;
@@ -53,9 +54,20 @@ class SignUpScreenController extends ChangeNotifier {
     log('isSignedUp: $isSignedUp');
     if (isSignedUp) {
       log("register started");
-      await context.read<PhoneAuthCubit>().submitPhoneNumber(phone.text);
-      context.go("/otp");
-      log("register finsished");
+
+      // تسجيل الدخول بعد التسجيل
+      bool isSignedIn = await UserServices().signIn(email.text, password.text);
+      if (isSignedIn && UserServices.isSignedIn()) {
+        await context.read<PhoneAuthCubit>().submitPhoneNumber(phone.text);
+        context.go("/otp");
+        log("register finished");
+      } else {
+        log("SignIn failed after SignUp");
+        // يمكنك إضافة معالجة الأخطاء هنا إذا كان تسجيل الدخول بعد التسجيل فشل
+      }
+    } else {
+      log("SignUp failed");
+      // يمكنك إضافة معالجة الأخطاء هنا إذا كان التسجيل فشل
     }
     _updateStateLoading = false;
     //todo handle sign up result
@@ -84,9 +96,9 @@ class SignUpScreenController extends ChangeNotifier {
     return null;
   }
 
-  String? nameValidation(String? value) {
+  String? nameValidation(String? value){
     value ??= '';
-    if (value.isEmpty) {
+    if(value.isEmpty){
       return 'يرجى ادخال الاسم';
     }
     if (!RegExp(r'^[ء-ي ]+$').hasMatch(value)) {
@@ -95,14 +107,14 @@ class SignUpScreenController extends ChangeNotifier {
     return null;
   }
 
-  String? phoneValidation(String? value) {
+  String? phoneValidation(String? value){
     value ??= '';
-    if (value.isEmpty) {
+    if(value.isEmpty){
       return 'يرجى ادخال رقم الهاتف';
     }
-    // if (value.length < 10) {
-    //   return 'يرجى ادخال رقم الهاتف بشكل صحيح';
-    // }
+    if(value.length<10){
+      return 'يرجى ادخال رقم الهاتف بشكل صحيح';
+    }
     return null;
   }
 
@@ -114,8 +126,7 @@ class SignUpScreenController extends ChangeNotifier {
     if (value.length < 8) {
       return 'كلمة المرور تقل عن 8 ارقام';
     }
-    if (!value.contains(RegExp(r'[0-9]')) ||
-        !value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
+    if (!value.contains(RegExp(r'[0-9]')) || !value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
       return 'يجب أن تحتوي كلمة المرور على أرقام ورموز وحروف عربية';
     }
     return null;
@@ -126,17 +137,15 @@ class SignUpScreenController extends ChangeNotifier {
     if (value.isEmpty) {
       return 'يرجى ادخال كلمة المرور';
     }
-    if (password.text != repeatPassword.text) {
+    if(password.text != repeatPassword.text){
       return 'كلمات المرور غير متطابقة';
     }
     return null;
   }
-
-  void showHidePassword() {
-    showPassword = !showPassword;
+  void showHidePassword(){
+    showPassword =! showPassword;
     notifyListeners();
   }
-
   Future<void> phoneAuthentication(String phoneNumber) async {
     await auth.verifyPhoneNumber(
       phoneNumber: phoneNumber,
