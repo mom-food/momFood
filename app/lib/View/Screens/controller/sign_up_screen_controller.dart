@@ -4,12 +4,9 @@ import 'package:app/Model/user/user_model.dart';
 import 'package:app/Services/user_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
-<<<<<<< HEAD
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-=======
->>>>>>> origin/password1
 
 import '../Authentication/cubit/phone_auth/phone_auth_cubit.dart';
 
@@ -54,7 +51,6 @@ class SignUpScreenController extends ChangeNotifier {
         name: name.text,
         password: password.text,
         phone: phone.text);
-<<<<<<< HEAD
     bool isSignedUp = await UserServices().signUp(request);
     log('isSignedUp: $isSignedUp');
     if (isSignedUp) {
@@ -62,11 +58,6 @@ class SignUpScreenController extends ChangeNotifier {
       await context.read<PhoneAuthCubit>().submitPhoneNumber(phone.text);
       context.go("/otp");
       log("register finsished");
-=======
-    bool res = await UserServices().signUp(request);
-    if(res) {
-      Navigator.pushReplacementNamed(context, '/offer');
->>>>>>> origin/password1
     }
     _updateStateLoading = false;
     //todo handle sign up result

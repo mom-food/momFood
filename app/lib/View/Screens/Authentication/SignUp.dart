@@ -1,6 +1,7 @@
 import 'package:app/View/Screens/Home.dart';
 import 'package:app/View/Screens/OnBoarding1.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../controller/sign_up_screen_controller.dart';
 
@@ -29,7 +30,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
         appBar: AppBar(),
         body: Column(
           children: [
-
             Text(
               'انشاء حساب',
               style: TextStyle(fontSize: 32),
@@ -45,7 +45,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
             ),
             SizedBox(height: 8),
             Padding(
-              padding: const EdgeInsets.only(top: 0,bottom: 5), // الهامش العلوي للزر فقط
+              padding: const EdgeInsets.only(top: 0, bottom: 5),
               child: OutlinedButton(
                 onPressed: () {
                   controller.createAccount(context);
@@ -55,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     : Text(
                   'انشاء حساب',
                   style: TextStyle(
-                    fontSize: 16, // حجم الخط
+                    fontSize: 16,
                   ),
                 ),
                 style: OutlinedButton.styleFrom(
@@ -74,7 +74,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
 class AskUserToLoginButton extends StatelessWidget {
   const AskUserToLoginButton({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -84,7 +83,7 @@ class AskUserToLoginButton extends StatelessWidget {
         children: [
           TextButton(
             onPressed: () {
-              Navigator.pushReplacementNamed(context, '/signIn');
+              context.go("/signIn");
             },
             child: Text(
               'تسجيل دخول',
@@ -136,7 +135,7 @@ class _SignUpForm extends StatelessWidget {
                 ),
                 SizedBox(height: 15),
                 _FormField(
-                  icon:Icons.phone ,
+                  icon: Icons.phone,
                   controller: controller.phone,
                   validator: controller.phoneValidation,
                   label: 'الهاتف',
@@ -227,7 +226,7 @@ class _FormField extends StatelessWidget {
             contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           ),
           obscureText: isObscure,
-          textAlign: TextAlign.right, // تعيين محاذاة النص على اليمين
+          textAlign: TextAlign.right,
         ),
       ),
     );

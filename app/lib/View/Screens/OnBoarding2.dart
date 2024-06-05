@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../Widgets/Button/SignInButton.dart';
 import '../Widgets/Button/SignUpButton.dart';
 import '../Widgets/Button/continue_as_guest_button.dart';
@@ -29,38 +30,37 @@ class Onboarding2Screen extends StatelessWidget {
                   Row(
                     children: <Widget>[
                       Expanded(
-                        child: SignUpButton(onPressed: () {
+                        child: SignUpButton(onPressed: (){
                           // Handle Sign Up Logic
-                          Navigator.pushReplacementNamed(context, '/sign-up');
+                          context.go("/sign-up");
                         }),
                       ),
                       SizedBox(width: 15), // Spacing between the buttons
                       Expanded(
-                        child: SignInButton(onPressed: () {
-                          // Handle Sign In Logic
-                          Navigator.pushReplacementNamed(context, '/signIn');
-                        }),
+                        child: SignInButton(
+                            onPressed: () {
+                              context.go("/signIn");
+                            }
+                        ),
                       ),
                     ],
                   ),
-                  ContinueAsGuestButton(onPressed: () {
-                    Navigator.pushReplacementNamed(context, '/onboarding1');
-                  }),
-                  SizedBox(
-                      height: 10), // Spacing after "Complete as a guest" button
+                  ContinueAsGuestButton(
+                      onPressed: (){
+                        context.go("/");
+                      }
+                  ),
+                  SizedBox(height: 10), // Spacing after "Complete as a guest" button
                   Center(
                     child: PageIndicator(
-                      controller:
-                          _pageController, // Use the same PageController
+                      controller: _pageController, // Use the same PageController
                       count: 2,
                       onDotClicked: (index) {
-                        if (index == 1) {
+                        if(index==1){
                           Navigator.pop(
                             context,
-                            MaterialPageRoute(
-                                builder: (context) => Onboarding1()),
-                          );
-                        }
+                            MaterialPageRoute(builder: (context) => Onboarding1()),
+                          );}
                       },
                     ),
                   ),
