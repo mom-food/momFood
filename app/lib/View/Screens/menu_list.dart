@@ -6,6 +6,7 @@ import '../../Model/meal_model.dart';
 import '../../Services/meal_services.dart';
 import '../Widgets/cards/meal_card.dart';
 import '../Widgets/nav_bar.dart';
+import 'Authentication/Profile.dart';
 import 'home_page.dart';
 
 class MealList extends StatelessWidget {
@@ -70,7 +71,7 @@ class MealList extends StatelessWidget {
             case 2:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SplashScreen()),
+                MaterialPageRoute(builder: (context) => ProfileScreen()),
               );
               break;
           }

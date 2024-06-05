@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../Widgets/nav_bar.dart';
+import 'Authentication/Profile.dart';
 import 'home_page.dart';
 
 
@@ -198,7 +199,7 @@ class TemporaryCart extends StatelessWidget {
               case 2:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SplashScreen()),
+                  MaterialPageRoute(builder: (context) => ProfileScreen()),
                 );
                 break;
             }

@@ -11,6 +11,7 @@ import 'package:collection/collection.dart';
 import '../../Services/user_services.dart';
 import '../Widgets/dialog/login_dialog.dart';
 import '../Widgets/nav_bar.dart';
+import 'Authentication/Profile.dart';
 import 'home_page.dart';
 import 'shopping_cart_screen.dart';
 
@@ -44,7 +45,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
     } else if (index == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => SplashScreen()),
+        MaterialPageRoute(builder: (context) => ProfileScreen()),
       );
     }
   }

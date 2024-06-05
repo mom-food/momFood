@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import '../Widgets/mom_food_title.dart';
 import '../Widgets/nav_bar.dart';
+import 'Authentication/Profile.dart';
 import 'offer_meals.dart';
 
 class HomePageScreen extends StatefulWidget {
@@ -32,7 +33,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => SplashScreen()),
+          MaterialPageRoute(builder: (context) => ProfileScreen()),
         );
         break;
     }
@@ -50,7 +51,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               children: [
                 MealOfferScreen(),
                 TemporaryCart(),
-                // ProfileScreen(),
+                ProfileScreen(),
               ],
             ),
           ),
