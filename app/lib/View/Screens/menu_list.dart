@@ -20,7 +20,7 @@ class MealList extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context), 
+          onPressed: () => context.go('/'),
         ),
       ),
       body: FutureBuilder<List<Meal>>(
