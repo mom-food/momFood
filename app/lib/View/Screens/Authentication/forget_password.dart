@@ -86,7 +86,7 @@ class ForgetPasswordContent extends StatelessWidget {
                   ),
                 ),
                 child: Text(
-                  'افتح الايميل',
+                  'افحص ايميلك ',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 19,

@@ -52,6 +52,7 @@ class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.light;
   late AppLinks _appLinks;
   StreamSubscription<Uri>? _linkSubscription;
+  final _navigatorKey = GlobalKey<NavigatorState>();
 
   @override
   void initState() {
@@ -97,86 +98,82 @@ class _MyAppState extends State<MyApp> {
       }
 
       print("SUCCESSFULLY FOUND THE HOST");
-      Navigator.pushReplacementNamed(
-          context, '/reset-password/$oobCode/$apiKey/$mode');
+      Navigator.pushReplacementNamed(context, '/reset-password/$oobCode');
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (_) => MealViewModel()),
-          ChangeNotifierProvider(create: (_) => ThemeProvider()),
-          ChangeNotifierProvider(create: (_) => SignUpScreenController()),
-        ],
-        child: Consumer<ThemeProvider>(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MealViewModel()),
+        ChangeNotifierProvider(create: (_) => ThemeProvider()),
+        ChangeNotifierProvider(create: (_) => SignUpScreenController()),
+      ],
+      child: Consumer<ThemeProvider>(
         builder: (context, themeProvider, child) {
-      return MaterialApp(
-          title: 'Flutter Demo',
-          themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-          theme: themeProvider.isDarkMode ? darkMode : lightMode,
-          debugShowCheckedModeBanner: false,
-          home: Scaffold(
-          appBar: MyAppBar(
-          title: 'Mom Food',
-          isLightTheme: !themeProvider.isDarkMode,
-      ),
-    body: SplashScreen(),
-    floatingActionButton: FloatingActionButton(
-    onPressed: () {
-    themeProvider.toggleTheme();
-    },
-    tooltip: 'Switch',
-    child: Icon(
-    themeProvider.getThemeIcon(),
-    ),
-    ),
-    ),
-    onGenerateRoute: (settings) {
-    Widget routeWidget = Onboarding1();
+          return MaterialApp(
+            title: 'Flutter Demo',
+            themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+            theme: themeProvider.isDarkMode ? darkMode : lightMode,
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              appBar: MyAppBar(
+                title: 'Mom Food',
+                isLightTheme: !themeProvider.isDarkMode,
+              ),
+              body: SplashScreen(),
+              floatingActionButton: FloatingActionButton(
+                onPressed: () {
+                  themeProvider.toggleTheme();
+                },
+                tooltip: 'Switch',
+                child: Icon(
+                  themeProvider.getThemeIcon(),
+                ),
+              ),
+            ),
+            onGenerateRoute: (settings) {
+              Widget routeWidget = Onboarding1();
 
-    final routeName = settings.name;
-    if (routeName != null) {
-    if (routeName.startsWith('/onboarding1')) {
-    routeWidget = Onboarding1();
-    } else if (routeName.startsWith('/onboarding2')) {
-    routeWidget = Onboarding2Screen();
-    } else if (routeName == '/offer') {
-    routeWidget = HomePage();
-    } else if (routeName == '/sign-up') {
-    routeWidget = SignUpScreen();
-    } else if (routeName == '/signIn') {
-    routeWidget = SignInScreen();
-    } else if (routeName == '/forget-password') {
-    routeWidget = ForgetPassword();
-    } else if (routeName.startsWith('/reset-password')) {
-    try {
-    final parameters = settings.name
-        ?.split('/reset-password')
-        .where((element) => element.isNotEmpty)
-    .toList() ??
+              final routeName = settings.name;
+              if (routeName != null) {
+                if (routeName.startsWith('/onboarding1')) {
+                  routeWidget = Onboarding1();
+                } else if (routeName.startsWith('/onboarding2')) {
+                  routeWidget = Onboarding2Screen();
+                } else if (routeName == '/offer') {
+                  routeWidget = HomePage();
+                } else if (routeName == '/sign-up') {
+                  routeWidget = SignUpScreen();
+                } else if (routeName == '/signIn') {
+                  routeWidget = SignInScreen();
+                } else if (routeName == '/forget-password') {
+                  routeWidget = ForgetPassword();
+                } else if (routeName.startsWith('/reset-password')) {
+                  try {
+                    final parameters = routeName
+                        .split('/reset-password')
+                        .where((element) => element.isNotEmpty)
+                        .toList();
+                    final oobCode = parameters[0];
+                    print("SETTINGS ${parameters}");
+                    routeWidget = ResetPassword(oobCode);
+                  } catch (e) {
+                    print("Error parsing route name");
+                  }
+                }
+              }
 
-        [];
-    parameters.removeAt(0); // /reset-password/oobCode/apiKey/idk
-    final oobCode = parameters[0];
-    print("SETTINGS ${parameters}");
-    routeWidget = ResetPassword(oobCode);
-    } catch (e) {
-      print("Error parsing route name");
-    }
-    }
-    }
-
-    return MaterialPageRoute(
-      builder: (context) => routeWidget,
-      settings: settings,
-      fullscreenDialog: true,
-    );
-    },
-      );
+              return MaterialPageRoute(
+                builder: (context) => routeWidget,
+                settings: settings,
+                fullscreenDialog: true,
+              );
+            },
+          );
         },
-        ),
+      ),
     );
   }
 }
