@@ -133,7 +133,7 @@ class ProfileScreen extends StatelessWidget {
               case 1:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => TemporaryCart()),
+                  MaterialPageRoute(builder: (context) => Cart()),
                 );
                 break;
               case 2:

@@ -8,7 +8,7 @@ class CartTap extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: TemporaryCart(),
+        body: Cart(),
       ),
     );
   }

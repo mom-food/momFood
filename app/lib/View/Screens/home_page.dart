@@ -27,7 +27,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => TemporaryCart()),
+          MaterialPageRoute(builder: (context) => Cart()),
         );
         break;
       case 2:
@@ -50,7 +50,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               index: _selectedIndex,
               children: [
                 MealOfferScreen(),
-                TemporaryCart(),
+                Cart(),
                 ProfileScreen(),
               ],
             ),

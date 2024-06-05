@@ -40,7 +40,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
     } else if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => TemporaryCart()),
+        MaterialPageRoute(builder: (context) => Cart()),
       );
     } else if (index == 2) {
       Navigator.push(
