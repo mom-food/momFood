@@ -157,4 +157,15 @@ class UserServices extends ChangeNotifier {
     FirebaseAuth instance = FirebaseAuth.instance;
     await instance.signOut();
   }
+  static Future<bool> resetPassword(String password, String oobCode) async {
+    try {
+      FirebaseAuth instance = FirebaseAuth.instance;
+      print("Trying out of band code that's $oobCode, setting the password to $password");
+      await instance.confirmPasswordReset(code: oobCode, newPassword: password);
+      return true;
+    } catch (e) {
+      print("Couldn't reset password, error: $e");
+      return false;
+    }
+  }
 }

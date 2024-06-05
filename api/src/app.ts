@@ -3,6 +3,7 @@ import connectDB from './database';
 import dotenv from "dotenv";
 import router from './routes';
 import cors from 'cors';  // Import CORS module
+import fs from "node:fs";
 
 dotenv.config()
 
