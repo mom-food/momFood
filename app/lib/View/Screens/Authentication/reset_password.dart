@@ -127,13 +127,15 @@ class _ResetPasswordState extends State<ResetPassword> {
 
                     if (resetSuccess) {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("تم إعادة تعيين كلمة المرور"),
+                        content: Text("تم إعادة تعيين كلمة المرور بنجاح"),
+                        backgroundColor: Colors.green,
                       ));
                       Navigator.pushReplacementNamed(context, '/sign-in');
                     } else {
-                      //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        //content: Text("فشل في إعادة تعيين كلمة المرور"),
-                      //));
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text("فشل في إعادة تعيين كلمة المرور"),
+                        backgroundColor: Colors.red,
+                      ));
                     }
                   },
                   child: Text(

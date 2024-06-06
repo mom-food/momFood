@@ -4,7 +4,6 @@ import '../../../ViewModel/sign_in_view_model.dart';
 import '../../Widgets/back_button.dart';
 import 'forget_password.dart';
 
-
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
@@ -61,25 +60,25 @@ class _SignInScreenState extends State<SignInScreen> {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ForgetPassword()),
+                          MaterialPageRoute(
+                            builder: (context) => ForgetPassword(),
+                          ),
                         );
                       },
                       child: Text(
                         'نسيت كلمة السر؟',
                         style: TextStyle(color: Colors.green),
                       ),
-
                     ),
                   ],
                 ),
               ),
               SizedBox(height: 20),
               Padding(
-                padding: const EdgeInsets.only(
-                    top: 0, bottom: 5), // الهامش العلوي للزر فقط
+                padding: const EdgeInsets.only(top: 0, bottom: 5),
                 child: OutlinedButton(
-                  onPressed: () {
-                    controller.signIn(context);
+                  onPressed: () async {
+                    await controller.signIn(context);
                   },
                   child: controller.loading
                       ? CircularProgressIndicator()
@@ -148,10 +147,9 @@ class _SignInForm extends StatelessWidget {
           _FormField(
             icon: Icons.email,
             controller: controller.email,
-            label: 'البريد الالكنروني',
-            //icon: Icons.email,
+            label: 'البريد الإلكتروني',
             validator: controller.emailValidator,
-            hint: 'ادخل بريدك الالكتروني',
+            hint: 'ادخل بريدك الإلكتروني',
             minHeight: 48,
             width: 360,
           ),
@@ -198,9 +196,10 @@ class _FormField extends StatelessWidget {
   final Widget? suffixIcon;
   final double? width;
   final double minHeight;
+
   @override
   Widget build(BuildContext context) {
-    Widget? icon = this.icon == null ? null : Icon(this.icon!);
+    Widget? iconWidget = icon == null ? null : Icon(icon!);
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Container(
@@ -210,7 +209,7 @@ class _FormField extends StatelessWidget {
           controller: controller,
           validator: validator,
           decoration: InputDecoration(
-            prefixIcon: icon,
+            prefixIcon: iconWidget,
             hintText: hint,
             labelText: label,
             suffixIcon: suffixIcon,
