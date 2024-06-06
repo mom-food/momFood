@@ -76,13 +76,12 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
           _controller.text = item.quantity.toString();
         }
 
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Expanded(
-                child: Image.network(meal.image, fit: BoxFit.cover), flex: 2),
-            Expanded(
-              child: Padding(
+        return SingleChildScrollView( // Add this line
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Image.network(meal.image, fit: BoxFit.cover),
+              Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
@@ -95,16 +94,14 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                             TextSpan(
                               children: [
                                 TextSpan(
-                                  text:
-                                  (meal.price * 0.8).toString(),
+                                  text: (meal.price * 0.8).toString(),
                                   style: GoogleFonts.ibmPlexSansArabic(
                                     textStyle: Theme.of(context)
                                         .textTheme
                                         .titleLarge
                                         ?.copyWith(
                                       fontSize: 24,
-                                      color:
-                                      Color(0xFFFF9500),
+                                      color: Color(0xFFFF9500),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -145,14 +142,12 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                     ),
                     SizedBox(height: 20),
                     Container(
-                      color: Colors.white.withOpacity(
-                          0.8),
+                      color: Colors.white.withOpacity(0.8),
                       padding: EdgeInsets.all(8),
                       child: Text(
                         meal.description,
                         style: GoogleFonts.ibmPlexSansArabic(
-                          textStyle:
-                          Theme.of(context).textTheme.bodyLarge?.copyWith(
+                          textStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             fontSize: 18,
                             color: Colors.black87,
                           ),
@@ -164,133 +159,129 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                   ],
                 ),
               ),
-            ),
-            SizedBox(height: 20),
-            ...(item == null
-                ? [
-              Padding(
-                padding: EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (UserServices.isSignedIn()) {
-                      viewModel.addToCart(meal);
-                    } else {
-                      showLoginDialog(context);
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: const Size(double.infinity, 50),
-                    padding: const EdgeInsets.all(18),
-                    backgroundColor: const Color(0xFFFCB34C),
-                  ),
-                  child: Text(
-                    'أضف إلى السلة',
-                    style: GoogleFonts.ibmPlexSansArabic(
-                      textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                        fontSize: 24,
-                        color: Colors.white,
+              SizedBox(height: 20),
+              ...(item == null
+                  ? [
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      if (UserServices.isSignedIn()) {
+                        viewModel.addToCart(meal);
+                      } else {
+                        showLoginDialog(context);
+                      }
+                    },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(double.infinity, 50),
+                      padding: const EdgeInsets.all(18),
+                      backgroundColor: const Color(0xFFFCB34C),
+                    ),
+                    child: Text(
+                      'أضف إلى السلة',
+                      style: GoogleFonts.ibmPlexSansArabic(
+                        textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                          fontSize: 24,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
+                )
+              ]
+                  : [
+                Padding(
+                  padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                  child: Row(children: [
+                    Expanded(
+                        child: InkWell(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(30.0),
+                            bottomLeft: Radius.circular(30.0),
+                          ),
+                          onTap: () {
+                            // Your onTap function here
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.primary2,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(30.0),
+                                bottomLeft: Radius.circular(30.0),
+                              ),
+                            ),
+                            child: IconButton(
+                              icon: Icon(Icons.add),
+                              onPressed: () {
+                                viewModel.increaseQuantity(meal);
+                              },
+                            ),
+                          ),
+                        )),
+                    Expanded(
+                        child: TextField(
+                          keyboardType: TextInputType.number,
+                          controller: _controller,
+                          onChanged: (value) {
+                            viewModel.setQuantity(meal, int.parse(value));
+                          },
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            labelText: 'الكمية',
+                            floatingLabelAlignment: FloatingLabelAlignment.center,
+                          ),
+                        )),
+                    Expanded(
+                        child: InkWell(
+                          borderRadius: BorderRadius.only(
+                            topRight: Radius.circular(30.0),
+                            bottomRight: Radius.circular(30.0),
+                          ),
+                          onTap: () {
+                            // Your onTap function here
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.primary1,
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(30.0),
+                                bottomRight: Radius.circular(30.0),
+                              ),
+                            ),
+                            child: IconButton(
+                              icon: Icon(Icons.remove),
+                              onPressed: () {
+                                viewModel.decreaseQuantity(meal);
+                              },
+                            ),
+                          ),
+                        )),
+                  ]),
                 ),
-              )
-            ]
-                : [
-              Padding(
-                padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                child: Row(children: [
-                  Expanded(
-                      child: InkWell(
-                        borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(30.0),
-                          bottomLeft: Radius.circular(30.0),
-                        ),
-                        onTap: () {
-                          // Your onTap function here
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primary2,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(30.0),
-                              bottomLeft: Radius.circular(30.0),
-                            ),
+                Padding(
+                  padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                  // delete button
+                  child: ElevatedButton(
+                    onPressed: () {
+                      viewModel.removeFromCart(meal);
+                    },
+                    child: Text('حذف من السلة',
+                        style: GoogleFonts.ibmPlexSansArabic(
+                          textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
+                            fontSize: 16,
+                            color: AppColors.textColor1,
                           ),
-                          child: IconButton(
-                            icon: Icon(Icons.add),
-                            onPressed: () {
-                              viewModel.increaseQuantity(meal);
-                            },
-                          ),
-                        ),
-                      )),
-                  Expanded(
-                      child: TextField(
-                        keyboardType: TextInputType.number,
-                        controller: _controller,
-                        onChanged: (value) {
-                          viewModel.setQuantity(meal, int.parse(value));
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(),
-                          labelText: 'الكمية',
-                          floatingLabelAlignment:
-                          FloatingLabelAlignment.center,
-                        ),
-                      )),
-                  Expanded(
-                      child: InkWell(
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(30.0),
-                          bottomRight: Radius.circular(30.0),
-                        ),
-                        onTap: () {
-                          // Your onTap function here
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.primary1,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(30.0),
-                              bottomRight: Radius.circular(30.0),
-                            ),
-                          ),
-                          child: IconButton(
-                            icon: Icon(Icons.remove),
-                            onPressed: () {
-                              viewModel.decreaseQuantity(meal);
-                            },
-                          ),
-                        ),
-                      )),
-                ]),
-              ),
-              Padding(
-                padding: EdgeInsets.only(left: 16.0, right: 16.0),
-                // delete button
-                child: ElevatedButton(
-                  onPressed: () {
-                    viewModel.removeFromCart(meal);
-                  },
-                  child: Text('حذف من السلة',
-                      style: GoogleFonts.ibmPlexSansArabic(
-                        textStyle: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(
-                          fontSize: 16,
-                          color: AppColors.textColor1,
-                        ),
-                      )),
-                  style: ElevatedButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 86, vertical: 15),
-                    backgroundColor: AppColors.backgroundColorLight,
+                        )),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 86, vertical: 15),
+                      backgroundColor: AppColors.backgroundColorLight,
+                    ),
                   ),
-                ),
-              )
-            ]),
-          ],
-        );
+                )
+              ]),
+            ],
+          ),
+        ); // Add this line
       }),
       bottomNavigationBar: CustomBottomNavBar(
         selectedIndex: _selectedIndex,
