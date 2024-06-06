@@ -92,6 +92,7 @@ class AskUserToLoginButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text('هل لديك حساب بالفعل؟'),
           TextButton(
             onPressed: () {
               context.go("/signIn");
@@ -103,7 +104,6 @@ class AskUserToLoginButton extends StatelessWidget {
               ),
             ),
           ),
-          Text('هل لديك حساب بالفعل؟'),
         ],
       ),
     );
@@ -128,7 +128,7 @@ class _SignUpForm extends StatelessWidget {
                 controller: controller.email,
                 label: 'الإيميل',
                 validator: controller.emailValidator,
-                hint: 'ادخل ايميلك',
+                hint: 'ادخل بريدك الالكتروني',
                 minHeight: 48,
                 width: 360,
               ),

@@ -116,19 +116,18 @@ class AskUserToLoginButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          Text('هل تمتلك حساب ؟'),
           TextButton(
             onPressed: () {
               context.go("/sign-up");
-              // Navigator.pushReplacementNamed(context, '/sign-up');
             },
             child: Text(
-              'هل تمتلك حساب ؟',
+              'إنشاء حساب',
               style: TextStyle(
                 color: Color(0xFFA8DF83),
               ),
             ),
           ),
-          Text('إنشاء حساب'),
         ],
       ),
     );

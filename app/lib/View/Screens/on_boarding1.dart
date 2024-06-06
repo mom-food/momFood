@@ -5,7 +5,6 @@ import '../Widgets/page_indicator.dart';
 import 'on_boarding2.dart';
 
 class Onboarding1 extends StatefulWidget {
-  // final ThemeMode themeMode;
 
   Onboarding1();
 
@@ -25,7 +24,6 @@ class _Onboarding1State extends State<Onboarding1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //backgroundColor: widget.themeMode == ThemeMode.light ? Colors.white : Colors.black12,
 
       body: GestureDetector(
         onTap: () {
@@ -96,9 +94,6 @@ class _Onboarding1State extends State<Onboarding1> {
                                     ? AppColors.primary2
                                     : AppColors.primary1,
                           ),
-                        ),
-                        TextSpan(
-                          text: ' النكهات ',
                         ),
                         TextSpan(
                           text: ' النكهات ',
