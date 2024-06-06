@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-
+import 'package:provider/provider.dart';
+import '../../../Services/user_services.dart';
 
 class EditProfileScreen extends StatefulWidget {
   @override
@@ -7,9 +8,21 @@ class EditProfileScreen extends StatefulWidget {
 }
 
 class _EditProfileScreenState extends State<EditProfileScreen> {
-  final TextEditingController _nameController = TextEditingController(text: 'Pettrey Smith');
-  final TextEditingController _phoneController = TextEditingController(text: '0594534532');
-  final TextEditingController _emailController = TextEditingController(text: 'petrey.smith@gmail.com');
+  late TextEditingController _nameController;
+  late TextEditingController _phoneController;
+  late TextEditingController _emailController;
+
+  @override
+  void initState() {
+    super.initState();
+    final userServices = Provider.of<UserServices>(context, listen: false);
+    _nameController =
+        TextEditingController(text: UserServices.userData?.name ?? '');
+    _phoneController =
+        TextEditingController(text: UserServices.userData?.phone ?? '');
+    _emailController =
+        TextEditingController(text: UserServices.userData?.email ?? '');
+  }
 
   @override
   void dispose() {
@@ -20,14 +33,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   }
 
   void _updateProfile() {
-    // Here you can handle the logic to update the user profile
-    // For example, sending data to a server or updating a local database
     print('Updating profile with:');
     print('Name: ${_nameController.text}');
     print('Phone: ${_phoneController.text}');
     print('Email: ${_emailController.text}');
-
-    // Implement your update logic here
   }
 
   @override
@@ -86,7 +95,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ElevatedButton(
                 onPressed: _updateProfile,
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white, backgroundColor: Colors.orange,
+                  foregroundColor: Colors.white,
+                  backgroundColor: Colors.orange,
                   minimumSize: Size(double.infinity, 50),
                 ),
                 child: Text('تحديث'),

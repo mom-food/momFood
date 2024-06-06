@@ -34,10 +34,10 @@ void main() async {
     if (Platform.isAndroid) {
       await Firebase.initializeApp(
         options: const FirebaseOptions(
-          apiKey: "YOUR_API_KEY",
-          appId: "YOUR_APP_ID",
-          messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-          projectId: "YOUR_PROJECT_ID",
+          apiKey: "AIzaSyAh1_uBnxz3toNPno1uvm0knZwtOwSKrek",
+          appId: "1:175323531680:android:5cb7cd5c3878a57d47fcc5",
+          messagingSenderId: "175323531680",
+          projectId: "momfood-6ae63",
         ),
       );
     } else {
@@ -98,7 +98,7 @@ final _router = GoRouter(
     GoRoute(
       path: '/otp',
       builder: (context, state) => OtpScreen(
-        phoneNumber:'0569359015', // Update this accordingly
+        phoneNumber: '0569359015', // Update this accordingly
       ),
     ),
     GoRoute(
@@ -174,31 +174,30 @@ class _MyAppState extends State<MyApp> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-        providers: [BlocProvider(create: (context) => PhoneAuthCubit())],
-    child: MultiProvider(
-    providers: [
-    ChangeNotifierProvider(create: (_) => UserServices()),
-    ChangeNotifierProvider(create: (_) => MealViewModel()),
-    ChangeNotifierProvider(create: (_) => ThemeProvider()),
-    ChangeNotifierProvider(create: (_) => SignUpScreenController()),
-    ],
-    child: Consumer<ThemeProvider>(
-    builder: (context, themeProvider, child) {
-    return MaterialApp.router(
-    title: 'Flutter Demo',
-    themeMode: themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
-    theme: themeProvider.isDarkMode ? darkMode : lightMode,
-    debugShowCheckedModeBanner: false,
-    routerConfig: _router,
+      providers: [BlocProvider(create: (context) => PhoneAuthCubit())],
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => UserServices()),
+          ChangeNotifierProvider(create: (_) => MealViewModel()),
+          ChangeNotifierProvider(create: (_) => ThemeProvider()),
+          ChangeNotifierProvider(create: (_) => SignUpScreenController()),
+        ],
+        child: Consumer<ThemeProvider>(
+          builder: (context, themeProvider, child) {
+            return MaterialApp.router(
+              title: 'Flutter Demo',
+              themeMode:
+                  themeProvider.isDarkMode ? ThemeMode.dark : ThemeMode.light,
+              theme: themeProvider.isDarkMode ? darkMode : lightMode,
+              debugShowCheckedModeBanner: false,
+              routerConfig: _router,
+            );
+          },
+        ),
+      ),
     );
-    },
-    ),
-
-  ),
-  );
-}
+  }
 }
