@@ -12,11 +12,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "connect": "^3.7.0",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "firebase-admin": "^12.1.1",
     "mongoose": "^8.4.1",
-    "node": "^20.14.0"
+    "node": "^20.14.0",
+    "st": "^3.0.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

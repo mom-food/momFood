@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../ViewModel/sign_in_view_model.dart';
 import '../../Widgets/back_button.dart';
+import 'forget_password.dart';
 
 
 class SignInScreen extends StatefulWidget {
@@ -56,13 +57,18 @@ class _SignInScreenState extends State<SignInScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 25),
                 child: Row(
                   children: [
-                    Text("هل نسيت كلمة المرور؟"),
-                    SizedBox(width: 20),
-                    Flexible(
+                    TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => ForgetPassword()),
+                        );
+                      },
                       child: Text(
-                        "تغيير كلمة السر",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        'نسيت كلمة السر؟',
+                        style: TextStyle(color: Colors.green),
                       ),
+
                     ),
                   ],
                 ),

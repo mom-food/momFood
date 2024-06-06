@@ -1,28 +1,28 @@
-// src/controllers/resetPasswordController.ts
-
 import { Request, Response } from "express";
+import { Meal } from "../models";
+import { auth } from "firebase-admin";
+import { getAuth } from "firebase-admin/auth";
+// import { firebaseApp } from "../app";
 
 export const resetPasswordRedirect = async (req: Request, res: Response) => {
-  try {
-    console.log("User is trying to reset their password, req query is: ", req.query);
+  // Just redirect to momFood://resetPassword/?[KEEP QUERY STRING]
+  momFood:
+  //resetPassword/action?mode=resetPassword&oobCode=YabS1kplkhO7VQwlnV5Rbgr6c3BBxV9F3x0zKUmIRH8AAAGPtJLUBQ&apiKey=AIzaSyAh1_uBnxz3toNPno1uvm0knZwtOwSKrek&lang=en
 
-    // Construct the query string from the request query parameters
-    const queryString = Object.entries(req.query)
-      .map(([key, value]) => `${key}=${value}`)
-      .join("&");
+  http:
+  //localhost:3000/resetPassword?mode=resetPassword&oobCode=YabS1kplkhO7VQwlnV5Rbgr6c3BBxV9F3x0zKUmIRH8AAAGPtJLUBQ&apiKey=AIzaSyAh1_uBnxz3toNPno1uvm0knZwtOwSKrek&lang=en
 
-    // Construct the custom URL
-    const customUrl = `momFood://resetPassword/?${queryString}`;
-
-    // Respond with an HTML link
-    res.setHeader("Content-Type", "text/html");
-    res.end(
-      `<a href="${customUrl}">
-        Click here to reset your password
-      </a>`
-    );
-  } catch (error) {
-    console.error("Error in resetPasswordRedirect:", error);
-    res.status(500).send("Internal Server Error");
-  }
+  console.log(
+    "User is trying to reset their password, req query is: ",
+    req.query,
+  );
+  res.setHeader("Content-Type", "text/html");
+  res.end(`<a href="momFood://resetPassword/?${
+      (Object.entries(req.query)).map(([key, value]) => `${key}=${value}`).join(
+        "&",
+      )
+    }">
+  Click here to reset your password
+</a>`,
+  );
 };

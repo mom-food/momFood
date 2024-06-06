@@ -46,8 +46,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                   controller: _passwordController,
                   obscureText: true,
                   validator: (value) {
-                    if ((value?.length ?? 0) < 6) {
-                      return "كلمة المرور يجب أن لا تقل عن ست حروف";
+                    if ((value?.length ?? 0) < 8) {
+                      return "كلمة المرور يجب أن لا تقل عن ثمانية حروف";
                     }
                     return null;
                   },
@@ -129,11 +129,11 @@ class _ResetPasswordState extends State<ResetPassword> {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("تم إعادة تعيين كلمة المرور"),
                       ));
-                      Navigator.pushReplacementNamed(context, '/onboarding1');
+                      Navigator.pushReplacementNamed(context, '/sign-in');
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text("فشل في إعادة تعيين كلمة المرور"),
-                      ));
+                      //ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        //content: Text("فشل في إعادة تعيين كلمة المرور"),
+                      //));
                     }
                   },
                   child: Text(
