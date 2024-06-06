@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:app/themes/theme_provider.dart';
 import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -7,29 +8,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'Services/user_services.dart';
-import 'View/Screens/Authentication/SignIn.dart';
-import 'View/Screens/Authentication/SignUp.dart';
 import 'View/Screens/Authentication/EditProfile.dart';
-import 'View/Screens/Authentication/ResetPassword.dart';
 import 'View/Screens/Authentication/congratulatory_message.dart';
 import 'View/Screens/Authentication/cubit/phone_auth/phone_auth_cubit.dart';
 import 'View/Screens/Authentication/forget_password.dart';
 import 'View/Screens/Authentication/otp/otp_screen.dart';
-import 'View/Screens/CategoryMeal.dart';
-import 'View/Screens/Home.dart';
-import 'View/Screens/HomePage.dart';
-import 'View/Screens/MenuList.dart';
-import 'View/Screens/OnBoarding1.dart';
-import 'View/Screens/OnBoarding2.dart';
-import 'View/Screens/SplashScreen.dart';
-import 'View/Screens/controller/sign_up_screen_controller.dart';
+import 'View/Screens/Authentication/reset_password.dart';
+import 'View/Screens/Authentication/sign_in.dart';
+import 'View/Screens/Authentication/sign_up.dart';
+import 'View/Screens/category_meal.dart';
+import 'View/Screens/home_page.dart';
 import 'View/Screens/meal_details.dart';
+import 'View/Screens/menu_list.dart';
+import 'View/Screens/on_boarding1.dart';
+import 'View/Screens/on_boarding2.dart';
 import 'View/Screens/success_checkout_screen.dart';
-import 'View/Widgets/app_bar.dart';
 import 'ViewModel/meal_view_model.dart';
+import 'ViewModel/sign_up_view_model.dart';
 import 'themes/dark.dart';
 import 'themes/light.dart';
-import 'themes/theme-provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -200,7 +197,8 @@ class _MyAppState extends State<MyApp> {
     );
     },
     ),
-    ),
-    ;
-  }
+
+  ),
+  );
+}
 }
