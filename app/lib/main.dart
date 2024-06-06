@@ -20,6 +20,7 @@ import 'View/Screens/category_meal.dart';
 import 'View/Screens/home_page.dart';
 import 'View/Screens/meal_details.dart';
 import 'View/Screens/menu_list.dart';
+import 'View/Screens/offer_meals.dart';
 import 'View/Screens/on_boarding1.dart';
 import 'View/Screens/on_boarding2.dart';
 import 'View/Screens/success_checkout_screen.dart';
@@ -74,8 +75,17 @@ final _router = GoRouter(
       builder: (context, state) => Onboarding2Screen(),
     ),
     GoRoute(
+      path: '/MealOffer',
+      builder: (context, state) => MealOfferScreen(),
+    ),
+    GoRoute(
       path: '/MealCategoryScreen',
       builder: (context, state) => MealCategoryScreen(),
+    ),
+    GoRoute(
+      path: '/meals/:mealId',
+      builder: (context, state) =>
+          MealDetailsScreen(mealId: state.pathParameters['mealId']!),
     ),
     GoRoute(
       path: '/mealDetailsScreen/:mealId',
