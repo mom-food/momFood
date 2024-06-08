@@ -45,6 +45,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          /*
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
@@ -61,6 +62,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               },
             ),
           ],
+
+           */
         ),
         body: SingleChildScrollView(
           child: Padding(

@@ -2,6 +2,7 @@ import 'package:app/View/Screens/category_meal.dart';
 import 'package:app/View/Widgets/search-bar.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../Widgets/back_button.dart';
 import '../Widgets/cards/meal_offer_card.dart';
@@ -11,17 +12,6 @@ class MealOfferScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            CustomBackButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        ),
-        automaticallyImplyLeading: false,
       ),
       body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
         return RefreshIndicator(

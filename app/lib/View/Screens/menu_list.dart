@@ -19,17 +19,11 @@ class MealList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[
-            CustomBackButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
+        leading: CustomBackButton(
+          onPressed: () {
+            context.go('/');
+          },
         ),
-        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<Meal>>(
         future: fetchMealsByCategory(categoryId),

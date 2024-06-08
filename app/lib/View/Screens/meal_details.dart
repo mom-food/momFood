@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 import '../../Services/user_services.dart';
+import '../Widgets/back_button.dart';
 import '../Widgets/dialog/login_dialog.dart';
 import '../Widgets/nav_bar.dart';
 import 'Authentication/Profile.dart';
@@ -62,9 +63,10 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
             fontWeight: FontWeight.bold,
           ),
         ),
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => context.go('/'),
+        leading: CustomBackButton(
+          onPressed: () {
+            context.go('/');
+          },
         ),
       ),
       body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
