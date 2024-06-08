@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../Model/meal_model.dart';
 import '../../Services/meal_services.dart';
+import '../Widgets/back_button.dart';
 import '../Widgets/cards/meal_card.dart';
 import '../Widgets/nav_bar.dart';
 import 'Authentication/Profile.dart';
@@ -18,10 +19,17 @@ class MealList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: <Widget>[
+            CustomBackButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         ),
+        automaticallyImplyLeading: false,
       ),
       body: FutureBuilder<List<Meal>>(
         future: fetchMealsByCategory(categoryId),

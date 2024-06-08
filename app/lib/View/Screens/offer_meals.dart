@@ -3,6 +3,7 @@ import 'package:app/View/Widgets/search-bar.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../Widgets/back_button.dart';
 import '../Widgets/cards/meal_offer_card.dart';
 
 class MealOfferScreen extends StatelessWidget {
@@ -12,7 +13,13 @@ class MealOfferScreen extends StatelessWidget {
       appBar: AppBar(
         title: Row(
           mainAxisAlignment: MainAxisAlignment.end,
-          children: <Widget>[],
+          children: <Widget>[
+            CustomBackButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
         ),
         automaticallyImplyLeading: false,
       ),

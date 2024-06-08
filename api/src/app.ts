@@ -11,7 +11,7 @@ connectDB();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://momfood.onrender.com'], // Allowed origins
+  origin: ['http://localhost:3000', 'https://momfood.onrender.com'],
   optionsSuccessStatus: 200
 };
 // Use CORS
