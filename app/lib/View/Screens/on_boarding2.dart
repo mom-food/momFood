@@ -8,6 +8,7 @@ import 'on_boarding1.dart';
 
 class Onboarding2Screen extends StatelessWidget {
   final PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,55 +19,53 @@ class Onboarding2Screen extends StatelessWidget {
             'assets/images/onboarding2.png',
             fit: BoxFit.cover,
           ),
-          Positioned(
-            bottom: 45,
-            left: 20,
-            right: 20,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                  Row(
-                    children: <Widget>[
-                      Expanded(
-                        child: SignUpButton(onPressed: (){
-                          // Handle Sign Up Logic
-                          context.go("/sign-up");
-                        }),
-                      ),
-                      SizedBox(width: 15), // Spacing between the buttons
-                      Expanded(
-                        child: SignInButton(
-                            onPressed: () {
-                              context.go("/signIn");
-                            }
+          Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 40),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: <Widget>[
+                    Row(
+                      children: <Widget>[
+                        Expanded(
+                          child: SignUpButton(onPressed: () {
+                            // Handle Sign Up Logic
+                            context.go("/sign-up");
+                          }),
                         ),
-                      ),
-                    ],
-                  ),
-                  ContinueAsGuestButton(
-                      onPressed: (){
-                        context.go("/");
-                      }
-                  ),
-                  SizedBox(height: 10), // Spacing after "Complete as a guest" button
-                  Center(
-                    child: PageIndicator(
-                      controller: _pageController, // Use the same PageController
-                      count: 2,
-                      onDotClicked: (index) {
-                        if(index==1){
-                          Navigator.pop(
-                            context,
-                            MaterialPageRoute(builder: (context) => Onboarding1()),
-                          );}
-                      },
+                        SizedBox(width: 15), // Spacing between the buttons
+                        Expanded(
+                          child: SignInButton(onPressed: () {
+                            context.go("/signIn");
+                          }),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    ContinueAsGuestButton(onPressed: () {
+                      context.go("/");
+                    }),
+                    SizedBox(height: 10), // Spacing after "Continue as Guest" button
+                    Center(
+                      child: PageIndicator(
+                        controller: _pageController, // Use the same PageController
+                        count: 2,
+                        onDotClicked: (index) {
+                          if (index == 1) {
+                            Navigator.pop(
+                              context,
+                              MaterialPageRoute(builder: (context) => Onboarding1()),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+              SizedBox(height: 45), // Spacing from the bottom
+            ],
           ),
         ],
       ),
