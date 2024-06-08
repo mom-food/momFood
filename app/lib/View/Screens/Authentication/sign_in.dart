@@ -177,12 +177,12 @@ class _SignInForm extends StatelessWidget {
 
 class _FormField extends StatelessWidget {
   const _FormField({
-    this.controller,
-    this.icon,
-    this.validator,
-    this.isObscure = false,
-    this.hint,
-    this.label,
+  this.controller,
+  this.icon,
+  this.validator,
+  this.isObscure = false,
+  this.hint,
+  this.label,
     this.suffixIcon,
     this.width,
     required this.minHeight,
@@ -220,7 +220,7 @@ class _FormField extends StatelessWidget {
             contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           ),
           obscureText: isObscure,
-          textAlign: TextAlign.right, // تعيين محاذاة النص على اليمين
+          textAlign: TextAlign.right,
         ),
       ),
     );

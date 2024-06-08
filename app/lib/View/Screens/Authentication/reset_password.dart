@@ -15,6 +15,8 @@ class _ResetPasswordState extends State<ResetPassword> {
   final _formKey = GlobalKey<FormState>();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  bool _showPassword = false;
+  bool _showConfirmPassword = false;
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +46,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                 SizedBox(height: 80),
                 TextFormField(
                   controller: _passwordController,
-                  obscureText: true,
+                  obscureText: !_showPassword,
                   validator: (value) {
                     if ((value?.length ?? 0) < 8) {
                       return "كلمة المرور يجب أن لا تقل عن ثمانية حروف";
@@ -75,12 +77,22 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _showPassword ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _showPassword = !_showPassword;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(height: 20),
                 TextFormField(
                   controller: _confirmPasswordController,
-                  obscureText: true,
+                  obscureText: !_showConfirmPassword,
                   validator: (value) {
                     if (_passwordController.text != value) {
                       return "كلمة المرور غير متطابقة";
@@ -111,6 +123,16 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.lock),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _showConfirmPassword ? Icons.visibility : Icons.visibility_off,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _showConfirmPassword = !_showConfirmPassword;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(height: 40),

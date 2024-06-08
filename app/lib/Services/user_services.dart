@@ -25,26 +25,26 @@ class UserServices extends ChangeNotifier {
       bool isSignedUp = false;
       FirebaseAuth instance = FirebaseAuth.instance;
       final userCredential = await instance.createUserWithEmailAndPassword(
-              email: request.email!, password: request.password!)
-              .then(
+          email: request.email!, password: request.password!)
+          .then(
             (value) async {
-              log('user is ${value.user!.uid}');
-              // --------- Save in FireStore
-              // var db = FirebaseFirestore.instance;
-              // await db.collection(FbCollections.users).add(request.toJson());
-              // --------- Save in MongoDB
-              final response = await http.post(
-                Uri.parse(url),
-                headers: {'Content-Type': 'application/json'},
-                body: jsonEncode(request.toJson()),
-              );
-              log('response ${response.body}');
-              if (response.statusCode >= 200 && response.statusCode < 300) {
-                isSignedUp = true;
-              }
-            },
-          )
-          ;
+          log('user is ${value.user!.uid}');
+          // --------- Save in FireStore
+          // var db = FirebaseFirestore.instance;
+          // await db.collection(FbCollections.users).add(request.toJson());
+          // --------- Save in MongoDB
+          final response = await http.post(
+            Uri.parse(url),
+            headers: {'Content-Type': 'application/json'},
+            body: jsonEncode(request.toJson()),
+          );
+          log('response ${response.body}');
+          if (response.statusCode >= 200 && response.statusCode < 300) {
+            isSignedUp = true;
+          }
+        },
+      )
+      ;
       final user = instance.currentUser;
       log('user is " ${user?.uid}');
       return user?.uid != null;
@@ -63,27 +63,8 @@ class UserServices extends ChangeNotifier {
       await instance
           .signInWithEmailAndPassword(email: email, password: password)
           .then(
-        (value) async {
+            (value) async {
           print("value::::::::::::: $value");
-          // var querySnapshot = await FirebaseFirestore.instance
-          //     .collection('users')
-          //     .where('email', isEqualTo: email)
-          //     .get();
-          //
-          // if (querySnapshot.docs.isNotEmpty) {
-          //   print("aaaaaaaaaaa:: ${querySnapshot.docs.first['email']}");
-          //   //
-          //   userData?.name = querySnapshot.docs.first['name'] ?? "";
-          //   userData?.email = querySnapshot.docs.first['email'] ?? "";
-          //   userData?.phone = querySnapshot.docs.first['phone'] ?? "";
-          //   for (var el in querySnapshot.docs.first['orderHistory'] ?? []) {
-          //     userData?.orderHistory!.add(OrderModel.fromJson(el));
-          //   }
-          //   print("object: ${userData?.orderHistory}");
-          //   return true;
-          // } else {
-          //   return false;
-          // }
           return await getUserByEmail(email);
         },
       );
@@ -157,6 +138,7 @@ class UserServices extends ChangeNotifier {
     FirebaseAuth instance = FirebaseAuth.instance;
     await instance.signOut();
   }
+
   static Future<bool> resetPassword(String password, String oobCode) async {
     try {
       FirebaseAuth instance = FirebaseAuth.instance;
