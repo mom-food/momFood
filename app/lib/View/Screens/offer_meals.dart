@@ -20,45 +20,45 @@ class MealOfferScreen extends StatelessWidget {
         return RefreshIndicator(
             child: Directionality(
               textDirection: TextDirection.rtl,
-              child: Column(
-                children: [
-                  CustomSearchBar(onSearch: (string) {
-                    viewModel.search(string);
-                  }),
-                  Text(
-                    'العروضات',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    CustomSearchBar(onSearch: (string) {
+                      viewModel.search(string);
+                    }),
+                    Text(
+                      'العروضات',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 26,
+                      ),
                     ),
-                  ),
-                  SingleChildScrollView(
-                    scrollDirection: Axis.horizontal,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        ...viewModel
-                            .getFilteredMeals()
-                            .map((meal) => MealOfferCard(
-                          title: meal.name,
-                          mealId: meal.id,
-                          imageUrl: meal.image,
-                          originalPrice: meal.price.toStringAsFixed(2),
-                          discountedPrice:
-                          (meal.price * 0.8).toStringAsFixed(2),
-                        )),
-                      ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          ...viewModel
+                              .getFilteredMeals()
+                              .map((meal) => MealOfferCard(
+                            title: meal.name,
+                            mealId: meal.id,
+                            imageUrl: meal.image,
+                            originalPrice: meal.price.toStringAsFixed(2),
+                            discountedPrice:
+                            (meal.price * 0.8).toStringAsFixed(2),
+                          )),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 0),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(0),
+                    SizedBox(height: 10), // Adjust the height to fit your design
+                    Container(
+                      height: MediaQuery.of(context).size.height - 300, // Adjust this value based on your layout
                       child: MealCategoryScreen(),
                     ),
-                  ),
-                ],
-                crossAxisAlignment: CrossAxisAlignment.start,
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                ),
               ),
             ),
             onRefresh: () async {
@@ -68,3 +68,4 @@ class MealOfferScreen extends StatelessWidget {
     );
   }
 }
+

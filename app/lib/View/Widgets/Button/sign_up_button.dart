@@ -9,17 +9,22 @@ class SignUpButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
-      child: Text('إنشاء حساب' , style: TextStyle(fontWeight: FontWeight.bold)),
-      style: ElevatedButton.styleFrom(
-        foregroundColor: Colors.black45, // Text Color
-        backgroundColor: Colors.white, // Background color
-        padding: EdgeInsets.symmetric(horizontal: 24), // Left/right padding 24dp
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8), // 20dp corner radius
+      child: Center(
+        child: Text(
+          'إنشاء حساب',
+          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
-        fixedSize: Size.fromHeight(40), // Container height 40dp
+      ),
+      style: ElevatedButton.styleFrom(
+        foregroundColor: Colors.black45,
+        backgroundColor: Colors.white,
+        padding: EdgeInsets.symmetric(horizontal: 24),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        fixedSize: Size.fromHeight(40),
         minimumSize: Size(136, 42),
-        elevation: 5, // Shadow depth
+        elevation: 5,
       ),
     );
   }
