@@ -1,5 +1,4 @@
 import 'package:app/View/Screens/shopping_cart_screen.dart';
-import 'package:app/View/Screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../Model/meal_model.dart';
@@ -20,9 +19,7 @@ class MealList extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: CustomBackButton(
-          onPressed: () {
-            context.go('/');
-          },
+
         ),
       ),
       body: FutureBuilder<List<Meal>>(
@@ -59,7 +56,7 @@ class MealList extends StatelessWidget {
         },
       ),
       bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: 1,
+        selectedIndex: 0,
         onItemTapped: (index) {
           switch (index) {
             case 0:
@@ -69,6 +66,10 @@ class MealList extends StatelessWidget {
               );
               break;
             case 1:
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Cart()),
+                  );
               break;
             case 2:
               Navigator.push(
