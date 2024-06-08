@@ -9,7 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class UserServices extends ChangeNotifier {
-  final String url = "http://10.0.2.2:3000/api/users/";
+  final String url = "https://momfood.onrender.com:3000/api/users/";
   //
   static CreateUserRequestBody? userData = CreateUserRequestBody(
     email: "",
