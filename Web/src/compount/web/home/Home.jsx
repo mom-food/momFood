@@ -18,7 +18,8 @@ export default function Home() {
 
   const getCategories = async () => {
     try {
-      const response = await axios.get(`http://localhost:3000/api/categories`);
+      const response = await axios.get(`http://https://momfood.onrender.com
+/api/categories`);
       setData(response.data); // Assuming your API returns { categories: [] }
       console.log(response.data);
     } catch (error) {

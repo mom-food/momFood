@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../Model/meal_model.dart';
 
 class MealService {
-  final String baseUrl = 'https://momfood.onrender.com:3000/api/meals';
+  final String baseUrl = 'https://momfood.onrender.com/api/meals';
 
   Future<Meal> fetchMealById(String id) async {
     final response = await http.get(Uri.parse('$baseUrl/$id'));

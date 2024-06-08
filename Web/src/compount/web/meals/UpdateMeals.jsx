@@ -25,7 +25,8 @@ export default function UpdataMeals() {
       try {
         setLoading(true);
         const { data } = await axios.put(
-          `http://localhost:3000/api/meals/${_id}`,
+          `http://https://momfood.onrender.com
+/api/meals/${_id}`,
           values,
         );
         console.log(data);

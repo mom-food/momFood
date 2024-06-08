@@ -27,7 +27,7 @@ class MealViewModel extends ChangeNotifier {
         print(cartItemsCheckout);
       }
       // ----------
-      const String url = "https://momfood.onrender.com:3000/api/orders";
+      const String url = "https://momfood.onrender.com/api/orders";
       final response = await http.post(
         Uri.parse(url),
         headers: {'Content-Type': 'application/json'},
@@ -162,7 +162,7 @@ class MealViewModel extends ChangeNotifier {
 
   Future<void> refresh() async {
     final response =
-    await http.get(Uri.parse('https://momfood.onrender.com:3000/api/meals?query='));
+    await http.get(Uri.parse('https://momfood.onrender.com/api/meals?query='));
     if (response.statusCode == 200) {
       List<dynamic> mealsData = json.decode(response.body);
       List<Meal> fetchedMeals = [];

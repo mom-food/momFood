@@ -12,5 +12,5 @@ app.get("/", (req, res) => {
     res.send("Mom Food server");
 });
 app.listen(port, () => {
-    console.log(`[server]: Server is running at http://localhost:${port}`);
+    console.log(`[server]: Server is running at http://https://momfood.onrender.com:${port}`);
 });

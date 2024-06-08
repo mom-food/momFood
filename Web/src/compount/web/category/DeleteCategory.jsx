@@ -24,7 +24,8 @@ export default function DeleteCategory() {
             setLoading(true);
             const token = localStorage.getItem('userToken');
             const { data } = await axios.delete(
-                `http://localhost:3000/api/meals/${_id}`, {
+                `http://https://momfood.onrender.com
+/api/meals/${_id}`, {
                     headers: { Authorization: `Bearer ${token}` }
                 }
             );

@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import '../Model/meal_category_model.dart';
 
 class MealCategoryServices {
-  static const url = "https://momfood.onrender.com:3000/api/categories";
+  static const url = "https://momfood.onrender.com/api/categories";
 
   Future<List<MealCategory>> fetchAllMealCategories() async {
     try {

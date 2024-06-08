@@ -4,7 +4,7 @@ import '../Model/meal_details_model.dart';
 import 'package:http/http.dart' as http;
 
 class MealDetailsServices {
-  static const url = "https://momfood.onrender.com:3000/api/meals/";
+  static const url = "https://momfood.onrender.com/api/meals/";
 
   Future<MealDetailsModel> fetchMealDetails(String id) async {
     final String completeUrl = url + id;

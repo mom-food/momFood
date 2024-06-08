@@ -23,6 +23,7 @@ import 'View/Screens/menu_list.dart';
 import 'View/Screens/offer_meals.dart';
 import 'View/Screens/on_boarding1.dart';
 import 'View/Screens/on_boarding2.dart';
+import 'View/Screens/splash_screen.dart';
 import 'View/Screens/success_checkout_screen.dart';
 import 'ViewModel/meal_view_model.dart';
 import 'ViewModel/sign_up_view_model.dart';
@@ -52,8 +53,17 @@ void main() async {
 }
 
 final _router = GoRouter(
-  initialLocation: "/onboarding1",
+  initialLocation: "/splashScreen",
   routes: [
+    GoRoute(
+      path: '/splashScreen',
+      builder: (context, state) => SplashScreen(),
+    ),
+    GoRoute(
+      path: '/onboarding1',
+      builder: (context, state) => Onboarding1(),
+    ),
+
     GoRoute(
       path: '/',
       builder: (context, state) => HomePageScreen(),
@@ -66,10 +76,7 @@ final _router = GoRouter(
       path: '/sign-up',
       builder: (context, state) => SignUpScreen(),
     ),
-    GoRoute(
-      path: '/onboarding1',
-      builder: (context, state) => Onboarding1(),
-    ),
+
     GoRoute(
       path: '/onboarding2',
       builder: (context, state) => Onboarding2Screen(),

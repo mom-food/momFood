@@ -16,7 +16,8 @@ export default function Meals() {
         const getMeal = async () => {
             try {
                 setIsLoading(true);
-                const response = await axios.get(`http://localhost:3000/api/meals/meals/${_id}`);
+                const response = await axios.get(`http://https://momfood.onrender.com
+/api/meals/meals/${_id}`);
                 setMeal(response.data);
             } catch (error) {
                 console.error('Error fetching meal:', error);

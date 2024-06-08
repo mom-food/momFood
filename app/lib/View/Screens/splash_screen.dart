@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'on_boarding1.dart'; // Import your OnBoarding1 screen here
 
 class SplashScreen extends StatefulWidget {
@@ -15,8 +16,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Future<void> navigateToHome() async {
     await Future.delayed(Duration(seconds: 3));
-    Navigator.pushReplacementNamed(context, '/onboarding1');
-  }
+    context.go("/onboarding1");  }
 
   @override
   Widget build(BuildContext context) {

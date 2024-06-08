@@ -25,7 +25,8 @@ export default function Updata() {
 
                 const token = localStorage.getItem("userToken");
                 const { data } = await axios.put(
-                    `http://localhost:3000/api/categories/${_id}`,
+                    `http://https://momfood.onrender.com
+/api/categories/${_id}`,
                     values,
                 );
                 console.log(data);

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../colors.dart';
 import '../Widgets/page_indicator.dart';
@@ -27,10 +28,7 @@ class _Onboarding1State extends State<Onboarding1> {
 
       body: GestureDetector(
         onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Onboarding2Screen()),
-          );
+          context.go("/onboarding2");
         },
         child: Center(
           child: Column(

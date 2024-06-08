@@ -12,6 +12,7 @@ export const resetPasswordRedirect = async (req: Request, res: Response) => {
   http:
   //localhost:3000/resetPassword?mode=resetPassword&oobCode=YabS1kplkhO7VQwlnV5Rbgr6c3BBxV9F3x0zKUmIRH8AAAGPtJLUBQ&apiKey=AIzaSyAh1_uBnxz3toNPno1uvm0knZwtOwSKrek&lang=en
 
+
   console.log(
     "User is trying to reset their password, req query is: ",
     req.query,

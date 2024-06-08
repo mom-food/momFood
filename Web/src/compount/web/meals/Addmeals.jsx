@@ -22,7 +22,8 @@ export default function CreateAdmin() {
             try {
                 const token = localStorage.getItem("userToken");
                 const { data } = await axios.post(
-                    `http://localhost:3000/api/meals`,
+                    `http://https://momfood.onrender.com
+/api/meals`,
                     values,
                 );
                 console.log(data);

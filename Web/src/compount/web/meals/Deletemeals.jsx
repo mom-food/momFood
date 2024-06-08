@@ -25,7 +25,8 @@ export default function Deletemeals() {
         try {
             setLoading(true);
             const { data } = await axios.delete(
-                `http://localhost:3000/api/meals/${_id}`,
+                `http://https://momfood.onrender.com
+/api/meals/${_id}`,
             );
             console.log(data);
             if (data.message === 'success') {toast.success('Delete success', {
