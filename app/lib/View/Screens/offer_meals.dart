@@ -11,8 +11,8 @@ class MealOfferScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-      ),
+      //appBar: AppBar(
+      //),
       body: Consumer<MealViewModel>(builder: (context, viewModel, child) {
         return RefreshIndicator(
             child: Directionality(
