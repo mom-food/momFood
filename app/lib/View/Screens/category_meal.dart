@@ -3,7 +3,6 @@ import '../../Model/meal_category_model.dart';
 import '../../Services/meal_catecory_services.dart';
 import '../Widgets/cards/meal_category_card.dart';
 
-
 class MealCategoryScreen extends StatefulWidget {
   @override
   _MealCategoryScreenState createState() => _MealCategoryScreenState();
@@ -16,18 +15,15 @@ class _MealCategoryScreenState extends State<MealCategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Text(
-              'الأصناف',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
-              ),
-              textDirection: TextDirection.rtl,
+        title: Directionality(
+          textDirection: TextDirection.rtl,
+          child: Text(
+            'الأصناف',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 26,
             ),
-          ],
+          ),
         ),
         automaticallyImplyLeading: false,
       ),

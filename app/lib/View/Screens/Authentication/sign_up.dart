@@ -126,7 +126,7 @@ class _SignUpForm extends StatelessWidget {
               _FormField(
                 icon: Icons.email,
                 controller: controller.email,
-                label: 'الإيميل',
+                label: 'البريد الالكتروني',
                 validator: controller.emailValidator,
                 hint: 'ادخل بريدك الالكتروني',
                 minHeight: 48,
