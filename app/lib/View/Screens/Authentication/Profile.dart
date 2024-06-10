@@ -1,4 +1,7 @@
 import 'package:app/Services/user_services.dart';
+import 'package:app/View/Screens/Authentication/edit_profile.dart';
+import 'package:app/View/Screens/Authentication/sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
@@ -7,9 +10,38 @@ import '../../Widgets/nav_bar.dart';
 import '../home_page.dart';
 import '../shopping_cart_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+
+
+class _ProfileScreenState extends State<ProfileScreen> {
+
+  void _refreshProfile() async {
+    // Call the getUserByEmail function to fetch updated user data
+    bool success = await UserServices().getUserByEmail(UserServices.userData!.email!);
+    if (success) {
+      // If user data is fetched successfully, update the UI
+      setState(() {});
+    } else {
+      // Handle error if user data fetching fails
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to fetch user data.'),
+        ),
+      );
+    }
+  }
+  @override
+  void initState() {
+    _refreshProfile();
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Consumer<UserServices>(
@@ -99,7 +131,8 @@ class ProfileScreen extends StatelessWidget {
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  context.go('/edit-profile');
+                  //context.go('/edit-profile');
+                  Navigator.push(context, MaterialPageRoute(builder: (context) =>EditProfileScreen() ,));
                 },
                 child: Container(
                   width: 301,
@@ -107,6 +140,31 @@ class ProfileScreen extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Text(
                     "تعديل المعلومات",
+                    style: TextStyle(fontSize: 19, color: Colors.white),
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFFF6BD60),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                ),
+              ),
+              SizedBox(height: 20,),
+
+              ElevatedButton(
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
+                    return SignInScreen();
+                  },));
+                },
+                child: Container(
+                  width: 301,
+                  height: 53,
+                  alignment: Alignment.center,
+                  child: Text(
+                    " تسجيل الخروج",
                     style: TextStyle(fontSize: 19, color: Colors.white),
                   ),
                 ),

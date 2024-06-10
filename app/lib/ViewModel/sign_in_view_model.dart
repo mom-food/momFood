@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-
 class SignInScreenController extends ChangeNotifier {
   SignInScreenController()
       : email = TextEditingController(),
@@ -29,6 +28,23 @@ class SignInScreenController extends ChangeNotifier {
     bool res = await UserServices().signIn(email.text, password.text);
     if (res && UserServices.isSignedIn()) {
       context.go("/");
+    } else {
+      // Display notification for incorrect email or password
+      if (res) {
+        // If email is correct but password is wrong
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('كلمة المرور غير صحيحة'),
+          ),
+        );
+      } else {
+        // If email is incorrect
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("تأكد من البريد او كلمة السر !"),
+          ),
+        );
+      }
     }
     _updateStateLoading = false;
     //

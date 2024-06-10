@@ -15,6 +15,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   late TextEditingController _phoneController;
   late TextEditingController _emailController;
 
+
+
   @override
   void initState() {
     super.initState();
@@ -34,17 +36,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     super.dispose();
   }
 
-  void _updateProfile() {
-    print('Updating profile with:');
-    print('Name: ${_nameController.text}');
-    print('Phone: ${_phoneController.text}');
-    print('Email: ${_emailController.text}');
+  void _updateProfile() async {
+    // Update the user data from the text controllers
+    UserServices.userData?.name = _nameController.text;
+    UserServices.userData?.phone = _phoneController.text;
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => ProfileScreen()),
-    );
+    // Call the updateUserByEmail function to update the user in the database
+    bool updated = await UserServices().updateUserByEmail();
+
+    if (updated) {
+      // If the update is successful, navigate back to the ProfileScreen
+      print('Profile updated successfully.');
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => ProfileScreen()),
+      );
+    } else {
+      // If the update fails, print an error message
+      print('Failed to update profile.');
+      // You can handle the error here, for example, show a snackbar
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update profile.'),
+        ),
+      );
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -79,36 +97,22 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               SizedBox(height: 20),
               TextFormField(
+                maxLength: 10,
                 controller: _phoneController,
                 decoration: InputDecoration(
                   labelText: 'رقم الهاتف المحمول',
                 ),
               ),
               SizedBox(height: 20),
-              TextFormField(
-                controller: _emailController,
-                decoration: InputDecoration(
-                  labelText: 'عنوان البريد الإلكتروني',
-                ),
-              ),
               SizedBox(height: 40),
               ElevatedButton(
-                onPressed: _updateProfile,
+                onPressed: _updateProfile, // Assign the _updateProfile function here
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
                   backgroundColor: Colors.orange,
                   minimumSize: Size(double.infinity, 50),
                 ),
                 child: Text('تحديث'),
-              ),
-              SizedBox(height: 20),
-              TextButton(
-                onPressed: () {
-                },
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.orange,
-                ),
-                child: Text('هل تريد حساب كامل للسرير؟ أعادة تعيين كلمة سر'),
               ),
             ],
           ),
