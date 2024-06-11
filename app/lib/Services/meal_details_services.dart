@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import '../Model/meal_details_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,7 +14,9 @@ class MealDetailsServices {
       final response = await http.get(Uri.parse(completeUrl));
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
-        print('API Response: $data');  // Debugging line to print API response
+        if (kDebugMode) {
+          print('API Response: $data');
+        }
         return MealDetailsModel(
           id: data['_id'] ?? '',
           name: data['name'] ?? 'Unknown',

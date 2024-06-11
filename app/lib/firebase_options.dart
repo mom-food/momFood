@@ -1,3 +1,4 @@
+/*
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -6,18 +7,20 @@ class MealCategoryCard extends StatelessWidget {
   final String categoryId;
   final String categoryName;
   final String categoryImage;
-  MealCategoryCard({required this.categoryName, required this.categoryId, required this.categoryImage});
+  const MealCategoryCard({super.key, required this.categoryName, required this.categoryId, required this.categoryImage});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        /* Navigator.push(
+        */
+/* Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => MealList(categoryId: categoryId,),
           ),
-        );*/
+        );*//*
+
       },
       child: Container(
         margin: const EdgeInsets.fromLTRB(0, 0, 0, 30),
@@ -43,4 +46,4 @@ class MealCategoryCard extends StatelessWidget {
       ),
     );
   }
-}
+}*/

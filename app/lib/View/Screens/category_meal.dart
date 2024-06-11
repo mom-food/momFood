@@ -4,6 +4,8 @@ import '../../Services/meal_category_services.dart';
 import '../Widgets/cards/meal_category_card.dart';
 
 class MealCategoryScreen extends StatefulWidget {
+  const MealCategoryScreen({super.key});
+
   @override
   _MealCategoryScreenState createState() => _MealCategoryScreenState();
 }
@@ -15,7 +17,7 @@ class _MealCategoryScreenState extends State<MealCategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Directionality(
+        title: const Directionality(
           textDirection: TextDirection.rtl,
           child: Text(
             'الأصناف',
@@ -32,11 +34,11 @@ class _MealCategoryScreenState extends State<MealCategoryScreen> {
         future: _categoryServices.fetchAllMealCategories(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasError) {
             return Center(child: Text('Error loading data: ${snapshot.error}'));
           } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return Center(child: Text('No meal categories found.'));
+            return const Center(child: Text('No meal categories found.'));
           } else {
             final mealCategories = snapshot.data!;
             return Padding(

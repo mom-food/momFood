@@ -208,7 +208,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               case 1:
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Cart()),
+                  MaterialPageRoute(builder: (context) => CartShopping()),
                 );
                 break;
               case 2:

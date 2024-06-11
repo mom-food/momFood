@@ -1,9 +1,10 @@
+/*
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-import '../cubit/phone_auth/phone_auth_cubit.dart';
+import '../../../../ViewModel/cubit/phone_auth/phone_auth_cubit.dart';
 
 
 Widget buildIntroTexts({required phoneNumber}) {
@@ -128,11 +129,13 @@ Widget buildPhoneVerificationBloc() {
       if (state is PhoneOTPVerified) {
         Navigator.pop(context);
         // Navigator.of(context).pushReplacementNamed(mapScreen);
-        /*Navigator.of(context).push(
+        */
+/*Navigator.of(context).push(
           MaterialPageRoute(
             builder: (context) => const Home(),
           ),
-        );*/
+        );*//*
+
         context.go("/Home");
       }
 
@@ -151,3 +154,4 @@ Widget buildPhoneVerificationBloc() {
     child: Container(),
   );
 }
+*/

@@ -1,14 +1,13 @@
 import 'package:app/View/Screens/shopping_cart_screen.dart';
-import 'package:app/View/Screens/splash_screen.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
 import '../Widgets/mom_food_title.dart';
 import '../Widgets/nav_bar.dart';
 import 'Authentication/Profile.dart';
 import 'offer_meals.dart';
 
 class HomePageScreen extends StatefulWidget {
+  const HomePageScreen({super.key});
+
   @override
   _HomePageScreenState createState() => _HomePageScreenState();
 }
@@ -27,7 +26,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => Cart()),
+          MaterialPageRoute(builder: (context) => CartShopping()),
         );
         break;
       case 2:
@@ -50,7 +49,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               index: _selectedIndex,
               children: [
                 MealOfferScreen(),
-                Cart(),
+                CartShopping(),
                 ProfileScreen(),
               ],
             ),

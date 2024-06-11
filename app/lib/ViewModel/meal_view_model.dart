@@ -26,7 +26,6 @@ class MealViewModel extends ChangeNotifier {
       if (kDebugMode) {
         print(cartItemsCheckout);
       }
-      // ----------
       const String url = "https://momfood.onrender.com/api/orders";
       final response = await http.post(
         Uri.parse(url),
@@ -43,9 +42,12 @@ class MealViewModel extends ChangeNotifier {
       if (kDebugMode) {
         print("response.body:: ${response.body}");
       }
-      if(response.statusCode >= 200 && response.statusCode < 300) {
-        context.go("/successful_checkout");
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        Future.delayed(Duration.zero, () {
+          Navigator.of(context).pop("/successful_checkout");
+        });
       }
+
     } else {
       context.go("/onboarding2");
     }
@@ -55,7 +57,9 @@ class MealViewModel extends ChangeNotifier {
     if (UserServices.isSignedIn()) {
       cartItems.add((meal: meal, quantity: 1));
     } else {
-      print("User is not logged in, cannot add to cart.");
+      if (kDebugMode) {
+        print("User is not logged in, cannot add to cart.");
+      }
     }
     notifyListeners();
   }
@@ -179,7 +183,7 @@ class MealViewModel extends ChangeNotifier {
         print("Fetched meals: $fetchedMeals");
       }
       meals = fetchedMeals;
-      notifyListeners(); // Notify listeners after data is fetched
+      notifyListeners();
     } else {
       throw Exception('Failed to fetch meals');
     }

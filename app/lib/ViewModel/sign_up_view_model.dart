@@ -4,10 +4,13 @@ import 'package:app/Model/user/user_model.dart';
 import 'package:app/Services/user_services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import '../View/Screens/Authentication/cubit/phone_auth/phone_auth_cubit.dart';
+import 'cubit/phone_auth/phone_auth_cubit.dart';
+
+
 
 class SignUpScreenController extends ChangeNotifier {
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -186,7 +189,9 @@ class SignUpScreenController extends ChangeNotifier {
         },
         verificationFailed: (FirebaseAuthException e) {
           // Handle verification failure (show error message)
-          print(e.message);
+          if (kDebugMode) {
+            print(e.message);
+          }
         },
         codeSent: (String verificationId, int? resendToken) {
           String enteredOTP; // Store user-entered OTP here

@@ -6,7 +6,7 @@ class MealCard extends StatelessWidget {
   final Meal meal;
   final VoidCallback? onTap;
 
-  const MealCard({Key? key, required this.meal, this.onTap}) : super(key: key);
+  const MealCard({super.key, required this.meal, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +27,10 @@ class MealCard extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
                     ),
-                    SizedBox(height: 8.0),
+                    const SizedBox(height: 8.0),
                     Text(
                       meal.name,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontFamily: 'FontMAIN',
                       ),
@@ -40,8 +40,8 @@ class MealCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Text(
-                          "${meal.price.toStringAsFixed(2)}", // Corrected string interpolation
-                          style: TextStyle(
+                          meal.price.toStringAsFixed(2),
+                          style: const TextStyle(
                             color: AppColors.primary1,
                             fontFamily: 'FontMAIN',
                           ),

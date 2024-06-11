@@ -87,32 +87,6 @@ class OtpScreen extends StatelessWidget {
   }
 }
 
-/*Widget buildIntroTexts({required phoneNumber}) {
-  return Column(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Container(
-        margin: const EdgeInsets.symmetric(horizontal: 2),
-        child: RichText(
-          text: TextSpan(
-            text: 'Enter your 6 digit code numbers sent to ',
-            style:
-            const TextStyle(color: Colors.black, fontSize: 18, height: 1.4),
-            children: <TextSpan>[
-              TextSpan(
-                text: '$phoneNumber',
-                style: const TextStyle(
-                  color: Colors.blue,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    ],
-  );
-}*/
-
 void showProgressIndicator(BuildContext context) {
   AlertDialog alertDialog = const AlertDialog(
     backgroundColor: Colors.transparent,

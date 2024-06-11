@@ -1,5 +1,6 @@
+import 'package:flutter/foundation.dart';
+
 class OrderModel {
-  // final String id;
   final bool status;
   final String image;
   final String email;
@@ -7,7 +8,6 @@ class OrderModel {
   final double price;
 
   OrderModel({
-    // required this.id,
     required this.status,
     required this.image,
     required this.email,
@@ -16,11 +16,11 @@ class OrderModel {
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
-    print(json);
+    if (kDebugMode) {
+      print(json);
+    }
     return OrderModel(
-      // id: json['_id']?.toString() ?? "", // Adjust this based on your actual ID field
-      mealName: json['mealName']?.toString() ?? "", //optional chaining
-      // description: json['description']?.toString()?? "",
+      mealName: json['mealName']?.toString() ?? "",
       price: double.tryParse(json['price']?.toString() ?? "0") ?? 0.0,
       image: json['image']?.toString() ?? "",
       email: json['email']?.toString() ?? "",

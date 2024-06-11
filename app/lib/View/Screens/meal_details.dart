@@ -1,9 +1,6 @@
-import 'package:app/Model/meal_model.dart';
-import 'package:app/View/Screens/splash_screen.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:app/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +38,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
     } else if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => Cart()),
+        MaterialPageRoute(builder: (context) => CartShopping()),
       );
     } else if (index == 2) {
       Navigator.push(
@@ -227,7 +224,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                           onChanged: (value) {
                             viewModel.setQuantity(meal, int.parse(value));
                           },
-                          decoration: InputDecoration(
+                          decoration: const InputDecoration(
                             border: OutlineInputBorder(),
                             labelText: 'الكمية',
                             floatingLabelAlignment: FloatingLabelAlignment.center,
@@ -235,7 +232,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                         )),
                     Expanded(
                         child: InkWell(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topRight: Radius.circular(30.0),
                             bottomRight: Radius.circular(30.0),
                           ),
@@ -243,7 +240,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                             // Your onTap function here
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: AppColors.primary1,
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(30.0),
@@ -251,7 +248,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                               ),
                             ),
                             child: IconButton(
-                              icon: Icon(Icons.remove),
+                              icon: const Icon(Icons.remove),
                               onPressed: () {
                                 viewModel.decreaseQuantity(meal);
                               },
@@ -261,7 +258,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                   ]),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                   // delete button
                   child: ElevatedButton(
                     onPressed: () {

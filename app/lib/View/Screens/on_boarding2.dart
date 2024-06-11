@@ -9,6 +9,8 @@ import 'on_boarding1.dart';
 class Onboarding2Screen extends StatelessWidget {
   final PageController _pageController = PageController();
 
+  Onboarding2Screen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,11 +33,10 @@ class Onboarding2Screen extends StatelessWidget {
                       children: <Widget>[
                         Expanded(
                           child: SignUpButton(onPressed: () {
-                            // Handle Sign Up Logic
                             context.go("/sign-up");
                           }),
                         ),
-                        SizedBox(width: 15), // Spacing between the buttons
+                        const SizedBox(width: 15),
                         Expanded(
                           child: SignInButton(onPressed: () {
                             context.go("/signIn");
@@ -46,10 +47,10 @@ class Onboarding2Screen extends StatelessWidget {
                     ContinueAsGuestButton(onPressed: () {
                       context.go("/");
                     }),
-                    SizedBox(height: 10), // Spacing after "Continue as Guest" button
+                    const SizedBox(height: 10),
                     Center(
                       child: PageIndicator(
-                        controller: _pageController, // Use the same PageController
+                        controller: _pageController,
                         count: 2,
                         onDotClicked: (index) {
                           if (index == 1) {
@@ -64,7 +65,7 @@ class Onboarding2Screen extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: 45), // Spacing from the bottom
+              const SizedBox(height: 45), // Spacing from the bottom
             ],
           ),
         ],

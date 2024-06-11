@@ -1,6 +1,4 @@
 import 'package:app/Model/meal_model.dart';
-import 'package:app/Services/user_services.dart';
-import 'package:app/View/Screens/success_checkout_screen.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +8,7 @@ import 'package:provider/provider.dart';
 class CheckoutScreen extends StatelessWidget {
   final double totalPrice;
   final List<({Meal meal, int quantity})> items;
-  CheckoutScreen({required this.totalPrice, required this.items});
+  const CheckoutScreen({super.key, required this.totalPrice, required this.items});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +18,7 @@ class CheckoutScreen extends StatelessWidget {
         child: Container(
           height: 400,
           alignment: Alignment.topRight,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xFFFEA11F),
             image: DecorationImage(
               image: AssetImage("assets/images/checkout.png"),

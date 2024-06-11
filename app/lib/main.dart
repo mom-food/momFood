@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:app/themes/theme_provider.dart';
 import 'package:app_links/app_links.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -10,7 +11,6 @@ import 'package:provider/provider.dart';
 import 'Services/user_services.dart';
 import 'View/Screens/Authentication/edit_profile.dart';
 import 'View/Screens/Authentication/congratulatory_message.dart';
-import 'View/Screens/Authentication/cubit/phone_auth/phone_auth_cubit.dart';
 import 'View/Screens/Authentication/forget_password.dart';
 import 'View/Screens/Authentication/otp/otp_screen.dart';
 import 'View/Screens/Authentication/reset_password.dart';
@@ -25,11 +25,11 @@ import 'View/Screens/on_boarding1.dart';
 import 'View/Screens/on_boarding2.dart';
 import 'View/Screens/splash_screen.dart';
 import 'View/Screens/success_checkout_screen.dart';
+import 'ViewModel/cubit/phone_auth/phone_auth_cubit.dart';
 import 'ViewModel/meal_view_model.dart';
 import 'ViewModel/sign_up_view_model.dart';
 import 'themes/dark.dart';
 import 'themes/light.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   try {
@@ -49,7 +49,7 @@ void main() async {
   } catch (e) {
     print("Error initializing Firebase: $e");
   }
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 final _router = GoRouter(
@@ -66,15 +66,15 @@ final _router = GoRouter(
 
     GoRoute(
       path: '/',
-      builder: (context, state) => HomePageScreen(),
+      builder: (context, state) => const HomePageScreen(),
     ),
     GoRoute(
       path: '/signIn',
-      builder: (context, state) => SignInScreen(),
+      builder: (context, state) => const SignInScreen(),
     ),
     GoRoute(
       path: '/sign-up',
-      builder: (context, state) => SignUpScreen(),
+      builder: (context, state) => const SignUpScreen(),
     ),
 
     GoRoute(
@@ -114,8 +114,8 @@ final _router = GoRouter(
     ),
     GoRoute(
       path: '/otp',
-      builder: (context, state) => OtpScreen(
-        phoneNumber: '0569359015', // Update this accordingly
+      builder: (context, state) => const OtpScreen(
+        phoneNumber: '0569359015',
       ),
     ),
     GoRoute(
@@ -135,7 +135,7 @@ final _router = GoRouter(
 );
 
 class MyApp extends StatefulWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   _MyAppState createState() => _MyAppState();
@@ -163,13 +163,17 @@ class _MyAppState extends State<MyApp> {
     _appLinks = AppLinks();
 
     _linkSubscription = _appLinks.uriLinkStream.listen((uri) {
-      print('onAppLink: $uri');
+      if (kDebugMode) {
+        print('onAppLink: $uri');
+      }
       openAppLink(uri);
     });
   }
 
   void openAppLink(Uri uri) {
-    print("🔴 I'M TRYING TO OPEN ${uri.query}");
+    if (kDebugMode) {
+      print("🔴 I'M TRYING TO OPEN ${uri.query}");
+    }
 
     if (uri.host == "resetpassword") {
       final oobCode = uri.queryParameters['oobCode'];
@@ -177,16 +181,24 @@ class _MyAppState extends State<MyApp> {
       final mode = uri.queryParameters['mode'];
       if (oobCode != null) {
         _router.go('/reset-password/$oobCode');
-        print("Could not find oobCode");
+        if (kDebugMode) {
+          print("Could not find oobCode");
+        }
         return;
       } else if (apiKey == null) {
-        print("Could not find apiKey");
+        if (kDebugMode) {
+          print("Could not find apiKey");
+        }
         return;
       } else if (mode == null) {
-        print("Could not find mode");
+        if (kDebugMode) {
+          print("Could not find mode");
+        }
         return;
       }
-      print("SUCCESSFULLY FOUND THE HOST");
+      if (kDebugMode) {
+        print("SUCCESSFULLY FOUND THE HOST");
+      }
       Navigator.pushReplacementNamed(context, '/reset-password/$oobCode');
     }
   }

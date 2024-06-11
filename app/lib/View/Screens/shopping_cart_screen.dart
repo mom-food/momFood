@@ -10,9 +10,37 @@ import '../Widgets/nav_bar.dart';
 import 'Authentication/Profile.dart';
 import 'home_page.dart';
 
-class Cart extends StatelessWidget {
-  const Cart({Key? key}) : super(key: key);
+class CartShopping extends StatefulWidget {
+  const CartShopping({super.key});
 
+  @override
+  State<CartShopping> createState() => _CartShoppingState();
+}
+
+class _CartShoppingState extends State<CartShopping> {
+  int _selectedIndex = 1;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+    switch (index) {
+      case 0:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const HomePageScreen()),
+        );
+        break;
+      case 1:
+      break;
+      case 2:
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ProfileScreen()),
+        );
+        break;
+    }
+  }
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -94,8 +122,30 @@ class Cart extends StatelessWidget {
                                             color: Colors.orange,
                                           ),
                                         ),
-                                        Text(
-                                            '${(item.meal.price * item.quantity).toStringAsFixed(2)} ₪'),
+                                       /* Text(
+                                            '${(item.meal.price * item.quantity).toStringAsFixed(2)} ₪'
+                                        ),*/
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                              onPressed: () =>viewModel.decreaseQuantity(item.meal),
+                                              icon: const Icon(Icons.remove),
+                                              color: Colors.grey,
+                                            ),
+                                            Text(
+                                              '${item.quantity}',
+                                              style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                            ),
+                                            IconButton(
+                                              onPressed: () => viewModel.increaseQuantity(item.meal),
+                                              icon: const Icon(Icons.add),
+                                              color: Colors.grey,
+                                            ),
+                                          ],
+                                        ),
                                       ],
                                     ),
                                   ],
@@ -122,6 +172,15 @@ class Cart extends StatelessWidget {
                         },
                       );
                     },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(296, 53),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 86, vertical: 15),
+                      backgroundColor: AppColors.primary1,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                     child: Text(
                       'اطلب الآن!',
                       style: GoogleFonts.ibmPlexSansArabic(
@@ -133,15 +192,6 @@ class Cart extends StatelessWidget {
                                 ),
                       ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(296, 53),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 86, vertical: 15),
-                      backgroundColor: AppColors.primary1,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
                   ),
                 ),
                 Padding(
@@ -150,6 +200,15 @@ class Cart extends StatelessWidget {
                     onPressed: () {
                       viewModel.removeAllCartItems();
                     },
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size(296, 53),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 86, vertical: 15),
+                      backgroundColor: AppColors.backgroundColorLight,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                     child: Text(
                       'حذف محتويات السلة',
                       style: GoogleFonts.ibmPlexSansArabic(
@@ -161,15 +220,6 @@ class Cart extends StatelessWidget {
                                 ),
                       ),
                     ),
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size(296, 53),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 86, vertical: 15),
-                      backgroundColor: AppColors.backgroundColorLight,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                    ),
                   ),
                 ),
               ],
@@ -177,27 +227,8 @@ class Cart extends StatelessWidget {
           },
         ),
         bottomNavigationBar: CustomBottomNavBar(
-        selectedIndex: 1,
-        onItemTapped: (index) {
-          switch (index) {
-            case 0:
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => HomePageScreen()),
-                );
-                break;
-              case 1:
-                break;
-              case 2:
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const ProfileScreen()
-                  ),
-                );
-                break;
-            }
-            },
+          selectedIndex: _selectedIndex,
+          onItemTapped: _onItemTapped,
         ),
       ),
     );

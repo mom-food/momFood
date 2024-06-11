@@ -50,11 +50,13 @@ dependencies:
   firebase_app_check: ^0.2.2+7
   app_links: ^6.1.1
   input_history_text_field: ^0.2.0
+  collection: ^1.18.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: "^0.13.1"
+  flutter_lints: ^4.0.0
 
 flutter_launcher_icons:
   android: "launcher_icon"
@@ -99,6 +101,7 @@ flutter:
      - family: FontMAIN
        fonts:
          - asset: assets/Fonts/Manrope-ExtraBold.ttf
+
 
 
 

@@ -131,7 +131,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             case 1:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Cart()),
+                MaterialPageRoute(builder: (context) => CartShopping()),
               );
               break;
             case 2:

@@ -1,26 +1,25 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class OTPDialog extends StatefulWidget {
   final String verificationId;
 
-  OTPDialog({required this.verificationId});
+  const OTPDialog({super.key, required this.verificationId});
 
   @override
-  _OTPDialogState createState() => _OTPDialogState();
+  OTPDialogState createState() => OTPDialogState();
 }
 
-class _OTPDialogState extends State<OTPDialog> {
+class OTPDialogState extends State<OTPDialog> {
   final _otpController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text('Enter OTP'),
+      title: const Text('Enter OTP'),
       content: TextField(
         controller: _otpController,
         keyboardType: TextInputType.number,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           hintText: 'Enter OTP',
         ),
       ),
@@ -29,7 +28,7 @@ class _OTPDialogState extends State<OTPDialog> {
           onPressed: () {
             Navigator.of(context).pop(_otpController.text);
           },
-          child: Text('Verify'),
+          child: const Text('Verify'),
         ),
       ],
     );

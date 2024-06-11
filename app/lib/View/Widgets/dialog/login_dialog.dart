@@ -19,7 +19,7 @@ void showLoginDialog(BuildContext context) {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(16),
             ),
-            shadows: [
+            shadows: const [
               BoxShadow(
                 color: Color(0x28000000),
                 blurRadius: 36,
@@ -55,10 +55,10 @@ void showLoginDialog(BuildContext context) {
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFF7F2ED),
+                          backgroundColor: AppColors.textColor2,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
-                            side: BorderSide(width: 1, color: Color(0x42556789)),
+                            side: const BorderSide(width: 1, color: Color(0x42556789)),
                           ),
                         ),
                         child: Text(
@@ -67,7 +67,7 @@ void showLoginDialog(BuildContext context) {
                           style: GoogleFonts.ibmPlexSansArabic(
                             textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
                               fontSize: 13,
-                              color: Color(0x7F14181F),
+                              color: AppColors.textColor1,
                               fontWeight: FontWeight.w300,
                             ),
                             fontWeight: FontWeight.bold,
@@ -84,7 +84,7 @@ void showLoginDialog(BuildContext context) {
                       padding: const EdgeInsets.symmetric(horizontal: 4.0),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFFA65D0B),
+                          backgroundColor: AppColors.warningColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
                           ),

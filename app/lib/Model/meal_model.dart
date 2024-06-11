@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class Meal {
   final String id; // You might need an ID property if it's part of your schema
   final String name;
@@ -16,7 +18,9 @@ class Meal {
   });
 
   factory Meal.fromJson(Map<String, dynamic> json) {
-    print(json);
+    if (kDebugMode) {
+      print(json);
+    }
     return Meal(
       id: json['_id']?.toString() ?? "", // Adjust this based on your actual ID field
       name: json['name']?.toString() ?? "", //optional chaining
