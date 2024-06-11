@@ -2,7 +2,7 @@ import 'package:app/View/Screens/shopping_cart_screen.dart';
 import 'package:flutter/material.dart';
 import '../Widgets/mom_food_title.dart';
 import '../Widgets/nav_bar.dart';
-import 'Authentication/Profile.dart';
+import 'Authentication/profile.dart';
 import 'offer_meals.dart';
 
 class HomePageScreen extends StatefulWidget {

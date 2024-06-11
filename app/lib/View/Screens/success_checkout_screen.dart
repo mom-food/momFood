@@ -1,15 +1,15 @@
-import 'dart:ui';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import 'home_page.dart';
 
 class SuccessMessageScreen extends StatefulWidget {
+  const SuccessMessageScreen({super.key});
+
   @override
-  _SuccessMessageScreen createState() => _SuccessMessageScreen();
+  SuccessMessageScreenState createState() => SuccessMessageScreenState();
 }
-class _SuccessMessageScreen extends State<SuccessMessageScreen> {
+
+class SuccessMessageScreenState extends State<SuccessMessageScreen> {
   @override
   void initState() {
     super.initState();
@@ -17,7 +17,7 @@ class _SuccessMessageScreen extends State<SuccessMessageScreen> {
   }
 
   navigateToHome() async {
-    await Future.delayed(Duration(microseconds: 100000), () {});
+    await Future.delayed(const Duration(microseconds: 100000), () {});
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.go("/");
     });
@@ -30,7 +30,7 @@ class _SuccessMessageScreen extends State<SuccessMessageScreen> {
           child: Container(
             width: 350,
             height: 350,
-            padding: EdgeInsets.all(50),
+            padding: const EdgeInsets.all(50),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(10),
@@ -39,11 +39,11 @@ class _SuccessMessageScreen extends State<SuccessMessageScreen> {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: Offset(0, 3),
+                  offset: const Offset(0, 3),
                 ),
               ],
             ),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Icon(

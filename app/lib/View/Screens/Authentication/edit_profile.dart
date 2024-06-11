@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../Services/user_services.dart';
 import '../../Widgets/nav_bar.dart';
 import '../home_page.dart';
-import 'Profile.dart';
+import 'profile.dart';
 import '../shopping_cart_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {

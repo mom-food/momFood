@@ -9,7 +9,7 @@ import '../../Services/user_services.dart';
 import '../Widgets/back_button.dart';
 import '../Widgets/dialog/login_dialog.dart';
 import '../Widgets/nav_bar.dart';
-import 'Authentication/Profile.dart';
+import 'Authentication/profile.dart';
 import 'home_page.dart';
 import 'shopping_cart_screen.dart';
 

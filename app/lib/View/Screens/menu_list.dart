@@ -6,7 +6,7 @@ import '../../Services/meal_services.dart';
 import '../Widgets/back_button.dart';
 import '../Widgets/cards/meal_card.dart';
 import '../Widgets/nav_bar.dart';
-import 'Authentication/Profile.dart';
+import 'Authentication/profile.dart';
 import 'home_page.dart';
 
 class MealList extends StatelessWidget {

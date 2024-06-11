@@ -37,12 +37,12 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
         body: Column(
           children: [
-            Text(
+            const Text(
               'انشاء حساب',
               style:
                   TextStyle(fontFamily: 'Manrope_SemiBold.ttf', fontSize: 32),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Image.asset(
               'assets/images/SignUpImage.png',
               height: 124,
@@ -51,31 +51,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
             _SignUpForm(
               controller: controller,
             ),
-            SizedBox(height: 8),
+            const SizedBox(height: 8),
             Padding(
               padding: const EdgeInsets.only(top: 0, bottom: 5),
               child: OutlinedButton(
                 onPressed: () {
                   controller.createAccount(context);
                 },
+                style: OutlinedButton.styleFrom(
+                  foregroundColor: const Color(0xFFFFFFFF),
+                  minimumSize: const Size(301, 55),
+                  backgroundColor: const Color(0xFFF6BD60),
+                  side: const BorderSide(color: Color(0xFFF6BD60)),
+                ),
                 child: controller.loading
-                    ? CircularProgressIndicator()
-                    : Text(
+                    ? const CircularProgressIndicator()
+                    : const Text(
                         'انشاء حساب',
                         style: TextStyle(
                           fontFamily: 'Manrope_SemiBold.ttf',
                           fontSize: 20,
                         ),
                       ),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Color(0xFFFFFFFF),
-                  minimumSize: Size(301, 55),
-                  backgroundColor: Color(0xFFF6BD60),
-                  side: BorderSide(color: Color(0xFFF6BD60)),
-                ),
               ),
             ),
-            AskUserToLoginButton()
+            const AskUserToLoginButton()
           ],
         ),
       ),
@@ -93,7 +93,7 @@ class AskUserToLoginButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('هل لديك حساب بالفعل؟',
+          const Text('هل لديك حساب بالفعل؟',
               style: TextStyle(
                 fontFamily: 'Manrope_SemiBold.ttf',
               )),
@@ -101,7 +101,7 @@ class AskUserToLoginButton extends StatelessWidget {
             onPressed: () {
               context.go("/signIn");
             },
-            child: Text(
+            child: const Text(
               'تسجيل دخول',
               style: TextStyle(
                 color: Color(0xFFA8DF83),
@@ -127,7 +127,7 @@ class _SignUpForm extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 25),
+              const SizedBox(height: 25),
               _FormField(
                 icon: Icons.email,
                 controller: controller.email,
@@ -137,7 +137,7 @@ class _SignUpForm extends StatelessWidget {
                 minHeight: 48,
                 width: 360,
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               _FormField(
                 icon: Icons.person,
                 controller: controller.name,
@@ -147,7 +147,7 @@ class _SignUpForm extends StatelessWidget {
                 minHeight: 48,
                 width: 360,
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               _FormField(
                 icon: Icons.phone,
                 controller: controller.phone,
@@ -157,7 +157,7 @@ class _SignUpForm extends StatelessWidget {
                 minHeight: 48,
                 width: 360,
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               _FormField(
                 controller: controller.password,
                 label: 'كلمة المرور',
@@ -172,7 +172,7 @@ class _SignUpForm extends StatelessWidget {
                   onTap: controller.showHidePassword,
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               _FormField(
                 controller: controller.repeatPassword,
                 label: 'اعادة كلمة المرور',
@@ -187,7 +187,7 @@ class _SignUpForm extends StatelessWidget {
                 ),
                 validator: controller.repeatedPasswordValidator,
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
             ],
           ),
         ),
@@ -235,9 +235,9 @@ class _FormField extends StatelessWidget {
             suffixIcon: suffixIcon,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
-              borderSide: BorderSide(color: Colors.grey),
+              borderSide: const BorderSide(color: Colors.grey),
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           ),
           obscureText: isObscure,
           textAlign: TextAlign.right,
@@ -248,7 +248,7 @@ class _FormField extends StatelessWidget {
 }
 
 class ShowPasswordButton extends StatelessWidget {
-  const ShowPasswordButton({this.onTap, required this.show});
+  const ShowPasswordButton({super.key, this.onTap, required this.show});
   final VoidCallback? onTap;
   final bool show;
 

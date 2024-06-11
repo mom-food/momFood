@@ -7,10 +7,10 @@ class MealCategoryScreen extends StatefulWidget {
   const MealCategoryScreen({super.key});
 
   @override
-  _MealCategoryScreenState createState() => _MealCategoryScreenState();
+  MealCategoryScreenState createState() => MealCategoryScreenState();
 }
 
-class _MealCategoryScreenState extends State<MealCategoryScreen> {
+class MealCategoryScreenState extends State<MealCategoryScreen> {
   final MealCategoryServices _categoryServices = MealCategoryServices();
 
   @override

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../Screens/menu_list.dart';
 
@@ -6,7 +5,7 @@ class MealCategoryCard extends StatelessWidget {
   final String categoryId;
   final String categoryName;
   final String categoryImage;
-  MealCategoryCard({required this.categoryName, required this.categoryId, required this.categoryImage});
+  const MealCategoryCard({super.key, required this.categoryName, required this.categoryId, required this.categoryImage});
 
   @override
   Widget build(BuildContext context) {
