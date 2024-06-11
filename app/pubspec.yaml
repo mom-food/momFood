@@ -49,6 +49,7 @@ dependencies:
   pin_code_fields: ^8.0.1
   firebase_app_check: ^0.2.2+7
   app_links: ^6.1.1
+  input_history_text_field: ^0.2.0
 
 dev_dependencies:
   flutter_test:

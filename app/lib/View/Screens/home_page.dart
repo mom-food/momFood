@@ -54,6 +54,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 ProfileScreen(),
               ],
             ),
+            //child: MealCategoryScreen(),
+
           ),
         ],
       ),

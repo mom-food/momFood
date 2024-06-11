@@ -1,6 +1,7 @@
 import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class CustomSearchBar extends StatefulWidget {
   final Function(String) onSearch;
@@ -13,121 +14,155 @@ class CustomSearchBar extends StatefulWidget {
 
 class _CustomSearchBarState extends State<CustomSearchBar> {
   late TextEditingController _controller;
-  bool isDarkMode = false;
   List<String> searchHistory = [];
 
   @override
   void initState() {
     super.initState();
     _controller = TextEditingController();
+    _loadSearchHistory();
+  }
+
+  Future<void> _loadSearchHistory() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      searchHistory = prefs.getStringList('search_history') ?? [];
+    });
+  }
+
+  Future<void> _saveSearchQuery(String query) async {
+    final prefs = await SharedPreferences.getInstance();
+    searchHistory.add(query);
+    await prefs.setStringList('search_history', searchHistory);
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 25.0),
       child: Column(
         children: [
-          Container(
-            width: 370,
-            height: 36,
-            child: Stack(
-              children: [
-                Positioned(
-                  left: 0,
-                  top: 0,
-                  child: Container(
-                    width: 370,
-                    height: 36,
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x11000000),
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                          spreadRadius: 0,
-                        ),
-                      ],
+          GestureDetector(
+            onTap: () {
+              // Show search history list
+              _showSearchHistory(context);
+            },
+            child: Container(
+              width: 370,
+              height: 108,
+              decoration: BoxDecoration(
+                // Remove the boxShadow
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(8),
+                    decoration: ShapeDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment(-1.00, -0.00),
+                        end: Alignment(1, 0),
+                        colors: [Color(0xFFE8E8E8), Colors.white],
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Container(
-                          width: double.infinity,
-                          height: 36,
-                          padding: const EdgeInsets.all(8),
-                          decoration: ShapeDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment(-1.00, -0.00),
-                              end: Alignment(1, 0),
-                              colors: [Color(0xFFE8E8E8), Colors.white],
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 28,
-                                height: 28,
-                                child: Icon(Icons.search, color: Color(0x993C3C43), size: 18),
-                              ),
-                              Expanded(
-                                child: Consumer<MealViewModel>(
-                                  builder: (context, momFood, child) {
-                                    return TextField(
-                                      controller: _controller,
-                                      decoration: InputDecoration(
-                                        hintText: 'البحث',
-                                        border: InputBorder.none,
-                                        isDense: true,
-                                        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
-                                        hintStyle: TextStyle(
-                                          color: Color(0x993C3C43),
-                                          fontSize: 12,
-                                          fontFamily: 'Encode Sans',
-                                          fontWeight: FontWeight.w400,
-                                          height: 0.17,
-                                        ),
+                          width: 28,
+                          height: 28,
+                          child: Icon(Icons.search, color: Color(0x993C3C43), size: 18),
+                        ),
+                        Expanded(
+                          child: Consumer<MealViewModel>(
+                            builder: (context, momFood, child) {
+                              return Autocomplete<String>(
+                                optionsBuilder: (TextEditingValue textEditingValue) {
+                                  if (textEditingValue.text.isEmpty) {
+                                    return const Iterable<String>.empty();
+                                  }
+                                  return searchHistory.where((String option) {
+                                    return option.contains(textEditingValue.text);
+                                  });
+                                },
+                                onSelected: (String selection) {
+                                  _controller.text = selection;
+                                  widget.onSearch(selection);
+                                  momFood.search(selection);
+                                  _saveSearchQuery(selection);
+                                  _controller.clear(); // Clear the text field after search
+                                },
+                                fieldViewBuilder: (BuildContext context, TextEditingController fieldTextEditingController, FocusNode fieldFocusNode, VoidCallback onFieldSubmitted) {
+                                  _controller = fieldTextEditingController;
+                                  return TextField(
+                                    controller: fieldTextEditingController,
+                                    focusNode: fieldFocusNode,
+                                    decoration: InputDecoration(
+                                      hintText: 'البحث',
+                                      border: InputBorder.none,
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
+                                      hintStyle: TextStyle(
+                                        color: Color(0x993C3C43),
+                                        fontSize: 12,
+                                        fontFamily: 'Encode Sans',
+                                        fontWeight: FontWeight.w400,
+                                        height: 0.17,
                                       ),
-                                      textAlign: TextAlign.right,
-                                      onSubmitted: (query) {
-                                        momFood.search(query);
-                                      },
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
+                                    ),
+                                    textAlign: TextAlign.right,
+                                    onSubmitted: (query) {
+                                      widget.onSearch(query);
+                                      momFood.search(query);
+                                      _saveSearchQuery(query);
+                                      _controller.clear(); // Clear the text field after search
+                                    },
+                                  );
+                                },
+                              );
+                            },
                           ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ],
       ),
     );
   }
-}
 
-// Extension method to set the theme data
-extension ThemeDataExtension on ThemeData {
-  void setTheme(ThemeData themeData) {
-    ThemeData? baseTheme = this.copyWith();
-
-    // Set the brightness and color scheme of the theme
-    baseTheme = baseTheme.copyWith(
-      brightness: themeData.brightness,
-      colorScheme: themeData.colorScheme,
+  void _showSearchHistory(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          height: 200,
+          child: ListView.builder(
+            itemCount: searchHistory.length,
+            itemBuilder: (BuildContext context, int index) {
+              return ListTile(
+                title: Text(searchHistory[index]),
+                onTap: () {
+                  widget.onSearch(searchHistory[index]);
+                  Provider.of<MealViewModel>(context, listen: false).search(searchHistory[index]);
+                  Navigator.pop(context);
+                },
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }

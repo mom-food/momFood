@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../Model/meal_category_model.dart';
-import '../../Services/meal_catecory_services.dart';
+import '../../Services/meal_category_services.dart';
 import '../Widgets/cards/meal_category_card.dart';
 
 class MealCategoryScreen extends StatefulWidget {
@@ -38,16 +38,19 @@ class _MealCategoryScreenState extends State<MealCategoryScreen> {
             return Center(child: Text('No meal categories found.'));
           } else {
             final mealCategories = snapshot.data!;
-            return ListView.builder(
-              itemCount: mealCategories.length,
-              itemBuilder: (context, index) {
-                final category = mealCategories[index];
-                return MealCategoryCard(
-                  categoryId: category.id,
-                  categoryName: category.name,
-                  categoryImage: category.image,
-                );
-              },
+            return Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ListView.builder(
+                itemCount: mealCategories.length,
+                itemBuilder: (context, index) {
+                  final category = mealCategories[index];
+                  return MealCategoryCard(
+                    categoryId: category.id,
+                    categoryName: category.name,
+                    categoryImage: category.image,
+                  );
+                },
+              ),
             );
           }
         },
