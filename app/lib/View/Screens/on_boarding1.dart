@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../../colors.dart';
 import '../Widgets/page_indicator.dart';
 import 'on_boarding2.dart';
 
 class Onboarding1 extends StatefulWidget {
-
   Onboarding1();
 
   @override
@@ -25,7 +23,6 @@ class _Onboarding1State extends State<Onboarding1> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: GestureDetector(
         onTap: () {
           context.go("/onboarding2");
@@ -38,7 +35,8 @@ class _Onboarding1State extends State<Onboarding1> {
                 padding: const EdgeInsets.only(top: 90),
                 child: Text(
                   "مرحباً",
-                  style: TextStyle(fontSize: 32),
+                  style: TextStyle(
+                      fontFamily: 'Manrope_SemiBold.ttf', fontSize: 32),
                 ),
               ),
               SizedBox(height: 15),
@@ -64,6 +62,7 @@ class _Onboarding1State extends State<Onboarding1> {
                     text: TextSpan(
                       text: ' اهلا ',
                       style: TextStyle(
+                        fontFamily: 'Manrope_SemiBold.ttf',
                         fontSize: 26,
                         color: Theme.of(context).brightness == Brightness.dark
                             ? AppColors.textColor2
@@ -73,6 +72,7 @@ class _Onboarding1State extends State<Onboarding1> {
                         TextSpan(
                           text: 'بكم',
                           style: TextStyle(
+                            fontFamily: 'Manrope_SemiBold.ttf',
                             fontWeight: FontWeight.bold,
                             color:
                                 Theme.of(context).brightness == Brightness.dark
@@ -81,11 +81,14 @@ class _Onboarding1State extends State<Onboarding1> {
                           ),
                         ),
                         TextSpan(
-                          text: ' في ',
-                        ),
+                            text: ' في ',
+                            style: TextStyle(
+                              fontFamily: 'Manrope_SemiBold.ttf',
+                            )),
                         TextSpan(
                           text: 'عالم',
                           style: TextStyle(
+                            fontFamily: 'Manrope_SemiBold.ttf',
                             fontWeight: FontWeight.bold,
                             color:
                                 Theme.of(context).brightness == Brightness.dark
@@ -94,11 +97,14 @@ class _Onboarding1State extends State<Onboarding1> {
                           ),
                         ),
                         TextSpan(
-                          text: ' النكهات ',
-                        ),
+                            text: ' النكهات ',
+                            style: TextStyle(
+                              fontFamily: 'Manrope_SemiBold.ttf',
+                            )),
                         TextSpan(
                           text: 'الاصيلة',
                           style: TextStyle(
+                            fontFamily: 'Manrope_SemiBold.ttf',
                             fontWeight: FontWeight.bold,
                             color:
                                 Theme.of(context).brightness == Brightness.dark
@@ -106,10 +112,15 @@ class _Onboarding1State extends State<Onboarding1> {
                                     : AppColors.primary1,
                           ),
                         ),
-                        TextSpan(text: ', حيث كل '),
+                        TextSpan(
+                            text: ', حيث كل ',
+                            style: TextStyle(
+                              fontFamily: 'Manrope_SemiBold.ttf',
+                            )),
                         TextSpan(
                           text: 'طبق',
                           style: TextStyle(
+                            fontFamily: 'Manrope_SemiBold.ttf',
                             fontWeight: FontWeight.bold,
                             color:
                                 Theme.of(context).brightness == Brightness.dark
@@ -117,10 +128,15 @@ class _Onboarding1State extends State<Onboarding1> {
                                     : AppColors.primary1,
                           ),
                         ),
-                        TextSpan(text: ' يروي '),
+                        TextSpan(
+                            text: ' يروي ',
+                            style: TextStyle(
+                              fontFamily: 'Manrope_SemiBold.ttf',
+                            )),
                         TextSpan(
                           text: 'قصته',
                           style: TextStyle(
+                            fontFamily: 'Manrope_SemiBold.ttf',
                             fontWeight: FontWeight.bold,
                             color:
                                 Theme.of(context).brightness == Brightness.dark
