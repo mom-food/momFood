@@ -5,14 +5,14 @@ import '../Widgets/page_indicator.dart';
 import 'on_boarding2.dart';
 
 class Onboarding1 extends StatefulWidget {
-  Onboarding1();
+  const Onboarding1({super.key});
 
   @override
-  _Onboarding1State createState() => _Onboarding1State();
+  Onboarding1State createState() => Onboarding1State();
 }
 
-class _Onboarding1State extends State<Onboarding1> {
-  PageController _pageController = PageController();
+class Onboarding1State extends State<Onboarding1> {
+  final PageController _pageController = PageController();
 
   @override
   void dispose() {
@@ -31,29 +31,27 @@ class _Onboarding1State extends State<Onboarding1> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 90),
+              const Padding(
+                padding: EdgeInsets.only(top: 90),
                 child: Text(
                   "مرحباً",
                   style: TextStyle(
                       fontFamily: 'Manrope_SemiBold.ttf', fontSize: 32),
                 ),
               ),
-              SizedBox(height: 15),
-              SizedBox(width: 15),
+              const SizedBox(height: 15,width: 15),
               Padding(
                 padding: const EdgeInsets.only(top: 50, left: 20),
                 child: Container(
                   constraints:
-                      BoxConstraints.expand(width: 219, height: 229.25),
+                      const BoxConstraints.expand(width: 219, height: 229.25),
                   child: Image.asset(
                     'assets/images/Onboarding1.png',
                     fit: BoxFit.fill,
                   ),
                 ),
               ),
-              SizedBox(height: 15),
-              SizedBox(width: 15),
+              const SizedBox(height: 15,width: 15),
               Padding(
                 padding: const EdgeInsets.only(top: 50),
                 child: Padding(
@@ -80,7 +78,7 @@ class _Onboarding1State extends State<Onboarding1> {
                                     : AppColors.primary1,
                           ),
                         ),
-                        TextSpan(
+                        const TextSpan(
                             text: ' في ',
                             style: TextStyle(
                               fontFamily: 'Manrope_SemiBold.ttf',
@@ -96,7 +94,7 @@ class _Onboarding1State extends State<Onboarding1> {
                                     : AppColors.primary1,
                           ),
                         ),
-                        TextSpan(
+                        const TextSpan(
                             text: ' النكهات ',
                             style: TextStyle(
                               fontFamily: 'Manrope_SemiBold.ttf',
@@ -112,7 +110,7 @@ class _Onboarding1State extends State<Onboarding1> {
                                     : AppColors.primary1,
                           ),
                         ),
-                        TextSpan(
+                        const TextSpan(
                             text: ', حيث كل ',
                             style: TextStyle(
                               fontFamily: 'Manrope_SemiBold.ttf',
@@ -128,7 +126,7 @@ class _Onboarding1State extends State<Onboarding1> {
                                     : AppColors.primary1,
                           ),
                         ),
-                        TextSpan(
+                        const TextSpan(
                             text: ' يروي ',
                             style: TextStyle(
                               fontFamily: 'Manrope_SemiBold.ttf',
@@ -150,7 +148,7 @@ class _Onboarding1State extends State<Onboarding1> {
                   ),
                 ),
               ),
-              SizedBox(height: 15),
+              const SizedBox(height: 15),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 20),
