@@ -3,7 +3,6 @@ import 'package:go_router/go_router.dart';
 import '../../../ViewModel/sign_up_view_model.dart';
 import '../../Widgets/back_button.dart';
 
-
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
@@ -32,7 +31,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         appBar: AppBar(
           leading: CustomBackButton(
             onPressed: () {
-              context.go('/onboarding2'); // Adjust this route as necessary
+              context.go('/onboarding2');
             },
           ),
         ),
@@ -40,7 +39,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
           children: [
             Text(
               'انشاء حساب',
-              style: TextStyle(fontSize: 32),
+              style:
+                  TextStyle(fontFamily: 'Manrope_SemiBold.ttf', fontSize: 32),
             ),
             SizedBox(height: 20),
             Image.asset(
@@ -61,13 +61,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 child: controller.loading
                     ? CircularProgressIndicator()
                     : Text(
-                  'انشاء حساب',
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
+                        'انشاء حساب',
+                        style: TextStyle(
+                          fontFamily: 'Manrope_SemiBold.ttf',
+                          fontSize: 20,
+                        ),
+                      ),
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.white,
+                  foregroundColor: Color(0xFFFFFFFF),
                   minimumSize: Size(301, 55),
                   backgroundColor: Color(0xFFF6BD60),
                   side: BorderSide(color: Color(0xFFF6BD60)),
@@ -92,7 +93,10 @@ class AskUserToLoginButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('هل لديك حساب بالفعل؟'),
+          Text('هل لديك حساب بالفعل؟',
+              style: TextStyle(
+                fontFamily: 'Manrope_SemiBold.ttf',
+              )),
           TextButton(
             onPressed: () {
               context.go("/signIn");
@@ -101,6 +105,7 @@ class AskUserToLoginButton extends StatelessWidget {
               'تسجيل دخول',
               style: TextStyle(
                 color: Color(0xFFA8DF83),
+                fontFamily: 'Manrope_SemiBold.ttf',
               ),
             ),
           ),

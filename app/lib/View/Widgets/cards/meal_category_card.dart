@@ -34,6 +34,7 @@ class MealCategoryCard extends StatelessWidget {
               child: Text(
                 categoryName,
                 style: const TextStyle(
+                  fontFamily: 'Manrope_SemiBold.ttf',
                   fontWeight: FontWeight.bold,
                 ),
               ),

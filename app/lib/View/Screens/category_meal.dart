@@ -20,6 +20,7 @@ class _MealCategoryScreenState extends State<MealCategoryScreen> {
           child: Text(
             'الأصناف',
             style: TextStyle(
+              fontFamily: 'Manrope_SemiBold.ttf',
               fontWeight: FontWeight.bold,
               fontSize: 26,
             ),

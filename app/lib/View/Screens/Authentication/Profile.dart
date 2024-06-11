@@ -3,9 +3,7 @@ import 'package:app/View/Screens/Authentication/edit_profile.dart';
 import 'package:app/View/Screens/Authentication/sign_in.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
-
 import '../../Widgets/nav_bar.dart';
 import '../home_page.dart';
 import '../shopping_cart_screen.dart';
@@ -17,18 +15,13 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-
-
 class _ProfileScreenState extends State<ProfileScreen> {
-
   void _refreshProfile() async {
-    // Call the getUserByEmail function to fetch updated user data
-    bool success = await UserServices().getUserByEmail(UserServices.userData!.email!);
+    bool success =
+        await UserServices().getUserByEmail(UserServices.userData!.email!);
     if (success) {
-      // If user data is fetched successfully, update the UI
       setState(() {});
     } else {
-      // Handle error if user data fetching fails
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Failed to fetch user data.'),
@@ -36,12 +29,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
       );
     }
   }
+
   @override
   void initState() {
     _refreshProfile();
-    // TODO: implement initState
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<UserServices>(
@@ -70,7 +64,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: EdgeInsets.all(16),
                 margin: EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xFFFFFFFF),
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
@@ -86,17 +80,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     Text('المعلومات الشخصية',
                         style: TextStyle(
-                            fontSize: 24, fontWeight: FontWeight.bold)),
+                            fontFamily: 'Manrope_SemiBold.ttf',
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold)),
                     SizedBox(height: 40),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(UserServices.userData!.name!,
-                            style: TextStyle(fontSize: 15)),
+                            style: TextStyle(
+                                fontFamily: 'Manrope_Regular.ttf', fontSize: 15)),
                         SizedBox(width: 15),
                         Text(':الاسم ',
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                                fontFamily: 'Manrope_Regular.ttf',
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(height: 40),
@@ -105,12 +104,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Text(UserServices.userData!.email!,
                             style: TextStyle(
+                              fontFamily: 'Manrope_Regular.ttf',
                               fontSize: 15,
                             )),
                         SizedBox(width: 15),
                         Text(':البريد الإلكتروني ',
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                                fontFamily: 'Manrope_Regular.ttf',
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                     SizedBox(height: 40),
@@ -118,11 +120,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(UserServices.userData!.phone!,
-                            style: TextStyle(fontSize: 15)),
+                            style: TextStyle(
+                                fontFamily: 'Manrope_Regular.ttf', fontSize: 15)),
                         SizedBox(width: 15),
                         Text(':رقم الهاتف   ',
                             style: TextStyle(
-                                fontSize: 15, fontWeight: FontWeight.bold)),
+                                fontFamily: 'Manrope_Regular.ttf',
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold)),
                       ],
                     ),
                   ],
@@ -131,8 +136,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
               SizedBox(height: 30),
               ElevatedButton(
                 onPressed: () {
-                  //context.go('/edit-profile');
-                  Navigator.push(context, MaterialPageRoute(builder: (context) =>EditProfileScreen() ,));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => EditProfileScreen(),
+                      ));
                 },
                 child: Container(
                   width: 301,
@@ -140,7 +148,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment.center,
                   child: Text(
                     "تعديل المعلومات",
-                    style: TextStyle(fontSize: 19, color: Colors.white),
+                    style: TextStyle(
+                        fontFamily: 'Manrope_SemiBold.ttf',
+                        fontSize: 19,
+                        color: Color(0xFFFFFFFF)),
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
@@ -150,14 +161,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
-
+              SizedBox(
+                height: 20,
+              ),
               ElevatedButton(
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) {
-                    return SignInScreen();
-                  },));
+                  Navigator.pushReplacement(context, MaterialPageRoute(
+                    builder: (context) {
+                      return SignInScreen();
+                    },
+                  ));
                 },
                 child: Container(
                   width: 301,
@@ -165,7 +179,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   alignment: Alignment.center,
                   child: Text(
                     " تسجيل الخروج",
-                    style: TextStyle(fontSize: 19, color: Colors.white),
+                    style: TextStyle(
+                        fontFamily: 'Manrope_SemiBold.ttf',
+                        fontSize: 19,
+                        color: Color(0xFFFFFFFF)),
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
