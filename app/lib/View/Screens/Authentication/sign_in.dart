@@ -68,7 +68,7 @@ class _SignInScreenState extends State<SignInScreen> {
                       },
                       child: const Text(
                         'نسيت كلمة السر؟',
-                        style: TextStyle(color: Colors.green),
+                        style: TextStyle(color: AppColors.primary2),
                       ),
                     ),
                   ],
@@ -82,10 +82,10 @@ class _SignInScreenState extends State<SignInScreen> {
                     await controller.signIn(context);
                   },
                   style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.white,
+                    foregroundColor: AppColors.textColor2,
                     minimumSize: const Size(301, 55),
-                    backgroundColor: const Color(0xFFF6BD60),
-                    side: const BorderSide(color: Color(0xFFF6BD60)),
+                    backgroundColor:  AppColors.primary1,
+                    side: const BorderSide(color:  AppColors.primary1),
                   ),
                   child: controller.loading
                       ? const CircularProgressIndicator()
