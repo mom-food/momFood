@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../colors.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final dynamic title;
@@ -18,7 +19,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: _buildTitleWidget(),
       centerTitle: true,
-      backgroundColor: isLightTheme ? Colors.white : Colors.black,
+      backgroundColor: isLightTheme ? AppColors.backgroundColorLight : AppColors.backgroundColorDark,
       automaticallyImplyLeading: false,
     );
   }
@@ -27,6 +28,12 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (title is String) {
       return Text(
         title,
+        style: TextStyle(
+          color: isLightTheme ? AppColors.textColor1 : AppColors.textColor2,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          fontFamily: 'Encode Sans', // Adjust the font family as needed
+        ),
       );
     } else if (title is Widget) {
       return title;
