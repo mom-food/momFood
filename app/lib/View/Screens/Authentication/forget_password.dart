@@ -1,8 +1,6 @@
-// forget_password.dart
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../../ViewModel/forget-password-view-model.dart';
-import '../../../colors.dart';
 
 class ForgetPassword extends StatelessWidget {
   const ForgetPassword({super.key});
@@ -27,7 +25,7 @@ class ForgetPasswordContent extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: AppColors.backgroundColorLight,
+            color: const Color(0xFFF9F9F9),
             borderRadius: BorderRadius.circular(32),
           ),
           child: Column(
@@ -36,7 +34,7 @@ class ForgetPasswordContent extends StatelessWidget {
               const Text(
                 'نسيت كلمة السر',
                 style: TextStyle(
-                  color: AppColors.textColor1,
+                  color: Colors.black,
                   fontSize: 26,
                   fontFamily: 'Encode Sans',
                   fontWeight: FontWeight.w600,
@@ -47,7 +45,7 @@ class ForgetPasswordContent extends StatelessWidget {
                 'يرجى إدخال بريدك الإلكتروني وسنرسل لك رابطًا لإعادة ضبط كلمة المرور',
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  color: AppColors.textColor1,
+                  color: Color(0xFF8C8C8C),
                   fontSize: 15,
                   fontFamily: 'Encode Sans',
                   fontWeight: FontWeight.w700,
@@ -85,16 +83,16 @@ class ForgetPasswordContent extends StatelessWidget {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.primary1,
+                  backgroundColor: const Color(0xFFFCB34C),
                   padding: const EdgeInsets.symmetric(horizontal: 86, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 child: const Text(
-                  'افحص ايميلك',
+                  'افحص ايميلك ',
                   style: TextStyle(
-                    color: AppColors.textColor2,
+                    color: Colors.white,
                     fontSize: 19,
                     fontFamily: 'Poppins',
                     fontWeight: FontWeight.w700,
@@ -105,7 +103,7 @@ class ForgetPasswordContent extends StatelessWidget {
               const Text(
                 'ألم تتلق البريد الإلكتروني ؟',
                 style: TextStyle(
-                  color: AppColors.textColor1,
+                  color: Colors.black,
                   fontSize: 15,
                   fontFamily: 'Encode Sans',
                   fontWeight: FontWeight.w400,
@@ -120,7 +118,7 @@ class ForgetPasswordContent extends StatelessWidget {
                 child: const Text(
                   'ارسل مجددا',
                   style: TextStyle(
-                    color: AppColors.primary2,
+                    color: Color(0xFFA8DF83),
                     fontSize: 15,
                     fontFamily: 'Encode Sans',
                     fontWeight: FontWeight.w700,

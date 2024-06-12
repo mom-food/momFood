@@ -1,9 +1,7 @@
+import 'package:app/ViewModel/meal_view_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:app/ViewModel/meal_view_model.dart';
-
-import '../../colors.dart';
 
 class CustomSearchBar extends StatefulWidget {
   final Function(String) onSearch;
@@ -52,13 +50,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             child: Container(
               width: 370,
               height: 108,
-              decoration: BoxDecoration(
-                gradient: const LinearGradient(
-                  begin: Alignment(-1.00, -0.00),
-                  end: Alignment(1, 0),
-                  colors: [AppColors.secondary3, Colors.white], // Using AppColors for gradients
-                ),
-                borderRadius: BorderRadius.circular(10),
+              decoration: const BoxDecoration(
+                // Remove the boxShadow
               ),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -68,13 +61,15 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
+                    decoration: ShapeDecoration(
                       gradient: const LinearGradient(
                         begin: Alignment(-1.00, -0.00),
                         end: Alignment(1, 0),
-                        colors: [AppColors.secondary3, Colors.white], // Using AppColors for gradients
+                        colors: [Color(0xFFE8E8E8), Colors.white],
                       ),
-                      borderRadius: BorderRadius.circular(10),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -83,7 +78,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                         Container(
                           width: 28,
                           height: 28,
-                          child: const Icon(Icons.search, color: AppColors.warningColor, size: 18), // Using AppColors for icon color
+                          child: const Icon(Icons.search, color: Color(0x993C3C43), size: 18),
                         ),
                         Expanded(
                           child: Consumer<MealViewModel>(
@@ -115,7 +110,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                                       isDense: true,
                                       contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 8),
                                       hintStyle: TextStyle(
-                                        color: AppColors.warningColor, // Using AppColors for hint color
+                                        color: Color(0x993C3C43),
                                         fontSize: 12,
                                         fontFamily: 'Encode Sans',
                                         fontWeight: FontWeight.w400,

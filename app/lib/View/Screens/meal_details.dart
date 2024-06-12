@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:collection/collection.dart';
 import '../../Services/user_services.dart';
-import '../Widgets/Button/back_button.dart';
+import '../Widgets/back_button.dart';
 import '../Widgets/dialog/login_dialog.dart';
 import '../Widgets/nav_bar.dart';
 import 'Authentication/profile.dart';

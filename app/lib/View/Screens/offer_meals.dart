@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:app/ViewModel/meal_view_model.dart';
-import 'package:app/View/Widgets/search_bar.dart';
-import '../../colors.dart';
+import 'package:app/View/Widgets/search-bar.dart';
 import '../Widgets/cards/meal_offer_card.dart';
 import 'category_meal.dart';
 
@@ -31,7 +30,6 @@ class MealOfferScreen extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 26,
-                    color: AppColors.textColor1,
                   ),
                 ),
                 const SizedBox(height: 10),
