@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
-import '../../../../ViewModel/phone_auth_secive.dart';
+import '../../../../Services/phone_auth_service.dart';
 
 
 class OtpScreen extends StatelessWidget {

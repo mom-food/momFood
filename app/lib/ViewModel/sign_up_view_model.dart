@@ -57,8 +57,6 @@ class SignUpScreenController extends ChangeNotifier {
     log('isSignedUp: $isSignedUp');
     if (isSignedUp) {
       log("register started");
-
-      // تسجيل الدخول بعد التسجيل
       bool isSignedIn = await UserServices().signIn(email.text, password.text);
       if (isSignedIn && UserServices.isSignedIn()) {
         await context.read<PhoneAuthCubit>().submitPhoneNumber(phone.text);
@@ -66,11 +64,9 @@ class SignUpScreenController extends ChangeNotifier {
         log("register finished");
       } else {
         log("SignIn failed after SignUp");
-        // يمكنك إضافة معالجة الأخطاء هنا إذا كان تسجيل الدخول بعد التسجيل فشل
       }
     } else {
       log("SignUp failed");
-      // يمكنك إضافة معالجة الأخطاء هنا إذا كان التسجيل فشل
     }
     _updateStateLoading = false;
     //todo handle sign up result
@@ -195,15 +191,14 @@ class SignUpScreenController extends ChangeNotifier {
         },
         codeSent: (String verificationId, int? resendToken) {
           String enteredOTP; // Store user-entered OTP here
-          // Display a dialog or UI element to prompt user to enter the OTP
-          // Once the user enters the OTP, call verifyOTP function with enteredOTP and verificationId
         },
         codeAutoRetrievalTimeout: (String verificationId) {
-          // Handle auto-retrieval timeout (inform user to enter code manually)
         },
       );
     } catch (e) {
-      print(e.toString()); // Handle other exceptions
+      if (kDebugMode) {
+        print(e.toString());
+      } // Handle other exceptions
     }
   }
 
@@ -213,9 +208,10 @@ class SignUpScreenController extends ChangeNotifier {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
           verificationId: verificationId, smsCode: enteredOTP);
       await auth.signInWithCredential(credential);
-      // Handle successful sign-in (navigate to home screen etc.)
     } catch (e) {
-      print(e.toString()); // Handle verification failure (show error message)
+      if (kDebugMode) {
+        print(e.toString());
+      }
     }
   }
 }
