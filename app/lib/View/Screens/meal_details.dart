@@ -15,14 +15,14 @@ import 'shopping_cart_screen.dart';
 
 class MealDetailsScreen extends StatefulWidget {
   final String mealId;
-  MealDetailsScreen({required this.mealId});
+  const MealDetailsScreen({super.key, required this.mealId});
 
   @override
-  _MealDetailsScreenState createState() => _MealDetailsScreenState();
+  MealDetailsScreenState createState() => MealDetailsScreenState();
 }
 
-class _MealDetailsScreenState extends State<MealDetailsScreen> {
-  TextEditingController _controller = TextEditingController(text: '0');
+class MealDetailsScreenState extends State<MealDetailsScreen> {
+  final TextEditingController _controller = TextEditingController(text: '0');
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
@@ -33,17 +33,17 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
     if (index == 0) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => HomePageScreen()),
+        MaterialPageRoute(builder: (context) => const HomePageScreen()),
       );
     } else if (index == 1) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => CartShopping()),
+        MaterialPageRoute(builder: (context) => const CartShopping()),
       );
     } else if (index == 2) {
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ProfileScreen()),
+        MaterialPageRoute(builder: (context) => const ProfileScreen()),
       );
     }
   }
@@ -75,7 +75,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
           _controller.text = item.quantity.toString();
         }
 
-        return SingleChildScrollView( // Add this line
+        return SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
@@ -100,7 +100,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                                         .titleLarge
                                         ?.copyWith(
                                       fontSize: 24,
-                                      color: Color(0xFFFF9500),
+                                      color: const Color(0xFFFF9500),
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
@@ -139,10 +139,10 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                         ),
                       ],
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     Container(
                       color: Colors.white.withOpacity(0.8),
-                      padding: EdgeInsets.all(8),
+                      padding: const EdgeInsets.all(8),
                       child: Text(
                         meal.description,
                         style: GoogleFonts.ibmPlexSansArabic(
@@ -158,11 +158,11 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ...(item == null
                   ? [
                 Padding(
-                  padding: EdgeInsets.all(16.0),
+                  padding: const EdgeInsets.all(16.0),
                   child: ElevatedButton(
                     onPressed: () {
                       if (UserServices.isSignedIn()) {
@@ -190,11 +190,11 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
               ]
                   : [
                 Padding(
-                  padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
                   child: Row(children: [
                     Expanded(
                         child: InkWell(
-                          borderRadius: BorderRadius.only(
+                          borderRadius: const BorderRadius.only(
                             topLeft: Radius.circular(30.0),
                             bottomLeft: Radius.circular(30.0),
                           ),
@@ -202,7 +202,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                             // Your onTap function here
                           },
                           child: Container(
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: AppColors.primary2,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(30.0),
@@ -210,7 +210,7 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                               ),
                             ),
                             child: IconButton(
-                              icon: Icon(Icons.add),
+                              icon: const Icon(Icons.add),
                               onPressed: () {
                                 viewModel.increaseQuantity(meal);
                               },
@@ -264,6 +264,10 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                     onPressed: () {
                       viewModel.removeFromCart(meal);
                     },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.symmetric(horizontal: 86, vertical: 15),
+                      backgroundColor: AppColors.backgroundColorLight,
+                    ),
                     child: Text('حذف من السلة',
                         style: GoogleFonts.ibmPlexSansArabic(
                           textStyle: Theme.of(context).textTheme.headlineSmall?.copyWith(
@@ -271,10 +275,6 @@ class _MealDetailsScreenState extends State<MealDetailsScreen> {
                             color: AppColors.textColor1,
                           ),
                         )),
-                    style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 86, vertical: 15),
-                      backgroundColor: AppColors.backgroundColorLight,
-                    ),
                   ),
                 )
               ]),
