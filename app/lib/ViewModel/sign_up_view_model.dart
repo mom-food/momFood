@@ -129,7 +129,7 @@ class SignUpScreenController extends ChangeNotifier {
     if (value.length < 8) {
       return 'كلمة المرور تقل عن 8 ارقام';
     }
-    if (!value.contains(RegExp(r'[0-9]')) || !value.contains(RegExp(r'[!@#\$%^&*(),.?":{}|<>]'))) {
+    if (!value.contains(RegExp(r'[0-9]')) || !value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
       return 'يجب أن تحتوي كلمة المرور على أرقام ورموز وحروف عربية';
     }
     return null;
