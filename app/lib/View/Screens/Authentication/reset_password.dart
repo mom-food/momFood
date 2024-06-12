@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:app/Services/user_services.dart';
+import 'package:go_router/go_router.dart';
 
 class ResetPassword extends StatefulWidget {
   final String oobCode;
@@ -152,7 +153,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         content: Text("تم إعادة تعيين كلمة المرور بنجاح"),
                         backgroundColor: Colors.green,
                       ));
-                      Navigator.pushReplacementNamed(context, '/sign-in');
+                      context.go('/signIn');
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                         content: Text("فشل في إعادة تعيين كلمة المرور"),
@@ -160,6 +161,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       ));
                     }
                   },
+
                   child: Text(
                     'حفظ',
                     style: GoogleFonts.ibmPlexSansArabic(
