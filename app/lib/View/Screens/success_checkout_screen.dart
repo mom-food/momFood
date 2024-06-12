@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../colors.dart';
+
 
 class SuccessMessageScreen extends StatefulWidget {
   const SuccessMessageScreen({super.key});
@@ -32,7 +34,7 @@ class SuccessMessageScreenState extends State<SuccessMessageScreen> {
             height: 350,
             padding: const EdgeInsets.all(50),
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.textColor2,
               borderRadius: BorderRadius.circular(10),
               boxShadow: [
                 BoxShadow(
@@ -48,7 +50,7 @@ class SuccessMessageScreenState extends State<SuccessMessageScreen> {
               children: <Widget>[
                 Icon(
                   Icons.check_circle_outline,
-                  color: Color(0xFFF6BD60),
+                  color: AppColors.primary1,
                   size: 100,
                 ),
                 Text(
@@ -56,7 +58,7 @@ class SuccessMessageScreenState extends State<SuccessMessageScreen> {
                   style: TextStyle(
                     fontSize: 24,
                     //fontWeight: FontWeight.bold,
-                    color: Color(0xFFA8DF83),
+                    color: AppColors.primary2,
                     fontFamily: 'Manrope_SemiBold.ttf',
                   ),
                 ),
@@ -65,7 +67,7 @@ class SuccessMessageScreenState extends State<SuccessMessageScreen> {
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Color(0xFFA8DF83),
+                    color: AppColors.primary2,
                   ),
                 ),
               ],

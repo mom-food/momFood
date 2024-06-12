@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../ViewModel/sign_up_view_model.dart';
+import '../../../colors.dart';
 import '../../Widgets/back_button.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -61,8 +62,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: const Color(0xFFFFFFFF),
                   minimumSize: const Size(301, 55),
-                  backgroundColor: const Color(0xFFF6BD60),
-                  side: const BorderSide(color: Color(0xFFF6BD60)),
+                  backgroundColor: AppColors.primary1,
+                  side: const BorderSide(color: AppColors.primary1),
                 ),
                 child: controller.loading
                     ? const CircularProgressIndicator()
@@ -104,7 +105,7 @@ class AskUserToLoginButton extends StatelessWidget {
             child: const Text(
               'تسجيل دخول',
               style: TextStyle(
-                color: Color(0xFFA8DF83),
+                color: AppColors.primary2,
                 fontFamily: 'Manrope_SemiBold.ttf',
               ),
             ),
@@ -235,7 +236,7 @@ class _FormField extends StatelessWidget {
             suffixIcon: suffixIcon,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
-              borderSide: const BorderSide(color: Colors.grey),
+              borderSide: const BorderSide(color: AppColors.secondary2),
             ),
             contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           ),

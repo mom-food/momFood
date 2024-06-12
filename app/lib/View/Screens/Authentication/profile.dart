@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
 
+import '../../../colors.dart';
 import '../../Widgets/nav_bar.dart';
 import '../home_page.dart';
 import '../shopping_cart_screen.dart';
@@ -67,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 padding: const EdgeInsets.all(16),
                 margin: const EdgeInsets.symmetric(horizontal: 16),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFFFFFFF),
+                  color: AppColors.textColor2,
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
                     BoxShadow(
@@ -146,7 +147,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ));
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF6BD60),
+                  backgroundColor: AppColors.primary1,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -160,7 +161,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                         fontFamily: 'Manrope_SemiBold.ttf',
                         fontSize: 19,
-                        color: Color(0xFFFFFFFF)),
+                        color: AppColors.textColor2),
                   ),
                 ),
               ),
@@ -177,7 +178,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ));
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFF6BD60),
+                  backgroundColor: AppColors.primary1,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
@@ -191,7 +192,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     style: TextStyle(
                         fontFamily: 'Manrope_SemiBold.ttf',
                         fontSize: 19,
-                        color: Color(0xFFFFFFFF)),
+                        color: AppColors.textColor2),
                   ),
                 ),
               ),
