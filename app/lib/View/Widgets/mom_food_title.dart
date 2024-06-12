@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
+import '../../colors.dart';
 
+class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
   const MomFoodTitle({
     super.key,
-
   });
 
   @override
@@ -24,7 +24,7 @@ class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
                   TextSpan(
                     text: 'M',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.textColor1,
                       fontSize: 32,
                       fontFamily: 'Encode Sans',
                       fontWeight: FontWeight.w600,
@@ -34,7 +34,7 @@ class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
                   TextSpan(
                     text: 'o',
                     style: TextStyle(
-                      color: Colors.orange,
+                      color: Colors.orange, // Using orange color for 'o'
                       fontSize: 32,
                       fontFamily: 'Encode Sans',
                       fontWeight: FontWeight.w600,
@@ -44,7 +44,7 @@ class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
                   TextSpan(
                     text: 'm ',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.textColor1,
                       fontSize: 32,
                       fontFamily: 'Encode Sans',
                       fontWeight: FontWeight.w600,
@@ -54,7 +54,7 @@ class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
                   TextSpan(
                     text: 'F',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.textColor1,
                       fontSize: 32,
                       fontFamily: 'Encode Sans',
                       fontWeight: FontWeight.w600,
@@ -64,7 +64,7 @@ class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
                   TextSpan(
                     text: 'Oo',
                     style: TextStyle(
-                      color: Colors.orange,
+                      color: Colors.orange, // Using orange color for 'Oo'
                       fontSize: 32,
                       fontFamily: 'Encode Sans',
                       fontWeight: FontWeight.w600,
@@ -74,7 +74,7 @@ class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
                   TextSpan(
                     text: 'd',
                     style: TextStyle(
-                      color: Colors.black,
+                      color: AppColors.textColor1,
                       fontSize: 32,
                       fontFamily: 'Encode Sans',
                       fontWeight: FontWeight.w600,

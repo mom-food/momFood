@@ -4,9 +4,12 @@ import 'dart:developer';
 
 import 'package:app/Model/order_model.dart';
 import 'package:app/Model/user/user_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
+
+import '../constants/fb_collection.dart';
 
 class UserServices extends ChangeNotifier {
   final String url = "https://momfood.onrender.com/api/users/";
@@ -30,8 +33,8 @@ class UserServices extends ChangeNotifier {
             (value) async {
           log('user is ${value.user!.uid}');
           // --------- Save in FireStore
-          // var db = FirebaseFirestore.instance;
-          // await db.collection(FbCollections.users).add(request.toJson());
+           var db = FirebaseFirestore.instance;
+           await db.collection(FbCollections.users).add(request.toJson());
           // --------- Save in MongoDB
           final response = await http.post(
             Uri.parse(url),

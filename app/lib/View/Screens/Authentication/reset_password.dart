@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:app/Services/user_services.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../colors.dart';
+
 class ResetPassword extends StatefulWidget {
   final String oobCode;
 
@@ -39,9 +41,10 @@ class _ResetPasswordState extends State<ResetPassword> {
                 Text(
                   'استعادة كلمة السر',
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.ibmPlexSansArabic(
+                  style: GoogleFonts.encodeSans(
                     fontSize: 26,
                     fontWeight: FontWeight.w600,
+                    color: AppColors.textColor1,
                   ),
                 ),
                 const SizedBox(height: 80),
@@ -60,7 +63,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       text: const TextSpan(
                         text: "كلمة المرور",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: AppColors.textColor1,
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                         ),
@@ -106,7 +109,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       text: const TextSpan(
                         text: "تأكيد كلمة المرور",
                         style: TextStyle(
-                          color: Colors.black,
+                          color: AppColors.textColor1,
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                         ),
@@ -162,14 +165,15 @@ class _ResetPasswordState extends State<ResetPassword> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: const Color(0xFFFCB34C),
+                    foregroundColor: AppColors.textColor2,
+                    backgroundColor: AppColors.primary1,
                   ),
                   child: Text(
                     'حفظ',
-                    style: GoogleFonts.ibmPlexSansArabic(
+                    style: GoogleFonts.encodeSans(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
+                      color: AppColors.textColor2,
                     ),
                   ),
                 ),
