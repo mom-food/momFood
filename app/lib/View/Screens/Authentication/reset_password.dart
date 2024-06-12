@@ -6,7 +6,7 @@ import 'package:go_router/go_router.dart';
 class ResetPassword extends StatefulWidget {
   final String oobCode;
 
-  ResetPassword(this.oobCode);
+  const ResetPassword(this.oobCode, {super.key});
 
   @override
   _ResetPasswordState createState() => _ResetPasswordState();
@@ -23,13 +23,13 @@ class _ResetPasswordState extends State<ResetPassword> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('استعادة كلمة السر'),
+        title: const Text('استعادة كلمة السر'),
       ),
       body: Form(
         key: _formKey,
         child: Container(
           width: double.infinity,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
           child: Directionality(
             textDirection: TextDirection.rtl,
             child: Column(
@@ -44,7 +44,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                SizedBox(height: 80),
+                const SizedBox(height: 80),
                 TextFormField(
                   controller: _passwordController,
                   obscureText: !_showPassword,
@@ -57,7 +57,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   decoration: InputDecoration(
                     hintText: "********",
                     label: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         text: "كلمة المرور",
                         style: TextStyle(
                           color: Colors.black,
@@ -76,8 +76,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ],
                       ),
                     ),
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
+                    border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _showPassword ? Icons.visibility : Icons.visibility_off,
@@ -90,7 +90,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 TextFormField(
                   controller: _confirmPasswordController,
                   obscureText: !_showConfirmPassword,
@@ -103,7 +103,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   decoration: InputDecoration(
                     hintText: "********",
                     label: RichText(
-                      text: TextSpan(
+                      text: const TextSpan(
                         text: "تأكيد كلمة المرور",
                         style: TextStyle(
                           color: Colors.black,
@@ -122,8 +122,8 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ],
                       ),
                     ),
-                    border: OutlineInputBorder(),
-                    prefixIcon: Icon(Icons.lock),
+                    border: const OutlineInputBorder(),
+                    prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       icon: Icon(
                         _showConfirmPassword ? Icons.visibility : Icons.visibility_off,
@@ -136,7 +136,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     ),
                   ),
                 ),
-                SizedBox(height: 40),
+                const SizedBox(height: 40),
                 ElevatedButton(
                   onPressed: () async {
                     if (!(_formKey.currentState?.validate() ?? false)) {
@@ -149,29 +149,28 @@ class _ResetPasswordState extends State<ResetPassword> {
                     );
 
                     if (resetSuccess) {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("تم إعادة تعيين كلمة المرور بنجاح"),
                         backgroundColor: Colors.green,
                       ));
                       context.go('/signIn');
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                         content: Text("فشل في إعادة تعيين كلمة المرور"),
                         backgroundColor: Colors.red,
                       ));
                     }
                   },
-
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: const Color(0xFFFCB34C),
+                  ),
                   child: Text(
                     'حفظ',
                     style: GoogleFonts.ibmPlexSansArabic(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    backgroundColor: Color(0xFFFCB34C),
                   ),
                 ),
               ],

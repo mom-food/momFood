@@ -5,10 +5,10 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool isLightTheme;
 
   const MyAppBar({
-    Key? key,
+    super.key,
     required this.title,
     required this.isLightTheme,
-  }) : super(key: key);
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);

@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
 
   const MomFoodTitle({
-    Key? key,
+    super.key,
 
-  }) : super(key: key);
+  });
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -13,7 +13,7 @@ class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: Column(
+      title: const Column(
         children: [
           SizedBox(
             width: 294,

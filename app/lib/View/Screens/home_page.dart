@@ -26,13 +26,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => CartShopping()),
+          MaterialPageRoute(builder: (context) => const CartShopping()),
         );
         break;
       case 2:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => ProfileScreen()),
+          MaterialPageRoute(builder: (context) => const ProfileScreen()),
         );
         break;
     }
@@ -41,13 +41,13 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MomFoodTitle(),
+      appBar: const MomFoodTitle(),
       body: Column(
         children: [
           Expanded(
             child: IndexedStack(
               index: _selectedIndex,
-              children: [
+              children: const [
                 MealOfferScreen(),
                 CartShopping(),
                 ProfileScreen(),

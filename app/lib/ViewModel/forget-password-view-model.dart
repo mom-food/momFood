@@ -9,11 +9,11 @@ class ForgetPasswordViewModel extends ChangeNotifier {
     try {
       await FirebaseAuth.instance.sendPasswordResetEmail(email: emailController.text);
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني')),
+        const SnackBar(content: Text('تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني')),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('حدث خطأ. يرجى المحاولة مرة أخرى.')),
+        const SnackBar(content: Text('حدث خطأ. يرجى المحاولة مرة أخرى.')),
       );
     }
   }

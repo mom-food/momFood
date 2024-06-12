@@ -3,31 +3,35 @@ import 'package:provider/provider.dart';
 import '../../../ViewModel/forget-password-view-model.dart';
 
 class ForgetPassword extends StatelessWidget {
+  const ForgetPassword({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => ForgetPasswordViewModel(),
-      child: ForgetPasswordContent(),
+      child: const ForgetPasswordContent(),
     );
   }
 }
 
 class ForgetPasswordContent extends StatelessWidget {
+  const ForgetPasswordContent({super.key});
+
   @override
   Widget build(BuildContext context) {
     final viewModel = Provider.of<ForgetPasswordViewModel>(context);
     return Scaffold(
       body: Center(
         child: Container(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: Color(0xFFF9F9F9),
+            color: const Color(0xFFF9F9F9),
             borderRadius: BorderRadius.circular(32),
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              const Text(
                 'نسيت كلمة السر',
                 style: TextStyle(
                   color: Colors.black,
@@ -36,8 +40,8 @@ class ForgetPasswordContent extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'يرجى إدخال بريدك الإلكتروني وسنرسل لك رابطًا لإعادة ضبط كلمة المرور',
                 textAlign: TextAlign.center,
                 style: TextStyle(
@@ -48,7 +52,7 @@ class ForgetPasswordContent extends StatelessWidget {
                   letterSpacing: -0.50,
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Form(
                 key: viewModel.formKey,
                 child: TextFormField(
@@ -57,7 +61,7 @@ class ForgetPasswordContent extends StatelessWidget {
                     labelText: 'الايميل',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(4),
-                      borderSide: BorderSide(width: 1),
+                      borderSide: const BorderSide(width: 1),
                     ),
                   ),
                   validator: (value) {
@@ -71,7 +75,7 @@ class ForgetPasswordContent extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
                   if (viewModel.formKey.currentState!.validate()) {
@@ -79,13 +83,13 @@ class ForgetPasswordContent extends StatelessWidget {
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFFFCB34C),
-                  padding: EdgeInsets.symmetric(horizontal: 86, vertical: 15),
+                  backgroundColor: const Color(0xFFFCB34C),
+                  padding: const EdgeInsets.symmetric(horizontal: 86, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: Text(
+                child: const Text(
                   'افحص ايميلك ',
                   style: TextStyle(
                     color: Colors.white,
@@ -95,8 +99,8 @@ class ForgetPasswordContent extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
+              const SizedBox(height: 20),
+              const Text(
                 'ألم تتلق البريد الإلكتروني ؟',
                 style: TextStyle(
                   color: Colors.black,
@@ -111,7 +115,7 @@ class ForgetPasswordContent extends StatelessWidget {
                     viewModel.resetPassword(context);
                   }
                 },
-                child: Text(
+                child: const Text(
                   'ارسل مجددا',
                   style: TextStyle(
                     color: Color(0xFFA8DF83),

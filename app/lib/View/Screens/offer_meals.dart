@@ -6,6 +6,8 @@ import '../Widgets/cards/meal_offer_card.dart';
 import 'category_meal.dart';
 
 class MealOfferScreen extends StatelessWidget {
+  const MealOfferScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,15 +24,15 @@ class MealOfferScreen extends StatelessWidget {
                 CustomSearchBar(onSearch: (string) {
                   viewModel.search(string);
                 }),
-                SizedBox(height: 10), // Add some space between the search bar and the text
-                Text(
+                const SizedBox(height: 10),
+                const Text(
                   'العروضات',
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 26,
                   ),
                 ),
-                SizedBox(height: 10), // Add some space between the text and the horizontal list
+                const SizedBox(height: 10),
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Row(
@@ -49,10 +51,10 @@ class MealOfferScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                SizedBox(height: 10), // Adjust the height to fit your design
+                const SizedBox(height: 10), // Adjust the height to fit your design
                 Container(
                   height: MediaQuery.of(context).size.height - 300, // Adjust this value based on your layout
-                  child: MealCategoryScreen(),
+                  child: const MealCategoryScreen(),
                 ),
               ],
             ),

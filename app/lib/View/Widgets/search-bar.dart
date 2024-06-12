@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class CustomSearchBar extends StatefulWidget {
   final Function(String) onSearch;
 
-  const CustomSearchBar({Key? key, required this.onSearch}) : super(key: key);
+  const CustomSearchBar({super.key, required this.onSearch});
 
   @override
   _CustomSearchBarState createState() => _CustomSearchBarState();
@@ -50,7 +50,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             child: Container(
               width: 370,
               height: 108,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 // Remove the boxShadow
               ),
               child: Column(
@@ -62,7 +62,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                     width: double.infinity,
                     padding: const EdgeInsets.all(8),
                     decoration: ShapeDecoration(
-                      gradient: LinearGradient(
+                      gradient: const LinearGradient(
                         begin: Alignment(-1.00, -0.00),
                         end: Alignment(1, 0),
                         colors: [Color(0xFFE8E8E8), Colors.white],
@@ -78,7 +78,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                         Container(
                           width: 28,
                           height: 28,
-                          child: Icon(Icons.search, color: Color(0x993C3C43), size: 18),
+                          child: const Icon(Icons.search, color: Color(0x993C3C43), size: 18),
                         ),
                         Expanded(
                           child: Consumer<MealViewModel>(
@@ -104,7 +104,7 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                                   return TextField(
                                     controller: fieldTextEditingController,
                                     focusNode: fieldFocusNode,
-                                    decoration: InputDecoration(
+                                    decoration: const InputDecoration(
                                       hintText: 'البحث',
                                       border: InputBorder.none,
                                       isDense: true,
