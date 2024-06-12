@@ -1,11 +1,15 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '../../../Services/user_services.dart';
+import '../../../colors.dart';
 import '../../Widgets/nav_bar.dart';
 import '../home_page.dart';
 import 'profile.dart';
 import '../shopping_cart_screen.dart';
 
 class EditProfileScreen extends StatefulWidget {
+  const EditProfileScreen({super.key});
+
   @override
   _EditProfileScreenState createState() => _EditProfileScreenState();
 }
@@ -46,17 +50,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
     if (updated) {
       // If the update is successful, navigate back to the ProfileScreen
-      print('Profile updated successfully.');
+      if (kDebugMode) {
+        print('Profile updated successfully.');
+      }
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => ProfileScreen()),
+        MaterialPageRoute(builder: (context) => const ProfileScreen()),
       );
     } else {
-      // If the update fails, print an error message
-      print('Failed to update profile.');
-      // You can handle the error here, for example, show a snackbar
+      if (kDebugMode) {
+        print('Failed to update profile.');
+      }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
+        const SnackBar(
           content: Text('Failed to update profile.'),
         ),
       );
@@ -68,11 +74,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor:  AppColors.textColor2,
         elevation: 0,
         actions: [
           IconButton(
-            icon: Icon(Icons.more_vert, color: Colors.black),
+            icon: const Icon(Icons.more_vert, color:  AppColors.textColor1),
             onPressed: () {
             },
           ),
@@ -86,33 +92,33 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               CircleAvatar(
                 radius: 50,
                 backgroundColor: Colors.orange.shade200,
-                child: Icon(Icons.person, size: 50, color: Colors.black),
+                child: const Icon(Icons.person, size: 50, color:  AppColors.textColor1),
               ),
-              SizedBox(height: 40),
+              const SizedBox(height: 40),
               TextFormField(
                 controller: _nameController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'الاسم',
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               TextFormField(
                 maxLength: 10,
                 controller: _phoneController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: 'رقم الهاتف المحمول',
                 ),
               ),
-              SizedBox(height: 20),
-              SizedBox(height: 40),
+              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: _updateProfile, // Assign the _updateProfile function here
                 style: ElevatedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  backgroundColor: Colors.orange,
-                  minimumSize: Size(double.infinity, 50),
+                  foregroundColor:  AppColors.textColor2,
+                  backgroundColor:  AppColors.primary1,
+                  minimumSize: const Size(double.infinity, 50),
                 ),
-                child: Text('تحديث'),
+                child: const Text('تحديث'),
               ),
             ],
           ),
@@ -125,19 +131,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             case 0:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => HomePageScreen()),
+                MaterialPageRoute(builder: (context) => const HomePageScreen()),
               );
               break;
             case 1:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => CartShopping()),
+                MaterialPageRoute(builder: (context) => const CartShopping()),
               );
               break;
             case 2:
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => ProfileScreen()),
+                MaterialPageRoute(builder: (context) => const ProfileScreen()),
               );
               break;
           }

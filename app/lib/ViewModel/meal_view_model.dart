@@ -193,4 +193,20 @@ class MealViewModel extends ChangeNotifier {
     searchQuery = query;
     notifyListeners();
   }
+  List<Order> _orderHistory = [];
+
+  List<Order> get orderHistory => _orderHistory;
+
+  void addOrder(double totalPrice, List<({Meal meal, int quantity})> items) {
+    _orderHistory.add(Order(totalPrice: totalPrice, items: items));
+    notifyListeners();
+  }
 }
+
+class Order {
+  final double totalPrice;
+  final List<({Meal meal, int quantity})> items;
+
+  Order({required this.totalPrice, required this.items});
+}
+

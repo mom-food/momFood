@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:app/View/Screens/order_history.dart';
 
 import '../../colors.dart';
 
@@ -13,6 +14,19 @@ class MomFoodTitle extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      actions: [
+        IconButton(onPressed: (){
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => OrderHistoryScreen(),
+            ),
+          );
+
+
+        }, icon: const Icon(Icons.history,color: Colors.orange,))
+
+      ],
       title: const Column(
         children: [
           SizedBox(

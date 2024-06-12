@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../ViewModel/sign_in_view_model.dart';
+import '../../../colors.dart';
 import '../../Widgets/back_button.dart';
 import 'forget_password.dart';
 
@@ -39,11 +40,11 @@ class _SignInScreenState extends State<SignInScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              Text(
+              const Text(
                 'تسجيل دخول',
                 style: TextStyle(fontSize: 32),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Image.asset(
                 'assets/images/SignUpImage.png',
                 height: 124,
@@ -61,11 +62,11 @@ class _SignInScreenState extends State<SignInScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ForgetPassword(),
+                            builder: (context) => const ForgetPassword(),
                           ),
                         );
                       },
-                      child: Text(
+                      child: const Text(
                         'نسيت كلمة السر؟',
                         style: TextStyle(color: Colors.green),
                       ),
@@ -73,30 +74,30 @@ class _SignInScreenState extends State<SignInScreen> {
                   ],
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Padding(
                 padding: const EdgeInsets.only(top: 0, bottom: 5),
                 child: OutlinedButton(
                   onPressed: () async {
                     await controller.signIn(context);
                   },
+                  style: OutlinedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    minimumSize: const Size(301, 55),
+                    backgroundColor: const Color(0xFFF6BD60),
+                    side: const BorderSide(color: Color(0xFFF6BD60)),
+                  ),
                   child: controller.loading
-                      ? CircularProgressIndicator()
-                      : Text(
+                      ? const CircularProgressIndicator()
+                      : const Text(
                     'تسجيل دخول',
                     style: TextStyle(
                       fontSize: 16, // حجم الخط
                     ),
                   ),
-                  style: OutlinedButton.styleFrom(
-                    foregroundColor: Colors.white,
-                    minimumSize: Size(301, 55),
-                    backgroundColor: Color(0xFFF6BD60),
-                    side: BorderSide(color: Color(0xFFF6BD60)),
-                  ),
                 ),
               ),
-              AskUserToLoginButton()
+              const AskUserToLoginButton()
             ],
           ),
         ),
@@ -115,15 +116,15 @@ class AskUserToLoginButton extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('هل تمتلك حساب ؟'),
+          const Text('هل تمتلك حساب ؟'),
           TextButton(
             onPressed: () {
               context.go("/sign-up");
             },
-            child: Text(
+            child: const Text(
               'إنشاء حساب',
               style: TextStyle(
-                color: Color(0xFFA8DF83),
+                color:  AppColors.primary2,
               ),
             ),
           ),
@@ -143,7 +144,7 @@ class _SignInForm extends StatelessWidget {
       key: controller.formKey,
       child: Column(
         children: [
-          SizedBox(height: 25),
+          const SizedBox(height: 25),
           _FormField(
             icon: Icons.email,
             controller: controller.email,
@@ -153,7 +154,7 @@ class _SignInForm extends StatelessWidget {
             minHeight: 48,
             width: 360,
           ),
-          SizedBox(height: 15),
+          const SizedBox(height: 15),
           _FormField(
             controller: controller.password,
             label: 'كلمة المرور',
@@ -168,7 +169,7 @@ class _SignInForm extends StatelessWidget {
               onTap: controller.showHidePassword,
             ),
           ),
-          SizedBox(height: 10),
+          const SizedBox(height: 10),
         ],
       ),
     );
@@ -215,9 +216,9 @@ class _FormField extends StatelessWidget {
             suffixIcon: suffixIcon,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(5.0),
-              borderSide: BorderSide(color: Colors.grey),
+              borderSide: const BorderSide(color: AppColors.secondary3),
             ),
-            contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 10),
+            contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
           ),
           obscureText: isObscure,
           textAlign: TextAlign.right,
@@ -228,7 +229,7 @@ class _FormField extends StatelessWidget {
 }
 
 class ShowPasswordButton extends StatelessWidget {
-  const ShowPasswordButton({this.onTap, required this.show});
+  const ShowPasswordButton({super.key, this.onTap, required this.show});
   final VoidCallback? onTap;
   final bool show;
 

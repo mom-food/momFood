@@ -21,7 +21,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     });
     switch (index) {
       case 0:
-      // بقى في الصفحة الرئيسية
         break;
       case 1:
         Navigator.push(
