@@ -1,0 +1,79 @@
+.operator{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh
+}
+.operator-image{
+  display: flex;
+  justify-content: center;
+}
+.operator-image img{
+  width: 150px;
+  height: 150px;
+  aspect-ratio: 200/100;
+}
+.info-Deleted h2{
+  text-align: left;
+  position: relative;
+  font-family: 'Oswald', sans-serif;
+}
+.info-Deleted h2::after{
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right:50;
+  top: 0;
+  margin: auto;
+  height: 5px;
+  width: 160px;
+  background-color:rgb(245, 28, 46);
+  content: '';
+}
+.info-Inactive h2{
+  text-align: left;
+  position: relative;
+  font-family: 'Oswald', sans-serif;
+}
+.images{
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+.images-tour img{
+  width: 100%!important;
+  aspect-ratio: 200/100!important;
+}
+.images-tour-admin{
+  display: flex;
+  justify-content: center;
+}
+.images-tour-admin img{
+  
+  width: 60%!important;
+  aspect-ratio: 150/100!important;
+}
+.info-Inactive h2::after{
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right:50;
+  top: 0;
+  margin: auto;
+  height: 5px;
+  width: 200px;
+  background-color:rgb(245, 28, 46);
+  content: '';
+}
+.info-tour{
+  font-size: 15px !important;
+}
+@media (max-width:600px){
+  .operator-image img{
+    width: 90px;
+    height: 90px;
+  }
+  
+}

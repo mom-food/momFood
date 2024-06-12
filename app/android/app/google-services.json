@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "175323531680",
+    "project_id": "momfood-6ae63",
+    "storage_bucket": "momfood-6ae63.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:175323531680:android:5cb7cd5c3878a57d47fcc5",
+        "android_client_info": {
+          "package_name": "com.company.momfood"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh1_uBnxz3toNPno1uvm0knZwtOwSKrek"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
